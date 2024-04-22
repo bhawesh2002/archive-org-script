@@ -91,16 +91,11 @@ def main(stdscr):
 
     curses.curs_set(0)
     stdscr.clear()
-    stdscr.addstr(0, 0, "Enter the URL of archive.org:")
-    curses.echo()  # Enable echoing of user input
-    url = stdscr.getstr(1, 0).decode('utf-8')
-    curses.noecho()  # Disable echoing
-    stdscr.clear()
-
     stdscr.addstr(0, 0, "Press 'q' to exit")
     stdscr.refresh()
 
-    display_folder_contents(stdscr, url, 0, url)
+    initial_link = "https://archive.org/download/school-of-motion-illustrator-photoshop-unleashed/"
+    display_folder_contents(stdscr, initial_link, 0, initial_link)
 
 if __name__ == "__main__":
     curses.wrapper(main)
