@@ -21,42 +21,7 @@ def download_file(url, filename):
         return True
     else:
         print(f"Failed to download {filename}. Status code: {response.status_code}")
-        return False
-
-def parse_files_xml(files_xml):
-    """Parse the _files.xml and extract file information."""
-    file_structure = {}
-    try:
-        tree = ET.parse(files_xml)
-        root = tree.getroot()
-        for file in root.findall('.//file'):
-            name = file.get('name')
-            if '/' in name:  # If the file is within a folder
-                folder, filename = name.split('/', 1)
-                if folder not in file_structure:
-                    file_structure[folder] = []
-                file_structure[folder].append(filename)
-            else:
-                if 'files' not in file_structure:
-                    file_structure['files'] = []
-                file_structure['files'].append(name)
-    except Exception as e:
-        print(f"Error parsing {files_xml}: {e}")
-    return file_structure
-
-def display_directory_structure(file_structure, indent=0):
-    """Display the directory structure."""
-    indentation = " " * indent
-    if indent == 0:
-        print(Fore.BLUE + Style.BRIGHT + "/" + Style.RESET_ALL)
-    for folder, contents in file_structure.items():
-        print(Fore.CYAN + Style.BRIGHT + f"{indentation}{folder}/" + Style.RESET_ALL)
-        if isinstance(contents, dict):  # If the content is a nested folder
-            display_directory_structure(contents, indent + 4)
-        else:  # If the content is a list of files
-            for item in contents:
-                print(Fore.LIGHTBLUE_EX + f"{indentation}    {item}" + Style.RESET_ALL)
-                
+        return False                
                 
 def validate_link(link):
     """Checks if the link is a valid archive.org download directory link."""
@@ -69,6 +34,38 @@ def get_directory_identifier(link):
 def get_input(prompt):
     """Get user input with specified prompt."""
     return input(prompt).strip()
+
+import xml.etree.ElementTree as ET
+
+def parse_xml(xml_file):
+    """Parses the XML file and displays a tree-like directory structure."""
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+    file_tree = {}
+    print(Fore.MAGENTA + Style.BRIGHT + "Creating Directory Structure" + Style.RESET_ALL)
+    for file in root.findall('.//file'):
+        name = file.get('name')
+        folders = name.split('/')
+        current_level = file_tree
+        for folder in folders[:-1]: # Iterate through all folders except the last one
+            if folder not in current_level:
+                current_level[folder] = {}
+            current_level = current_level[folder]
+        current_level[folders[-1]] = None # The last part is the file name
+
+    print_tree(file_tree)
+
+def print_tree(tree, indent=0, depth=0):
+    """Recursively prints the tree structure with '/' appended to folders, using color and style."""
+    for key, value in tree.items():
+        if value: # Check if the current item has child elements (i.e., it's a folder)
+            if depth == 0:
+                print(Fore.BLUE + Style.BRIGHT +' ' * indent + key + '/' + Style.RESET_ALL) # Append '/' to folder names and color it BLUE
+            else:
+                print(Fore.LIGHTCYAN_EX + Style.BRIGHT +' ' * indent + key + '/' + Style.RESET_ALL) # Color subfolders CYAN
+            print_tree(value, indent + 1, depth + 1)
+        else:
+            print(Style.BRIGHT+' ' * indent + key + Style.RESET_ALL) # Files are printed without '/'
 
 def main():
     print(Fore.GREEN + Style.BRIGHT + "archive.org downloader" + Style.RESET_ALL)
@@ -92,10 +89,7 @@ def main():
     download_file(meta_url, f"{directory_identifier}_meta.xml")
     # Assuming the _files.xml file has been downloaded
     files_xml = f"{directory_identifier}_files.xml"
-
-    # Parse _files.xml and extract file information
-    file_structure = parse_files_xml(files_xml)
-    # Display the directory structure
-    display_directory_structure(file_structure)
+    parse_xml(files_xml)
+    
 if __name__ == "__main__":
     main()
