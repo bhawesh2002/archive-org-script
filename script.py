@@ -94,7 +94,7 @@ def main(stdscr):
     stdscr.addstr(0, 0, "Press 'q' to exit")
     stdscr.refresh()
 
-    initial_link = "https://archive.org/download/school-of-motion-illustrator-photoshop-unleashed/"
+    initial_link = "https://archive.org/download/school-of-motion-animation-bootcamp"
     display_folder_contents(stdscr, initial_link, 0, initial_link)
 
 if __name__ == "__main__":
