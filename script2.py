@@ -42,7 +42,8 @@ def parse_xml(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
     file_tree = {}
-    print(Fore.MAGENTA + Style.BRIGHT + "Creating Directory Structure" + Style.RESET_ALL)
+    print(Fore.MAGENTA + Style.BRIGHT + "Creating Directory Structure\n" + Style.RESET_ALL)
+    print(Fore.GREEN + Style.BRIGHT + "Root(/)" + Style.RESET_ALL)
     for file in root.findall('.//file'):
         name = file.get('name')
         folders = name.split('/')
