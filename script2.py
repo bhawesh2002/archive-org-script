@@ -44,14 +44,20 @@ def parse_files_xml(files_xml):
         print(f"Error parsing {files_xml}: {e}")
     return file_structure
 
-def display_directory_structure(file_structure):
+def display_directory_structure(file_structure, indent=0):
     """Display the directory structure."""
-    print(Fore.YELLOW + Style.BRIGHT + "Directory Structure:" + Style.RESET_ALL)
-    for folder, files in file_structure.items():
-        print(Fore.CYAN + f"\n{folder}/" + Style.RESET_ALL)
-        for filename in files:
-            print(f"  {filename}")
-
+    indentation = " " * indent
+    if indent == 0:
+        print(Fore.BLUE + Style.BRIGHT + "/" + Style.RESET_ALL)
+    for folder, contents in file_structure.items():
+        print(Fore.CYAN + Style.BRIGHT + f"{indentation}{folder}/" + Style.RESET_ALL)
+        if isinstance(contents, dict):  # If the content is a nested folder
+            display_directory_structure(contents, indent + 4)
+        else:  # If the content is a list of files
+            for item in contents:
+                print(Fore.LIGHTBLUE_EX + f"{indentation}    {item}" + Style.RESET_ALL)
+                
+                
 def validate_link(link):
     """Checks if the link is a valid archive.org download directory link."""
     return "https://archive.org/download/" in link
