@@ -61,12 +61,12 @@ def print_tree(tree, indent=0, depth=0):
     for key, value in tree.items():
         if value: # Check if the current item has child elements (i.e., it's a folder)
             if depth == 0:
-                print(Fore.BLUE + Style.BRIGHT +' ' * indent + key + '/' + Style.RESET_ALL) # Append '/' to folder names and color it BLUE
+                print(Fore.BLUE + Style.BRIGHT +'  ' * indent + key + '/' + Style.RESET_ALL) # Append '/' to folder names and color it BLUE
             else:
-                print(Fore.LIGHTCYAN_EX + Style.BRIGHT +' ' * indent + key + '/' + Style.RESET_ALL) # Color subfolders CYAN
+                print(Fore.LIGHTCYAN_EX + Style.BRIGHT +'  ' * indent + key + '/' + Style.RESET_ALL) # Color subfolders CYAN
             print_tree(value, indent + 1, depth + 1)
         else:
-            print(Style.BRIGHT+' ' * indent + key + Style.RESET_ALL) # Files are printed without '/'
+            print(Style.BRIGHT+'  ' * indent + key + Style.RESET_ALL) # Files are printed without '/'
 
 def main():
     print(Fore.GREEN + Style.BRIGHT + "archive.org downloader" + Style.RESET_ALL)
