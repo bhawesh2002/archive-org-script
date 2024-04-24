@@ -1,9 +1,10 @@
-from colorama import Fore, Style
+from colorama import Fore, Style #Used for colored text output in the console
 from bs4 import BeautifulSoup
-import requests
-import xml.etree.ElementTree as ET
+import requests #Used to download files from URLs
+import xml.etree.ElementTree as ET #Used for parsing XML files
 import os
 
+#Constructs URLs for _files.xml and _meta.xml files based on the provided archive.org download directory identifier.
 def get_identifier_file_xml(item_identifier):
     """Constructs URLs for _files.xml and _meta.xml files for the given item identifier."""
     base_url = f"https://archive.org/download/{item_identifier}/"
@@ -11,6 +12,7 @@ def get_identifier_file_xml(item_identifier):
     meta_url = f"{base_url}{item_identifier}_meta.xml"
     return files_url, meta_url
 
+#Downloads a file from the given URL and saves it with the specified filename. Prints success/failure messages.
 def download_file(url, filename):
     """Downloads a file from the given URL."""
     response = requests.get(url)
@@ -22,21 +24,23 @@ def download_file(url, filename):
     else:
         print(f"Failed to download {filename}. Status code: {response.status_code}")
         return False                
-                
+
+#Checks if the link follows the format of an archive.org download directory link.
 def validate_link(link):
     """Checks if the link is a valid archive.org download directory link."""
     return "https://archive.org/download/" in link
 
+#Extracts the identifier from a valid archive.org download directory link.
 def get_directory_identifier(link):
     """Extracts the identifier from the download link."""
     return link.split("/")[-1]
 
+#Prompts the user for input with the specified message and returns the stripped input.
 def get_input(prompt):
     """Get user input with specified prompt."""
     return input(prompt).strip()
 
-import xml.etree.ElementTree as ET
-
+#Parses the XML file (assumed to be _files.xml) and builds a dictionary representing the directory structure. Prints the structure in a tree-like format using color and styling.
 def parse_xml(xml_file):
     """Parses the XML file and displays a tree-like directory structure."""
     tree = ET.parse(xml_file)
@@ -56,6 +60,7 @@ def parse_xml(xml_file):
 
     print_tree(file_tree)
 
+#Recursively prints the directory tree structure based on the dictionary created in parse_xml. Uses indentation and color coding to differentiate folders and files.
 def print_tree(tree, indent=0, depth=0):
     """Recursively prints the tree structure with '/' appended to folders, using color and style."""
     for key, value in tree.items():
