@@ -4,6 +4,8 @@ import requests #Used to download files from URLs
 import xml.etree.ElementTree as ET #Used for parsing XML files
 import os
 import json
+import curses
+
 #Constructs URLs for _files.xml and _meta.xml files based on the provided archive.org download directory identifier.
 def get_identifier_file_xml(item_identifier):
     """Constructs URLs for _files.xml and _meta.xml files for the given item identifier."""
@@ -60,18 +62,40 @@ def parse_xml(xml_file):
     with open('file_tree.json', 'w') as json_file:
         json.dump(file_tree, json_file, indent=4)
 
-#Recursively prints the directory tree structure based on the dictionary created in parse_xml. Uses indentation and color coding to differentiate folders and files.
-def print_tree(tree, indent=0, depth=0):
-    """Recursively prints the tree structure with '/' appended to folders, using color and style."""
-    for key, value in tree.items():
-        if value: # Check if the current item has child elements (i.e., it's a folder)
-            if depth == 0:
-                print(Fore.BLUE + Style.BRIGHT +'  ' * indent + key + '/' + Style.RESET_ALL) # Append '/' to folder names and color it BLUE
-            else:
-                print(Fore.LIGHTCYAN_EX + Style.BRIGHT +'  ' * indent + key + '/' + Style.RESET_ALL) # Color subfolders CYAN
-            print_tree(value, indent + 1, depth + 1)
+def print_directory_struct(stdscr, directory_dict, selected_option, indent_level=0, scroll_offset=0):
+    stdscr.clear()
+    h, w = stdscr.getmaxyx()
+
+    # Calculate the number of visible lines
+    visible_lines = h - 2 # Subtract 2 for the border
+
+    # Print directory
+    for idx, (option, child_folder) in enumerate(directory_dict.items()):
+        if idx < scroll_offset or idx >= scroll_offset + visible_lines:
+            continue # Skip options that are not visible
+
+        x = w//2 - len(option)//2
+        y = idx - scroll_offset + 1 # Adjust y position based on scroll_offset
+
+        # Ensure y is within the bounds of the window
+        if y < 0 or y >= h:
+            continue
+
+        # Ensure x is within the bounds of the window
+        if x < 0 or x + len(option) + indent_level * 2 >= w:
+            continue
+
+        if idx == selected_option:
+            stdscr.attron(curses.A_REVERSE)
+            stdscr.addstr(y, x + indent_level * 2, option)
+            stdscr.attroff(curses.A_REVERSE)
         else:
-            print(Style.BRIGHT+'  ' * indent + key + Style.RESET_ALL) # Files are printed without '/'
+            stdscr.addstr(y, x + indent_level * 2, option)
+
+        if child_folder is not None:
+            stdscr.addstr(y, x + len(option) + indent_level * 2, " ->")
+
+    stdscr.refresh()
 
 def main():
     print(Fore.GREEN + Style.BRIGHT + "archive.org downloader" + Style.RESET_ALL)
