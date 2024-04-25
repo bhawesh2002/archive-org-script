@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests #Used to download files from URLs
 import xml.etree.ElementTree as ET #Used for parsing XML files
 import os
-
+import json
 #Constructs URLs for _files.xml and _meta.xml files based on the provided archive.org download directory identifier.
 def get_identifier_file_xml(item_identifier):
     """Constructs URLs for _files.xml and _meta.xml files for the given item identifier."""
@@ -42,7 +42,7 @@ def get_input(prompt):
 
 #Parses the XML file (assumed to be _files.xml) and builds a dictionary representing the directory structure. Prints the structure in a tree-like format using color and styling.
 def parse_xml(xml_file):
-    """Parses the XML file and displays a tree-like directory structure."""
+    """Parses the XML file and dumps it to a json file."""
     tree = ET.parse(xml_file)
     root = tree.getroot()
     file_tree = {}
@@ -57,8 +57,8 @@ def parse_xml(xml_file):
                 current_level[folder] = {}
             current_level = current_level[folder]
         current_level[folders[-1]] = None # The last part is the file name
-
-    print_tree(file_tree)
+    with open('file_tree.json', 'w') as json_file:
+        json.dump(file_tree, json_file, indent=4)
 
 #Recursively prints the directory tree structure based on the dictionary created in parse_xml. Uses indentation and color coding to differentiate folders and files.
 def print_tree(tree, indent=0, depth=0):
