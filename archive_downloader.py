@@ -97,6 +97,12 @@ def print_directory_struct(stdscr, directory_dict, selected_option, indent_level
 
     stdscr.refresh()
 
+def load_directory_struct(file_path):
+    with open(file_path, "r") as file:
+        directory_struct = json.load(file)
+    return directory_struct
+
+
 def main():
     print(Fore.GREEN + Style.BRIGHT + "archive.org downloader" + Style.RESET_ALL)
 
