@@ -2,7 +2,6 @@ from colorama import Fore, Style # Used for colored text output in the console
 from bs4 import BeautifulSoup
 import requests # Used to download files from URLs
 import xml.etree.ElementTree as ET # Used for parsing XML files
-import os
 import json
 import curses
 
