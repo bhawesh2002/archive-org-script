@@ -65,7 +65,7 @@ def parse_xml(xml_file):
     with open('file_tree.json', 'w') as json_file:
         json.dump(file_tree, json_file, indent=4)
 
-def print_directory_struct(stdscr, directory_dict, selected_option, indent_level=0, scroll_offset=0):
+def display_directory_struct(stdscr, directory_dict, selected_option, indent_level=0, scroll_offset=0):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
     visible_lines = h - 2 # Subtract 2 for the border
@@ -129,7 +129,7 @@ def main(stdscr):
     parse_xml(files_xml)
     directory_struct_json = load_directory_struct("E:\\Tutorials\\archive org script\\file_tree.json")
     while True:
-        print_directory_struct(stdscr, directory_struct_json, current_option, indent_level, scroll_offset)
+        display_directory_struct(stdscr, directory_struct_json, current_option, indent_level, scroll_offset)
         key = stdscr.getch()
         # Handle key presses for navigation
         # Implement your key handling logic here
