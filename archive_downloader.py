@@ -1,4 +1,4 @@
-from colorama import Fore, Style # Used for colored text output in the console
+# from colorama import Fore, Style # Used for colored text output in the console
 from bs4 import BeautifulSoup
 import requests # Used to download files from URLs
 import xml.etree.ElementTree as ET # Used for parsing XML files
@@ -11,7 +11,8 @@ def init_colors():
     curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     curses.init_pair(3, curses.COLOR_YELLOW, curses.COLOR_BLACK)
-    curses.init_pair(4, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    curses.init_pair(4, curses.COLOR_CYAN, curses.COLOR_BLACK)
+    curses.init_pair(5, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
 # Constructs URLs for _files.xml and _meta.xml files based on the provided archive.org download directory identifier.
 def get_identifier_file_xml(item_identifier):
@@ -41,9 +42,12 @@ def get_directory_identifier(link):
     return link.split("/")[-1]
 
 # Prompts the user for input with the specified message and returns the stripped input.
-def get_input(stdscr, prompt):
-    stdscr.addstr(0, 0, prompt)
+def get_input(stdscr):
+    # Prompt the user to enter a link
+    stdscr.addstr(1,0,"Paste the link here: ", curses.color_pair(4))
     stdscr.refresh()
+    # Enable keypad mode to recognize arrow keys
+    stdscr.keypad(True)
     return stdscr.getstr().decode('utf-8').strip()
 
 # Parses the XML file (assumed to be _files.xml) and builds a dictionary representing the directory structure. Prints the structure in a tree-like format using color and styling.
@@ -51,8 +55,6 @@ def parse_xml(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
     file_tree = {}
-    print(Fore.MAGENTA + Style.BRIGHT + "Creating Directory Structure" + Style.RESET_ALL)
-    print(Fore.GREEN + Style.BRIGHT + "Root(/)" + Style.RESET_ALL)
     for file in root.findall('.//file'):
         name = file.get('name')
         folders = name.split('/')
@@ -94,6 +96,7 @@ def load_directory_struct(file_path):
     return directory_struct
 
 def main(stdscr):
+    curses.echo()
     init_colors() # Initialize color pairs
     curses.curs_set(0) # Hide the cursor
     current_option = 0
@@ -102,22 +105,25 @@ def main(stdscr):
     parent_folders = [] # Keep track of parent folder
     parent_indices = [] # Keep track of selected indices in parent folder
 
-    stdscr.addstr(0, 0, "archive.org downloader", curses.color_pair(1))
+    stdscr.addstr("archive.org downloader", curses.color_pair(1) | curses.A_BOLD)
     stdscr.refresh()
-
+    
     valid_link = False
     while not valid_link:
-        stdscr.addstr(1, 0, "Enter archive.org download directory link: ", curses.color_pair(1))
         stdscr.refresh()
-        download_link = get_input(stdscr, Fore.WHITE + "(Paste the link here)" + Style.RESET_ALL + ": ")
+        download_link = get_input(stdscr)
         if validate_link(download_link):
             valid_link = True
         else:
+            stdscr.addstr(1, 0, " " * 100)
+            stdscr.refresh()
+
             stdscr.addstr(2, 0, "Error: Invalid archive.org download directory link format.", curses.color_pair(2))
             stdscr.refresh()
 
     directory_identifier = get_directory_identifier(download_link)
-    stdscr.addstr(3, 0, "Directory Name: " + directory_identifier, curses.color_pair(3))
+    stdscr.addstr(3, 0, "Directory Name: ", curses.color_pair(3))
+    stdscr.addstr(directory_identifier)
     stdscr.refresh()
 
     # Download _files.xml and _meta.xml
