@@ -26,10 +26,10 @@ def download_file(url, filename):
     if response.status_code == 200:
         with open(filename, 'wb') as f:
             f.write(response.content)
-        print(f"Downloaded {filename} successfully.")
+        print(f"Downloaded {filename} successfully.") #print success message
         return True
     else:
-        print(f"Failed to download {filename}. Status code: {response.status_code}")
+        print(f"Failed to download {filename}. Status code: {response.status_code}") #print error message
         return False
 
 # Checks if the link follows the format of an archive.org download directory link.
