@@ -100,12 +100,6 @@ def load_directory_struct(file_path):
 def main(stdscr):
     curses.echo()
     init_colors() # Initialize color pairs
-    
-    current_option = 0
-    scroll_offset = 0
-    indent_level = 0
-    parent_folders = [] # Keep track of parent folder
-    parent_indices = [] # Keep track of selected indices in parent folder
 
     stdscr.addstr("archive.org downloader", curses.color_pair(1) | curses.A_BOLD)
     stdscr.refresh()
@@ -140,6 +134,13 @@ def main(stdscr):
     parse_xml(files_xml)
     
     #display the directory structure
+    current_option = 0
+    scroll_offset = 0
+    indent_level = 0
+    parent_folders = [] # Keep track of parent folder
+    parent_indices = [] # Keep track of selected indices in parent folder
+
+    #load the json file containing directory structure info
     directory_struct_json = load_directory_struct("E:\\Tutorials\\archive org script\\file_tree.json")
     while True:
         display_directory_struct(stdscr, directory_struct_json, current_option, indent_level, scroll_offset)
