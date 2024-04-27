@@ -157,7 +157,47 @@ def main(stdscr):
     
     while True:
         display_directory_struct(stdscr, directory_struct_json, current_option, indent_level, scroll_offset)
+        
         key = stdscr.getch()
+
+        if key == curses.KEY_UP and current_option > 0:
+            current_option -= 1
+        elif key == curses.KEY_DOWN and current_option < len(directory_struct_json) - 1:
+            current_option += 1
+        elif key == curses.KEY_RIGHT:
+            selected_option = list(directory_struct_json.keys())[current_option]
+            child_folder = directory_struct_json[selected_option]
+            if child_folder is not None:
+                parent_folders.append(directory_struct_json) # Store current folder as parent
+                parent_indices.append(current_option) # Store current selected index as parent index
+                indent_level += 1
+                directory_struct_json = child_folder
+                current_option = 0
+        elif key == curses.KEY_LEFT and indent_level > 0:
+            indent_level -= 1
+            directory_struct_json = parent_folders.pop() # Retrieve previous folder from parent_folders
+            current_option = parent_indices.pop() # Retrieve previous selected index from parent_indices
+        elif key == curses.KEY_ENTER or key in [10, 13]:
+            selected_option = list(directory_struct_json.keys())[current_option]
+            child_folder = directory_struct_json[selected_option]
+            if child_folder is not None:
+                parent_folders.append(directory_struct_json) # Store current folder as parent
+                parent_indices.append(current_option) # Store current selected index as parent index
+                directory_struct_json = child_folder
+                current_option = 0
+            else:
+                stdscr.clear()
+                stdscr.addstr(0, 0, "You selected: " + selected_option)
+                stdscr.refresh()
+                stdscr.getch()
+        elif key == ord('q'):
+            break
+        elif key == curses.KEY_PPAGE: # Scroll up
+            if scroll_offset > 0:
+                scroll_offset -= 1
+        elif key == curses.KEY_NPAGE: # Scroll down
+            if current_option < len(directory_struct_json) - 1:
+                scroll_offset += 1
 
 if __name__ == "__main__":
     curses.wrapper(main)
