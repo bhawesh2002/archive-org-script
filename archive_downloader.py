@@ -72,24 +72,36 @@ def parse_xml(xml_file):
 def display_directory_struct(stdscr, directory_dict, selected_option, indent_level=0, scroll_offset=0):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
+
+    # Calculate the number of visible lines
     visible_lines = h - 2 # Subtract 2 for the border
+
+    # Print directory
     for idx, (option, child_folder) in enumerate(directory_dict.items()):
         if idx < scroll_offset or idx >= scroll_offset + visible_lines:
             continue # Skip options that are not visible
-        x = w // 2 - len(option) // 2
+
+        x = w//2 - len(option)//2
         y = idx - scroll_offset + 1 # Adjust y position based on scroll_offset
+
+        # Ensure y is within the bounds of the window
         if y < 0 or y >= h:
             continue
+
+        # Ensure x is within the bounds of the window
         if x < 0 or x + len(option) + indent_level * 2 >= w:
             continue
+
         if idx == selected_option:
             stdscr.attron(curses.A_REVERSE)
-            stdscr.addstr(y, x + indent_level * 2, option, curses.color_pair(4))
+            stdscr.addstr(y, x + indent_level * 2, option)
             stdscr.attroff(curses.A_REVERSE)
         else:
-            stdscr.addstr(y, x + indent_level * 2, option, curses.color_pair(4))
+            stdscr.addstr(y, x + indent_level * 2, option)
+
         if child_folder is not None:
-            stdscr.addstr(y, x + len(option) + indent_level * 2, " ->", curses.color_pair(4))
+            stdscr.addstr(y, x + len(option) + indent_level * 2, " ->")
+
     stdscr.refresh()
 
 def load_directory_struct(file_path):
@@ -142,6 +154,7 @@ def main(stdscr):
 
     #load the json file containing directory structure info
     directory_struct_json = load_directory_struct("E:\\Tutorials\\archive org script\\file_tree.json")
+    
     while True:
         display_directory_struct(stdscr, directory_struct_json, current_option, indent_level, scroll_offset)
         key = stdscr.getch()
