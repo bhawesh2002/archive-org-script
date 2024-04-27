@@ -55,6 +55,8 @@ def parse_xml(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
     file_tree = {}
+    # print(Fore.MAGENTA + Style.BRIGHT + "Creating Directory Structure" + Style.RESET_ALL)
+    # print(Fore.GREEN + Style.BRIGHT + "Root(/)" + Style.RESET_ALL)
     for file in root.findall('.//file'):
         name = file.get('name')
         folders = name.split('/')
@@ -98,7 +100,7 @@ def load_directory_struct(file_path):
 def main(stdscr):
     curses.echo()
     init_colors() # Initialize color pairs
-    curses.curs_set(0) # Hide the cursor
+    
     current_option = 0
     scroll_offset = 0
     indent_level = 0
@@ -108,6 +110,7 @@ def main(stdscr):
     stdscr.addstr("archive.org downloader", curses.color_pair(1) | curses.A_BOLD)
     stdscr.refresh()
     
+    #validate the link
     valid_link = False
     while not valid_link:
         stdscr.refresh()
@@ -121,6 +124,7 @@ def main(stdscr):
             stdscr.addstr(2, 0, "Error: Invalid archive.org download directory link format.", curses.color_pair(2))
             stdscr.refresh()
 
+    #extract the indentifier from the link
     directory_identifier = get_directory_identifier(download_link)
     stdscr.addstr(3, 0, "Directory Name: ", curses.color_pair(3))
     stdscr.addstr(directory_identifier)
@@ -130,15 +134,16 @@ def main(stdscr):
     files_url, meta_url = get_identifier_file_xml(directory_identifier)
     download_file(files_url, f"{directory_identifier}_files.xml")
     download_file(meta_url, f"{directory_identifier}_meta.xml")
-    # Assuming the _files.xml file has been downloaded
+    
+    # Parse the _files.xml after the file has been downloaded
     files_xml = f"{directory_identifier}_files.xml"
     parse_xml(files_xml)
+    
+    #display the directory structure
     directory_struct_json = load_directory_struct("E:\\Tutorials\\archive org script\\file_tree.json")
     while True:
         display_directory_struct(stdscr, directory_struct_json, current_option, indent_level, scroll_offset)
         key = stdscr.getch()
-        # Handle key presses for navigation
-        # Implement your key handling logic here
 
 if __name__ == "__main__":
     curses.wrapper(main)
