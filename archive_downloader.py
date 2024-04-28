@@ -69,12 +69,9 @@ def parse_xml(xml_file):
     with open('file_tree.json', 'w') as json_file:
         json.dump(file_tree, json_file, indent=4)
 
-def display_directory_struct(stdscr, directory_dict, selected_option, indent_level=0, scroll_offset=0):
+def display_directory_struct(stdscr, directory_dict, selected_option, indent_level=0, scroll_offset=0, visible_lines=0):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
-
-    # Calculate the number of visible lines
-    visible_lines = h - 2 # Subtract 2 for the border
 
     # Print directory
     for idx, (option, child_folder) in enumerate(directory_dict.items()):
@@ -156,14 +153,20 @@ def main(stdscr):
     directory_struct_json = load_directory_struct("E:\\Tutorials\\archive org script\\file_tree.json")
     
     while True:
-        display_directory_struct(stdscr, directory_struct_json, current_option, indent_level, scroll_offset)
-        
+        h, w = stdscr.getmaxyx()
+        visible_lines = h - 2 # Calculate the number of visible lines
+        display_directory_struct(stdscr, directory_struct_json, current_option, indent_level, scroll_offset, visible_lines)
+
         key = stdscr.getch()
 
         if key == curses.KEY_UP and current_option > 0:
             current_option -= 1
+            if current_option < scroll_offset:
+                scroll_offset = current_option
         elif key == curses.KEY_DOWN and current_option < len(directory_struct_json) - 1:
             current_option += 1
+            if current_option >= scroll_offset + visible_lines:
+                scroll_offset = current_option - visible_lines + 1
         elif key == curses.KEY_RIGHT:
             selected_option = list(directory_struct_json.keys())[current_option]
             child_folder = directory_struct_json[selected_option]
@@ -198,6 +201,7 @@ def main(stdscr):
         elif key == curses.KEY_NPAGE: # Scroll down
             if current_option < len(directory_struct_json) - 1:
                 scroll_offset += 1
+
 
 if __name__ == "__main__":
     curses.wrapper(main)
