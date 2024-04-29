@@ -69,7 +69,10 @@ def parse_xml(xml_file):
             current_level = current_level[folder]
         # Include the file name and its size in the dictionary
         current_level[folders[-1]] = size
-    json_filename = f"{xml_file}_filetree.json"
+    
+    # Replace "files.xml" with "filetree.json" in the xml_file string
+    json_filename = xml_file.replace("files.xml", "filetree.json")
+    
     with open(json_filename, 'w') as json_file:
         json.dump(file_tree, json_file, indent=4)
 
