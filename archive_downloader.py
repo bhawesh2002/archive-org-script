@@ -22,15 +22,18 @@ def get_identifier_file_xml(item_identifier):
     return files_url, meta_url
 
 # Downloads a file from the given URL and saves it with the specified filename. Prints success/failure messages.
-def download_file(url, filename):
+def download_file(url, filename, destination_folder):
     response = requests.get(url)
     if response.status_code == 200:
-        with open(filename, 'wb') as f:
+        # Ensure the destination folder exists
+        os.makedirs(destination_folder, exist_ok=True)
+        file_path = os.path.join(destination_folder, filename)
+        with open(file_path, 'wb') as f:
             f.write(response.content)
-        print(f"Downloaded {filename} successfully.") #print success message
+        print(f"Downloaded {filename} successfully to {destination_folder}.")
         return True
     else:
-        print(f"Failed to download {filename}. Status code: {response.status_code}") #print error message
+        print(f"Failed to download {filename}. Status code: {response.status_code}")
         return False
 
 # Checks if the link follows the format of an archive.org download directory link.
@@ -163,8 +166,8 @@ def main(stdscr):
 
     # Download _files.xml and _meta.xml
     files_url, meta_url = get_identifier_file_xml(directory_identifier)
-    download_file(files_url, f"{directory_identifier}_files.xml")
-    download_file(meta_url, f"{directory_identifier}_meta.xml")
+    download_file(files_url, f"{directory_identifier}_files.xml", identifier_folder_path)
+    download_file(meta_url, f"{directory_identifier}_meta.xml", identifier_folder_path)
     
     # Parse the _files.xml after the file has been downloaded
     files_xml = f"{directory_identifier}_files.xml"
