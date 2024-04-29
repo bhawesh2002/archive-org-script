@@ -159,6 +159,9 @@ def main(stdscr):
     # Create a folder named after the identifier inside script_downloads
     identifier_folder_path = os.path.join(script_downloads_path, directory_identifier)
     os.makedirs(identifier_folder_path, exist_ok=True)
+    # Create a metadata folder inside identifier_folder_path
+    identifier_metadata_path = os.path.join(identifier_folder_path, 'metadata')
+    os.makedirs(identifier_metadata_path, exist_ok=True)
 
     stdscr.addstr(3, 0, "Directory Name: ", curses.color_pair(3))
     stdscr.addstr(directory_identifier)
@@ -166,11 +169,11 @@ def main(stdscr):
 
     # Download _files.xml and _meta.xml
     files_url, meta_url = get_identifier_file_xml(directory_identifier)
-    download_file(files_url, f"{directory_identifier}_files.xml", identifier_folder_path)
-    download_file(meta_url, f"{directory_identifier}_meta.xml", identifier_folder_path)
+    download_file(files_url, f"{directory_identifier}_files.xml", identifier_metadata_path)
+    download_file(meta_url, f"{directory_identifier}_meta.xml", identifier_metadata_path)
     
     # Parse the _files.xml after the file has been downloaded
-    files_xml = f"{identifier_folder_path}/{directory_identifier}_files.xml"
+    files_xml = f"{identifier_metadata_path}/{directory_identifier}_files.xml"
     parse_xml(files_xml)
     
     #display the directory structure
@@ -181,7 +184,7 @@ def main(stdscr):
     parent_indices = [] # Keep track of selected indices in parent folder
 
     #load the json file containing directory structure info
-    directory_struct_json = load_directory_struct(f"{identifier_folder_path}/{directory_identifier}_filetree.json")
+    directory_struct_json = load_directory_struct(f"{identifier_metadata_path}/{directory_identifier}_filetree.json")
     
     while True:
         h, w = stdscr.getmaxyx()
