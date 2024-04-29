@@ -51,7 +51,7 @@ def get_input(stdscr):
     stdscr.keypad(True)
     return stdscr.getstr().decode('utf-8').strip()
 
-# Parses the XML file (assumed to be _files.xml) and builds a dictionary representing the directory structure.
+# Parses the XML file (assumed to be _files.xml) and dumps it to json file.
 def parse_xml(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
