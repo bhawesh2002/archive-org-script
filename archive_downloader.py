@@ -191,12 +191,16 @@ def main(stdscr):
         elif key == curses.KEY_RIGHT:
             selected_option = list(directory_struct_json.keys())[current_option]
             child_folder = directory_struct_json[selected_option]
-            if child_folder is not None:
+            if isinstance(child_folder, dict): # Check if child_folder is a dictionary
                 parent_folders.append(directory_struct_json) # Store current folder as parent
                 parent_indices.append(current_option) # Store current selected index as parent index
                 indent_level += 1
                 directory_struct_json = child_folder
                 current_option = 0
+            else:
+                # Handle the case where child_folder is a string (file size)
+                # For example, display the file size or perform a different action
+                pass
         elif key == curses.KEY_LEFT and indent_level > 0:
             indent_level -= 1
             directory_struct_json = parent_folders.pop() # Retrieve previous folder from parent_folders
@@ -204,7 +208,7 @@ def main(stdscr):
         elif key == curses.KEY_ENTER or key in [10, 13]:
             selected_option = list(directory_struct_json.keys())[current_option]
             child_folder = directory_struct_json[selected_option]
-            if child_folder is not None:
+            if isinstance(child_folder, dict): # Check if child_folder is a dictionary
                 parent_folders.append(directory_struct_json) # Store current folder as parent
                 parent_indices.append(current_option) # Store current selected index as parent index
                 directory_struct_json = child_folder
@@ -222,7 +226,6 @@ def main(stdscr):
         elif key == curses.KEY_NPAGE: # Scroll down
             if current_option < len(directory_struct_json) - 1:
                 scroll_offset += 1
-
 
 if __name__ == "__main__":
     curses.wrapper(main)
