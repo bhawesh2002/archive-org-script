@@ -121,7 +121,10 @@ def display_directory_struct(stdscr, directory_dict, selected_option, indent_lev
             except ValueError:
                 # Handle the case where child_folder is not a valid integer
                 stdscr.addstr(y, x + len(option) + indent_level * 2, " Size: Unknown")
-
+    
+    # Display footer with navigation controls
+    footer_text = "Navigation: Up/Down to navigate, Right to enter directory, Left to go back, Space to select, q to quit"
+    stdscr.addstr(h - 1, 0, footer_text, curses.color_pair(4))
     stdscr.refresh()
 
 def load_directory_struct(file_path):
