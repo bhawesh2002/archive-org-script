@@ -133,6 +133,10 @@ def main(stdscr):
     stdscr.addstr("archive.org downloader", curses.color_pair(1) | curses.A_BOLD)
     stdscr.refresh()
     
+    # Ensure the script_downloads folder exists
+    script_downloads_path = "script_downloads"
+    os.makedirs(script_downloads_path, exist_ok=True)
+
     #validate the link
     valid_link = False
     while not valid_link:
@@ -149,6 +153,10 @@ def main(stdscr):
 
     #extract the indentifier from the link
     directory_identifier = get_directory_identifier(download_link)
+    # Create a folder named after the identifier inside script_downloads
+    identifier_folder_path = os.path.join(script_downloads_path, directory_identifier)
+    os.makedirs(identifier_folder_path, exist_ok=True)
+
     stdscr.addstr(3, 0, "Directory Name: ", curses.color_pair(3))
     stdscr.addstr(directory_identifier)
     stdscr.refresh()
