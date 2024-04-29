@@ -22,7 +22,7 @@ def get_identifier_file_xml(item_identifier):
     return files_url, meta_url
 
 # Downloads a file from the given URL and saves it with the specified filename. Prints success/failure messages.
-def download_file(url, filename, destination_folder):
+def download_metadata_file(url, filename, destination_folder):
     response = requests.get(url)
     if response.status_code == 200:
         # Ensure the destination folder exists
@@ -169,8 +169,8 @@ def main(stdscr):
 
     # Download _files.xml and _meta.xml
     files_url, meta_url = get_identifier_file_xml(directory_identifier)
-    download_file(files_url, f"{directory_identifier}_files.xml", identifier_metadata_path)
-    download_file(meta_url, f"{directory_identifier}_meta.xml", identifier_metadata_path)
+    download_metadata_file(files_url, f"{directory_identifier}_files.xml", identifier_metadata_path)
+    download_metadata_file(meta_url, f"{directory_identifier}_meta.xml", identifier_metadata_path)
     
     # Parse the _files.xml after the file has been downloaded
     files_xml = f"{identifier_metadata_path}/{directory_identifier}_files.xml"
