@@ -50,7 +50,7 @@ def get_input(stdscr):
     stdscr.keypad(True)
     return stdscr.getstr().decode('utf-8').strip()
 
-# Parses the XML file (assumed to be _files.xml) and builds a dictionary representing the directory structure. Prints the structure in a tree-like format using color and styling.
+# Parses the XML file (assumed to be _files.xml) and builds a dictionary representing the directory structure.
 def parse_xml(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
@@ -69,6 +69,7 @@ def parse_xml(xml_file):
     with open('file_tree.json', 'w') as json_file:
         json.dump(file_tree, json_file, indent=4)
 
+#Prints the structure in a tree-like format using color and styling.
 def display_directory_struct(stdscr, directory_dict, selected_option, indent_level=0, scroll_offset=0, visible_lines=0):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
