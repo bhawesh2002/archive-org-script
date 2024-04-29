@@ -158,7 +158,7 @@ def main(stdscr):
     parent_indices = [] # Keep track of selected indices in parent folder
 
     #load the json file containing directory structure info
-    directory_struct_json = load_directory_struct("E:\\Tutorials\\archive org script\\file_tree.json")
+    directory_struct_json = load_directory_struct(f"E:\\Tutorials\\archive org script\\{directory_identifier}_filetree.json")
     
     while True:
         h, w = stdscr.getmaxyx()
