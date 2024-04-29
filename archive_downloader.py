@@ -170,7 +170,7 @@ def main(stdscr):
     download_file(meta_url, f"{directory_identifier}_meta.xml", identifier_folder_path)
     
     # Parse the _files.xml after the file has been downloaded
-    files_xml = f"{directory_identifier}_files.xml"
+    files_xml = f"{identifier_folder_path}/{directory_identifier}_files.xml"
     parse_xml(files_xml)
     
     #display the directory structure
@@ -181,7 +181,7 @@ def main(stdscr):
     parent_indices = [] # Keep track of selected indices in parent folder
 
     #load the json file containing directory structure info
-    directory_struct_json = load_directory_struct(f"E:\\Tutorials\\archive org script\\{directory_identifier}_filetree.json")
+    directory_struct_json = load_directory_struct(f"{identifier_folder_path}/{directory_identifier}_filetree.json")
     
     while True:
         h, w = stdscr.getmaxyx()
