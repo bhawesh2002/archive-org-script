@@ -86,7 +86,6 @@ def display_directory_struct(stdscr, directory_dict, selected_option, indent_lev
     stdscr.clear()
     h, w = stdscr.getmaxyx()
 
-    # Print directory
     for idx, (option, child_folder) in enumerate(directory_dict.items()):
         if idx < scroll_offset or idx >= scroll_offset + visible_lines:
             continue # Skip options that are not visible
@@ -109,8 +108,17 @@ def display_directory_struct(stdscr, directory_dict, selected_option, indent_lev
         else:
             stdscr.addstr(y, x + indent_level * 2, option)
 
-        if child_folder is not None:
+        # Check if child_folder is a dictionary or a string (file size)
+        if isinstance(child_folder, dict):
             stdscr.addstr(y, x + len(option) + indent_level * 2, " ->")
+        elif isinstance(child_folder, str):
+            # Convert file size from bytes to megabytes and display it
+            try:
+                file_size_mb = convert_bytes_to_mb(int(child_folder))
+                stdscr.addstr(y, x + len(option) + indent_level * 2, f" ({file_size_mb:.2f} MB)")
+            except ValueError:
+                # Handle the case where child_folder is not a valid integer
+                stdscr.addstr(y, x + len(option) + indent_level * 2, " Size: Unknown")
 
     stdscr.refresh()
 
