@@ -55,17 +55,20 @@ def parse_xml(xml_file):
     tree = ET.parse(xml_file)
     root = tree.getroot()
     file_tree = {}
-    # print(Fore.MAGENTA + Style.BRIGHT + "Creating Directory Structure" + Style.RESET_ALL)
-    # print(Fore.GREEN + Style.BRIGHT + "Root(/)" + Style.RESET_ALL)
+
     for file in root.findall('.//file'):
         name = file.get('name')
+        size_element = file.find('size') # Find the size element
+        size = size_element.text if size_element is not None else 'Unknown' # Check if size element is found
         folders = name.split('/')
         current_level = file_tree
         for folder in folders[:-1]: # Iterate through all folders except the last one
             if folder not in current_level:
                 current_level[folder] = {}
             current_level = current_level[folder]
-        current_level[folders[-1]] = None # The last part is the file name
+        # Include the file name and its size in the dictionary
+        current_level[folders[-1]] = size
+
     with open('file_tree.json', 'w') as json_file:
         json.dump(file_tree, json_file, indent=4)
 
