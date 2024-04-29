@@ -76,6 +76,11 @@ def parse_xml(xml_file):
     with open(json_filename, 'w') as json_file:
         json.dump(file_tree, json_file, indent=4)
 
+#converts bytes to MBs
+def convert_bytes_to_mb(size):
+    """Convert bytes to megabytes."""
+    return size / (1024 * 1024)
+
 #Prints the structure in a tree-like format using color and styling.
 def display_directory_struct(stdscr, directory_dict, selected_option, indent_level=0, scroll_offset=0, visible_lines=0):
     stdscr.clear()
