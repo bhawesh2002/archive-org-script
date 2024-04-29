@@ -84,7 +84,7 @@ def convert_bytes_to_mb(size):
     return size / (1024 * 1024)
 
 #Prints the structure in a tree-like format using color and styling.
-def display_directory_struct(stdscr, directory_dict, selected_option, indent_level=0, scroll_offset=0, visible_lines=0):
+def display_directory_struct(stdscr, directory_dict, selected_option, identifier_name,indent_level=0, scroll_offset=0, visible_lines=0,):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
 
@@ -122,6 +122,7 @@ def display_directory_struct(stdscr, directory_dict, selected_option, indent_lev
                 # Handle the case where child_folder is not a valid integer
                 stdscr.addstr(y, x + len(option) + indent_level * 2, " Size: Unknown")
     
+    stdscr.addstr(h - 2, 0, f"Directory Name: {identifier_name}", curses.color_pair(3))
     # Display footer with navigation controls
     footer_text = "Navigation: Up/Down to navigate, Right to enter directory, Left to go back, Space to select, q to quit"
     stdscr.addstr(h - 1, 0, footer_text, curses.color_pair(4))
@@ -192,7 +193,7 @@ def main(stdscr):
     while True:
         h, w = stdscr.getmaxyx()
         visible_lines = h - 2 # Calculate the number of visible lines
-        display_directory_struct(stdscr, directory_struct_json, current_option, indent_level, scroll_offset, visible_lines)
+        display_directory_struct(stdscr, directory_struct_json, current_option, directory_identifier,indent_level, scroll_offset, visible_lines)
 
         key = stdscr.getch()
 
