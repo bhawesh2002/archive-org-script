@@ -193,7 +193,7 @@ def main(stdscr):
     
     while True:
         h, w = stdscr.getmaxyx()
-        visible_lines = h - 2 # Calculate the number of visible lines
+        visible_lines = h - 4 # Calculate the number of visible lines
         display_directory_struct(stdscr, directory_struct_json, current_option, directory_identifier,indent_level, scroll_offset, visible_lines)
 
         key = stdscr.getch()
