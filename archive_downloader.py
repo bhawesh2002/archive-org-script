@@ -122,6 +122,7 @@ def display_directory_struct(stdscr, directory_dict, selected_option, identifier
                 # Handle the case where child_folder is not a valid integer
                 stdscr.addstr(y, x + len(option) + indent_level * 2, " Size: Unknown")
     
+    #display directory name
     stdscr.addstr(h - 2, 0, f"Directory Name: {identifier_name}", curses.color_pair(3))
     # Display footer with navigation controls
     footer_text = "Navigation: Up/Down to navigate, Right to enter directory, Left to go back, Space to select, q to quit"
