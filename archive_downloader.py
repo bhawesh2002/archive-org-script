@@ -161,6 +161,8 @@ def main(stdscr):
         download_link = get_input(stdscr)
         if validate_link(download_link):
             valid_link = True
+            stdscr.refresh()
+            stdscr.addstr(2, 0, "Success: Valid archive.org download directory link entered.", curses.color_pair(5))
         else:
             stdscr.addstr(1, 0, " " * 100)
             stdscr.refresh()
