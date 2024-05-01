@@ -103,8 +103,15 @@ def display_directory_struct(stdscr, directory_dict, selected_options, current_o
     
         #display selected options by appending '*' in yellow color
         if idx in selected_options:
-            stdscr.addstr(y, x + indent_level * 2, "*", curses.color_pair(3))
-            stdscr.addstr(y, (x + indent_level * 2) +1, option,)
+            if idx == current_option:
+                stdscr.attron(curses.A_REVERSE)
+                stdscr.addstr(y, x + indent_level * 2, "*", curses.color_pair(3))
+                stdscr.addstr(y, x + indent_level * 2 + 1, option)
+                stdscr.attroff(curses.A_REVERSE)
+    
+            else:
+                stdscr.addstr(y, x + indent_level * 2, "*", curses.color_pair(3))
+                stdscr.addstr(y, (x + indent_level * 2) + 1, option)
         #highlight the current_option by A_REVERSE
         elif idx == current_option:
             stdscr.attron(curses.A_REVERSE)
