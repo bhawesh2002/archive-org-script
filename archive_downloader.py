@@ -84,7 +84,7 @@ def convert_bytes_to_mb(size):
     return size / (1024 * 1024)
 
 #Prints the structure in a tree-like format using color and styling.
-def display_directory_struct(stdscr, directory_dict, selected_options, current_option, identifier_name, indent_level=0, scroll_offset=0, visible_lines=0):
+def display_directory_struct(stdscr, directory_dict, selected_files, current_option, identifier_name, indent_level=0, scroll_offset=0, visible_lines=0):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
 
@@ -102,7 +102,7 @@ def display_directory_struct(stdscr, directory_dict, selected_options, current_o
             continue
     
         #display selected options by appending '*' in yellow color
-        if idx in selected_options:
+        if option in selected_files:
             if idx == current_option:
                 stdscr.attron(curses.A_REVERSE)
                 stdscr.addstr(y, x + indent_level * 2, "*", curses.color_pair(3))
@@ -198,7 +198,7 @@ def main(stdscr):
     indent_level = 0
     parent_folders = [] # Keep track of parent folder
     parent_indices = [] # Keep track of selected indices in parent folder
-    selected_files = []  # List to store selected files
+    selected_files = []  # Dictionary to store selected files
 
     #load the json file containing directory structure info
     directory_struct_json = load_directory_struct(f"{identifier_metadata_path}/{directory_identifier}_filetree.json")
@@ -206,7 +206,7 @@ def main(stdscr):
     while True:
         h, w = stdscr.getmaxyx()
         visible_lines = h - 4 # Calculate the number of visible lines
-        display_directory_struct(stdscr, directory_struct_json, list(selected_files.keys()),current_option, directory_identifier,indent_level, scroll_offset, visible_lines)
+        display_directory_struct(stdscr, directory_struct_json, selected_files,current_option, directory_identifier,indent_level, scroll_offset, visible_lines)
 
         key = stdscr.getch()
 
@@ -238,12 +238,16 @@ def main(stdscr):
         
         #add file to selected_files when space is pressed
         elif key == ord(' ') and current_option not in selected_files:  # Toggle selection
+            # Get the name of the currently focused item
             selected_option = list(directory_struct_json.keys())[current_option]
-            selected_files[current_option] = selected_option
-        
-        #remove file to selected_files when space is pressed
-        elif key == ord(' ') and current_option in selected_files:  # Toggle deselection
-            del selected_files[current_option]
+            # Toggle the selection state of the item
+            if selected_option in selected_files:
+                # Deselect the item by removing it from the list
+                selected_files.remove(selected_option)
+            else:
+                # Select the item by adding it to the list
+                selected_files.append(selected_option)
+
 
         elif key == curses.KEY_ENTER or key in [10, 13]:
             selected_option = list(directory_struct_json.keys())[current_option]
