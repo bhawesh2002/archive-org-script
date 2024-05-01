@@ -122,12 +122,13 @@ def display_directory_struct(stdscr, directory_dict, selected_files, current_opt
 
         if isinstance(child_folder, dict):
             stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, " ->")
-        elif isinstance(child_folder, str):
-            try:
-                file_size_mb = convert_bytes_to_mb(int(child_folder))
-                stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, f" ({file_size_mb:.2f} MB)")
-            except ValueError:
-                stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, " Size: Unknown")
+        #display file sizes
+        # elif isinstance(child_folder, str):
+        #     try:
+        #         file_size_mb = convert_bytes_to_mb(int(child_folder))
+        #         stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, f" ({file_size_mb:.2f} MB)")
+        #     except ValueError:
+        #         stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, " Size: Unknown")
     
     #display identifier name
     dir_name_label = "Directory Name:"
