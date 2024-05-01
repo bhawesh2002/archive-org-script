@@ -100,11 +100,9 @@ def display_directory_struct(stdscr, directory_dict, selected_options, current_o
 
         if x < 0 or x + len(option) + indent_level * 2 >= w:
             continue
-
         if idx in selected_options:
-            stdscr.attron(curses.color_pair(1))
-            stdscr.addstr(y, x + indent_level * 2, option)
-            stdscr.attroff(curses.color_pair(1))
+            stdscr.addstr(y, x + indent_level * 2, "*", curses.color_pair(3))
+            stdscr.addstr(y, (x + indent_level * 2) +1, option,)
         elif idx == current_option:
             stdscr.attron(curses.A_REVERSE)
             stdscr.addstr(y, x + indent_level * 2, option)
