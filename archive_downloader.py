@@ -198,7 +198,7 @@ def main(stdscr):
     indent_level = 0
     parent_folders = [] # Keep track of parent folder
     parent_indices = [] # Keep track of selected indices in parent folder
-    selected_files = {}  # Dictionary to store selected files
+    selected_files = []  # List to store selected files
 
     #load the json file containing directory structure info
     directory_struct_json = load_directory_struct(f"{identifier_metadata_path}/{directory_identifier}_filetree.json")
