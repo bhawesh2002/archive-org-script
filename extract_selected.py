@@ -24,7 +24,7 @@ def json_path_to_normal_paths(json_data):
     return normal_paths
 
 # Load the JSON data from json_data.json
-with open('test.json', 'r') as file:
+with open('extracted.json', 'r') as file:
     json_data = json.load(file)
 
 # Convert the JSON object paths to normal paths
