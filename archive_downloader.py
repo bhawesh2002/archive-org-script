@@ -133,7 +133,7 @@ def display_directory_struct(stdscr, directory_dict, selected_files, current_opt
     #display identifier name
     dir_name_label = "Directory Name:"
     stdscr.addstr(h - 2, 0, dir_name_label, curses.color_pair(3))
-    stdscr.addstr(h - 2, 16, "identifier_name")
+    stdscr.addstr(h - 2, 16, identifier_name)
     # Display footer with navigation controls
     footer_text = "Navigation: Up/Down to navigate, Right to enter directory, Left to go back, Space to select, q to quit"
     stdscr.addstr(h - 1, 0, footer_text, curses.color_pair(4))
