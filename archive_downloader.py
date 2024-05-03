@@ -83,11 +83,34 @@ def convert_bytes_to_mb(size):
     """Convert bytes to megabytes."""
     return size / (1024 * 1024)
 
+def select_item(selected_files, current_path, selected_option, directory_dict):
+    full_path = '/'.join(current_path + [selected_option])
+    if isinstance(directory_dict[selected_option], dict):
+        # If the selected item is a folder, recursively select all files within it
+        for item in directory_dict[selected_option]:
+            select_item(selected_files, current_path + [selected_option], item, directory_dict[selected_option])
+    else:
+        # If the selected item is a file, add it to the selected files
+        selected_files.append(full_path)
+
+def toggle_item(selected_files, current_path, selected_option, directory_dict):
+    full_path = '/'.join(current_path + [selected_option])
+    if full_path in selected_files:
+        selected_files.remove(full_path)
+    else:
+        # If the selected item is a folder, toggle its selection along with all files within it
+        if isinstance(directory_dict[selected_option], dict):
+            for item in directory_dict[selected_option]:
+                select_item(selected_files, current_path + [selected_option], item, directory_dict[selected_option])
+        else:
+            # If the selected item is a file, add it to the selected files
+            selected_files.append(full_path)
+
 #Prints the structure in a tree-like format using color and styling.
-def display_directory_struct(stdscr, directory_dict, selected_files, current_option, identifier_name, indent_level=0, scroll_offset=0, visible_lines=0):
+def display_directory_struct(stdscr, directory_dict, selected_files, current_option, identifier_name, current_path=[], indent_level=0, scroll_offset=0, visible_lines=0):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
-
+    
     for idx, (option, child_folder) in enumerate(directory_dict.items()):
         if idx < scroll_offset or idx >= scroll_offset + visible_lines:
             continue
@@ -101,18 +124,15 @@ def display_directory_struct(stdscr, directory_dict, selected_files, current_opt
         if x < 0 or x + len(option) + indent_level * 2 >= w:
             continue
     
-        #display selected options by appending '*' in yellow color
-        if option in selected_files:
+        if option in selected_files or '/'.join(current_path + [option]) in selected_files:
             if idx == current_option:
                 stdscr.attron(curses.A_REVERSE)
                 stdscr.addstr(y, x + indent_level * 2, "*", curses.color_pair(3))
                 stdscr.addstr(y, x + indent_level * 2 + 1, option)
                 stdscr.attroff(curses.A_REVERSE)
-    
             else:
                 stdscr.addstr(y, x + indent_level * 2, "*", curses.color_pair(3))
                 stdscr.addstr(y, (x + indent_level * 2) + 1, option)
-        #highlight the current_option by A_REVERSE
         elif idx == current_option:
             stdscr.attron(curses.A_REVERSE)
             stdscr.addstr(y, x + indent_level * 2, option)
@@ -122,20 +142,17 @@ def display_directory_struct(stdscr, directory_dict, selected_files, current_opt
 
         if isinstance(child_folder, dict):
             stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, " ->")
-        #display file sizes
-        # elif isinstance(child_folder, str):
-        #     try:
-        #         file_size_mb = convert_bytes_to_mb(int(child_folder))
-        #         stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, f" ({file_size_mb:.2f} MB)")
-        #     except ValueError:
-        #         stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, " Size: Unknown")
+        elif isinstance(child_folder, str):
+            try:
+                file_size_mb = convert_bytes_to_mb(int(child_folder))
+                stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, f" ({file_size_mb:.2f} MB)")
+            except ValueError:
+                stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, " Size: Unknown")
     
-    #display identifier name
     dir_name_label = "Directory Name:"
     stdscr.addstr(h - 2, 0, dir_name_label, curses.color_pair(3))
     stdscr.addstr(h - 2, 16, identifier_name)
-    # Display footer with navigation controls
-    footer_text = "Navigation: Up/Down to navigate, Right to enter directory, Left to go back, Space to select, q to quit"
+    footer_text = "Navigation: Up/Down to navigate, Right to enter directory, Left to go back, Space to select/deselect, q to quit"
     stdscr.addstr(h - 1, 0, footer_text, curses.color_pair(4))
     stdscr.refresh()
 
@@ -197,17 +214,15 @@ def main(stdscr):
     current_option = 0
     scroll_offset = 0
     indent_level = 0
-    parent_folders = [] # Keep track of parent folder
-    parent_indices = [] # Keep track of selected indices in parent folder
-    selected_files = []  # Dictionary to store selected files
+    current_path = []
+    selected_files = []
 
-    #load the json file containing directory structure info
     directory_struct_json = load_directory_struct(f"{identifier_metadata_path}/{directory_identifier}_filetree.json")
     
     while True:
         h, w = stdscr.getmaxyx()
-        visible_lines = h - 4 # Calculate the number of visible lines
-        display_directory_struct(stdscr, directory_struct_json, selected_files,current_option, directory_identifier,indent_level, scroll_offset, visible_lines)
+        visible_lines = h - 4
+        display_directory_struct(stdscr, directory_struct_json, selected_files, current_option, "identifier", current_path=current_path, indent_level=indent_level, scroll_offset=scroll_offset, visible_lines=visible_lines)
 
         key = stdscr.getch()
 
@@ -222,54 +237,40 @@ def main(stdscr):
         elif key == curses.KEY_RIGHT:
             selected_option = list(directory_struct_json.keys())[current_option]
             child_folder = directory_struct_json[selected_option]
-            if isinstance(child_folder, dict): # Check if child_folder is a dictionary
-                parent_folders.append(directory_struct_json) # Store current folder as parent
-                parent_indices.append(current_option) # Store current selected index as parent index
+            if isinstance(child_folder, dict):
+                current_path.append(selected_option)
                 indent_level += 1
                 directory_struct_json = child_folder
                 current_option = 0
-            else:
-                # Handle the case where child_folder is a string (file size)
-                # For example, display the file size or perform a different action
-                pass
+                print("current_path:", current_path)
         elif key == curses.KEY_LEFT and indent_level > 0:
             indent_level -= 1
-            directory_struct_json = parent_folders.pop() # Retrieve previous folder from parent_folders
-            current_option = parent_indices.pop() # Retrieve previous selected index from parent_indices
+            current_path.pop()
+            print("current_path:", current_path)
+            directory_struct_json = load_directory_struct(f"{identifier_metadata_path}/{directory_identifier}_filetree.json")
+            for folder in current_path:
+                directory_struct_json = directory_struct_json[folder]
+            current_option = 0
         
-        #add file to selected_files when space is pressed
-        elif key == ord(' ') and current_option not in selected_files:  # Toggle selection
-            # Get the name of the currently focused item
+        elif key == ord(' '):
             selected_option = list(directory_struct_json.keys())[current_option]
-            # Toggle the selection state of the item
-            if selected_option in selected_files:
-                # Deselect the item by removing it from the list
-                selected_files.remove(selected_option)
-            else:
-                # Select the item by adding it to the list
-                selected_files.append(selected_option)
-
+            toggle_item(selected_files, current_path, selected_option, directory_struct_json)
 
         elif key == curses.KEY_ENTER or key in [10, 13]:
             selected_option = list(directory_struct_json.keys())[current_option]
             child_folder = directory_struct_json[selected_option]
-            if isinstance(child_folder, dict): # Check if child_folder is a dictionary
-                parent_folders.append(directory_struct_json) # Store current folder as parent
-                parent_indices.append(current_option) # Store current selected index as parent index
+            if isinstance(child_folder, dict):
+                current_path.append(selected_option)
                 directory_struct_json = child_folder
                 current_option = 0
-            else:
-                stdscr.clear()
-                stdscr.addstr(0, 0, "You selected: " + selected_option)
-                stdscr.refresh()
-                stdscr.getch()
         elif key == ord('q'):
-            print(selected_files)
+            print("selected_files: ", selected_files)
             break
-        elif key == curses.KEY_PPAGE: # Scroll up
+
+        elif key == curses.KEY_PPAGE:
             if scroll_offset > 0:
                 scroll_offset -= 1
-        elif key == curses.KEY_NPAGE: # Scroll down
+        elif key == curses.KEY_NPAGE:
             if current_option < len(directory_struct_json) - 1:
                 scroll_offset += 1
 
