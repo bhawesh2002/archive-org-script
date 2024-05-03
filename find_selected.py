@@ -80,7 +80,7 @@ with open('test.json', 'r') as file:
     source_json = json.load(file)
 
 # Define the target keys you want to extract
-target_keys = ['1.jpg','2.jpg', '01.mp4']
+target_keys = ['01.mp4']
 # Extract the keys and their paths
 results = extract_keys_and_parents(source_json, target_keys)
 
