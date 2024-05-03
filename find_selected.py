@@ -1,10 +1,10 @@
 import json
 
-def extract_keys_and_parents(obj, target_keys, path=None):
+def extract_keys_and_parents(source_json, target_keys, path=None):
     """
-    Recursively searches for target keys in a JSON object and returns their paths.
+    Recursively searches for target keys in a JSON source_jsonect and returns their paths.
     
-    :param obj: The JSON object to search.
+    :param source_json: The JSON source_jsonect to search.
     :param target_keys: The list of keys to find.
     :param path: The current path to the key (default None).
     :return: A dictionary containing found values and their paths.
@@ -14,16 +14,16 @@ def extract_keys_and_parents(obj, target_keys, path=None):
 
     results = {}
     
-    if isinstance(obj, dict):
-        for k, v in obj.items():
+    if isinstance(source_json, dict):
+        for k, v in source_json.items():
             if k in target_keys:
                 results[k] = (v, path + [k])
             elif isinstance(v, (dict, list)):
                 nested_results = extract_keys_and_parents(v, target_keys, path + [k])
                 if nested_results:
                     results.update(nested_results)
-    elif isinstance(obj, list):
-        for i, item in enumerate(obj):
+    elif isinstance(source_json, list):
+        for i, item in enumerate(source_json):
             nested_results = extract_keys_and_parents(item, target_keys, path + [i])
             if nested_results:
                 results.update(nested_results)
@@ -77,12 +77,12 @@ def merge_nested_dicts(d1, d2):
 
 # Load the JSON data from test.json
 with open('test.json', 'r') as file:
-    data = json.load(file)
+    source_json = json.load(file)
 
 # Define the target keys you want to extract
 target_keys = ['1.jpg','2.jpg', '01.mp4']
 # Extract the keys and their paths
-results = extract_keys_and_parents(data, target_keys)
+results = extract_keys_and_parents(source_json, target_keys)
 
 # Check if any of the target keys were found
 if results:
