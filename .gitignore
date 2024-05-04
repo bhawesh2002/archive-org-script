@@ -4,3 +4,4 @@
 *.json
 todo.txt
 extracted_paths.txt
+*_files.txt
