@@ -2,6 +2,4 @@
 *_files.xml
 *_testscript.py
 *.json
-todo.txt
-extracted_paths.txt
-*_files.txt
+*.txt
