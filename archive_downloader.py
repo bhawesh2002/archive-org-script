@@ -140,9 +140,9 @@ def display_directory_struct(stdscr, directory_dict, selected_files, current_opt
         else:
             stdscr.addstr(y, x + indent_level * 2, option)
 
-        if isinstance(child_folder, dict):
-            stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, " ->")
-        elif isinstance(child_folder, str):
+        if isinstance(child_folder, dict): #if child_folder is a dictionary object i.e a folder with nested folder/files
+            stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, " ->")   #then display a arrow "->"
+        elif isinstance(child_folder, str): #else if child_folder is a string(i.e, size of file) which is associated with child_folder which is name of file
             try:
                 file_size_mb = convert_bytes_to_mb(int(child_folder))
                 stdscr.addstr(y, x + (len(option) + indent_level * 2) +1, f" ({file_size_mb:.2f} MB)")
