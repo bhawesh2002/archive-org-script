@@ -263,6 +263,7 @@ def main(stdscr):
                 current_path.append(selected_option)
                 directory_struct_json = child_folder
                 current_option = 0
+        #Quit the program
         elif key == ord('q'):
             print("selected_files: ", selected_files)
             break
