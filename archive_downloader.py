@@ -266,7 +266,7 @@ def main(stdscr):
         elif key == ord('q'):
             print("selected_files: ", selected_files)
             break
-
+        #Enable Scrolling
         elif key == curses.KEY_PPAGE:
             if scroll_offset > 0:
                 scroll_offset -= 1
