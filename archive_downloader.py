@@ -252,6 +252,7 @@ def main(stdscr):
                 directory_struct_json = directory_struct_json[folder]
             current_option = 0
         
+        #save the file by adding it to selected_files list
         elif key == ord(' '):
             selected_option = list(directory_struct_json.keys())[current_option]
             toggle_item(selected_files, current_path, selected_option, directory_struct_json)
