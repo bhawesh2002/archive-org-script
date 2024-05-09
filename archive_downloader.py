@@ -204,6 +204,7 @@ def main(stdscr):
 
     # Download _files.xml and _meta.xml
     download_metadata_files(directory_identifier, identifier_metadata_path)
+    # download_metadata_file(meta_url, f"{directory_identifier}_meta.xml", identifier_metadata_path)
     
     # Parse the _files.xml after the file has been downloaded
     files_xml = f"{identifier_metadata_path}/{directory_identifier}_files.xml"
