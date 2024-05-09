@@ -2,8 +2,8 @@
 import os
 import requests # Used to download files from URLs
 import xml.etree.ElementTree as ET # Used for parsing XML files
-import json
-import curses
+import json #to dump json file
+import curses #for creation of TUI
 
 # Initialize color pairs for curses
 def init_colors():
