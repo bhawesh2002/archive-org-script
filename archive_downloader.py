@@ -14,28 +14,29 @@ def init_colors():
     curses.init_pair(4, curses.COLOR_CYAN, curses.COLOR_BLACK)
     curses.init_pair(5, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
-# Constructs URLs for _files.xml and _meta.xml files based on the provided archive.org download directory identifier.
-def get_identifier_file_xml(item_identifier):
-    base_url = f"https://archive.org/download/{item_identifier}/"
-    files_url = f"{base_url}{item_identifier}_files.xml"
-    meta_url = f"{base_url}{item_identifier}_meta.xml"
-    return files_url, meta_url
-
 # Downloads a file from the given URL and saves it with the specified filename. Prints success/failure messages.
-def download_metadata_file(url, filename, destination_folder):
-    response = requests.get(url)
-    if response.status_code == 200:
-        # Ensure the destination folder exists
-        os.makedirs(destination_folder, exist_ok=True)
-        file_path = os.path.join(destination_folder, filename)
-        with open(file_path, 'wb') as f:
-            f.write(response.content)
-        print(f"Downloaded {filename} successfully to {destination_folder}.")
-        return True
-    else:
-        print(f"Failed to download {filename}. Status code: {response.status_code}")
-        return False
-
+def download_metadata_files(item_identifier, destination_folder):
+    base_url = f"https://archive.org/download/{item_identifier}/"
+    directory_file = f"{item_identifier}_files.xml"
+    meta_file = f"{item_identifier}_meta.xml"
+    for metadata_file in [directory_file,meta_file]:
+        url = f"{base_url}/{metadata_file}"
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                os.makedirs(destination_folder, exist_ok=True)
+                file_path = os.path.join(destination_folder, metadata_file)
+                with open(file_path, 'wb') as f:
+                    f.write(response.content)
+                    print(f"Successfully downloaded {metadata_file}")
+            else:
+                print(f"Failed to download {metadata_file}. Status code: {response.status_code}")
+                return False
+        except Exception as e:
+            print("An error occurred while downloading file:", metadata_file, ":", e)
+            return False
+    
+    return True
 # Checks if the link follows the format of an archive.org download directory link.
 def validate_link(link):
     return "https://archive.org/download/" in link
@@ -202,9 +203,7 @@ def main(stdscr):
     stdscr.refresh()
 
     # Download _files.xml and _meta.xml
-    files_url, meta_url = get_identifier_file_xml(directory_identifier)
-    download_metadata_file(files_url, f"{directory_identifier}_files.xml", identifier_metadata_path)
-    download_metadata_file(meta_url, f"{directory_identifier}_meta.xml", identifier_metadata_path)
+    download_metadata_files(directory_identifier, identifier_metadata_path)
     
     # Parse the _files.xml after the file has been downloaded
     files_xml = f"{identifier_metadata_path}/{directory_identifier}_files.xml"
