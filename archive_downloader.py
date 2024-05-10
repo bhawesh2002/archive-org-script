@@ -17,8 +17,8 @@ def init_colors():
 # Downloads a file from the given URL and saves it with the specified filename. Prints success/failure messages.
 def download_metadata_files(item_identifier, destination_folder):
     base_url = f"https://archive.org/download/{item_identifier}/"
-    directory_file = f"{item_identifier}_files.xml"
-    meta_file = f"{item_identifier}_meta.xml"
+    directory_file = f"{item_identifier}_files.xml" #name of *_files.xml conaining info about all the files in directory
+    meta_file = f"{item_identifier}_meta.xml" #name of *_meta.xml containing info about the collection
     for metadata_file in [directory_file,meta_file]:
         url = f"{base_url}/{metadata_file}"
         try:
