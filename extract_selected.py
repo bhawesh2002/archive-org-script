@@ -1,3 +1,4 @@
+#Script that exports the path to files in json directory structure to a text file called as extracted.txt
 import json
 
 def json_path_to_normal_paths(json_data):
