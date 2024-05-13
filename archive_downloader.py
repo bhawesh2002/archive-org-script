@@ -1,5 +1,5 @@
 # from colorama import Fore, Style # Used for colored text output in the console
-import os
+import os #for creating directories for dwonaloded files
 import requests # Used to download files from URLs
 import xml.etree.ElementTree as ET # Used for parsing XML files
 import json #to dump json file
