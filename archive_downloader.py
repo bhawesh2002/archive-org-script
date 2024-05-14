@@ -94,6 +94,7 @@ def select_item(selected_files, current_path, selected_option, directory_dict):
         # If the selected item is a file, add it to the selected files
         selected_files.append(full_path)
 
+#function to toggle the selection of file
 def toggle_item(selected_files, current_path, selected_option, directory_dict):
     full_path = '/'.join(current_path + [selected_option])
     if full_path in selected_files:
