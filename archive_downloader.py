@@ -216,7 +216,7 @@ def main(stdscr):
     scroll_offset = 0
     indent_level = 0
     current_path = []
-    selected_files = []
+    selected_files = [] #array containing the selected files
 
     directory_struct_json = load_directory_struct(f"{identifier_metadata_path}/{directory_identifier}_filetree.json")
     
