@@ -3,3 +3,6 @@
 *_testscript.py
 *.json
 *.txt
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
