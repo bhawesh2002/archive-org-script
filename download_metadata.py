@@ -22,3 +22,5 @@ def download_metadata_files(item_identifier, destination_folder):
         except Exception as e:
             print("An error occurred while downloading file:", metadata_file, ":", e)
             return False
+        
+    return True
