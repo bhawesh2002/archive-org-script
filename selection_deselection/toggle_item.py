@@ -1,4 +1,4 @@
-import select_item #importing the select_item module
+from selection_deselection import select_item #importing the select_item module
 
 #function to toggle the selection of file
 def toggle_item(selected_files, current_path, selected_option, directory_dict):
