@@ -6,7 +6,7 @@ from basic_function.validate_link import validate_link #import validate_link
 from basic_function.load_directory import load_directory #import load_directory
 from colors.app_colors import init_colors #import colors 
 from displaying.display_ui import display_directory_struct #import display ui
-from download_metadata import download_metadata_files #import download metadata
+from download_metadata.download_metadata import download_metadata_files #import download metadata
 from parsing.parse_xml import parse_xml #import parse xml
 from selection_deselection import toggle_item #for creation of TUI
 
