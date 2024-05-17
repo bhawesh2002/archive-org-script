@@ -1,27 +1,27 @@
-import os #for creating directories for dwonaloded files
 import curses #for creating TUI
-from basic_function.get_ip import get_ip #import get_ip
-from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
-from basic_function.validate_link import validate_link #import validate_link
-from basic_function.load_directory import load_directory #import load_directory
-from colors.app_colors import init_colors #import colors 
-from displaying.display_ui import display_directory_struct #import display ui
-from download_metadata.download_metadata import download_metadata_files #import download metadata
-from parsing.parse_xml import parse_xml #import parse xml
-from selection_deselection import toggle_item #for creation of TUI
+from colors.app_colors import init_colors #import colors
+from displaying.welcome_message import welcome_message #import welcome message
+# import os #for creating directories for dwonaloded files
+# from basic_function.get_ip import get_ip #import get_ip
+# from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
+# from basic_function.validate_link import validate_link #import validate_link
+# from basic_function.load_directory import load_directory #import load_directory
+ 
+# from displaying.display_ui import display_directory_struct #import display ui
+# from download_metadata.download_metadata import download_metadata_files #import download metadata
+# from parsing.parse_xml import parse_xml #import parse xml
+# from selection_deselection import toggle_item #for creation of TUI
 
 def main(stdscr):
     curses.echo()
-    init_colors() # Initialize color pairs
-
-    stdscr.addstr("archive.org downloader", curses.color_pair(1) | curses.A_BOLD)
-    stdscr.refresh()
+    init_colors() 
+    welcome_message(stdscr, "Archive.org Dwonloader")
     
     # Ensure the script_downloads folder exists
-    script_downloads_path = "script_downloads"
-    os.makedirs(script_downloads_path, exist_ok=True)
+    # script_downloads_path = "script_downloads"
+    # os.makedirs(script_downloads_path, exist_ok=True)
 
-    # #validate the link
+    #validate the link
     # valid_link = False
     # while not valid_link:
     #     stdscr.refresh()
