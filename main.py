@@ -1,6 +1,7 @@
 import curses #for creating TUI
 from colors.app_colors import init_colors #import colors
 from displaying.welcome_message import welcome_message #import welcome message
+from error_messages.error_messages import resize_window_err_msg #import error message
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_ip import get_ip #import get_ip
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
@@ -15,7 +16,16 @@ from displaying.welcome_message import welcome_message #import welcome message
 def main(stdscr):
     curses.echo()
     init_colors() 
-    welcome_message(stdscr, "Archive.org Dwonloader")
+    try:
+        welcome_message(stdscr, "Archive . org Dwonloader")
+    except Exception as e:
+        height, width = stdscr.getmaxyx()
+        stdscr.clear()
+        x = (width -(len(str(e)) + len(resize_window_err_msg)))//2
+        stdscr.addstr(height//2,x, f"{e}", curses.color_pair(2) | curses.A_BOLD)
+        stdscr.addstr(height//2,x+len(str(e)), f": {resize_window_err_msg}")
+        stdscr.refresh()
+        stdscr.getch()
     
     # Ensure the script_downloads folder exists
     # script_downloads_path = "script_downloads"
