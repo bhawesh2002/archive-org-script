@@ -24,6 +24,7 @@ def main(stdscr):
         stdscr.refresh()
         time.sleep(0.3) #delay for 0.3 seconds
         stdscr.clear()
+        stdscr.addstr(PROGRAM_NAME, curses.color_pair(4) | curses.A_BOLD) #display the program name
     except Exception as e:
         stdscr.clear() 
         x = (width -len(str(e)))//2 #center the error message
