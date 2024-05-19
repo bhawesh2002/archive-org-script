@@ -1,5 +1,5 @@
 # Checks if the link follows the format of an archive.org download directory link.
-def construct_link(link):
+def construct_download_link(link):
     # If the link is directory identifier only, add the necessary prefix
     if "https://archive.org/" not in link:
         link = f"https://archive.org/dwonload/{link}"
