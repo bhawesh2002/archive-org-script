@@ -1,6 +1,7 @@
 import curses #for creating TUI
 from colors.app_colors import init_colors #import colors
 from displaying.welcome_message import welcome_message #import welcome message
+import time #for creating a delay
 from error_messages.error_messages import resize_window_err_msg #import error message
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_ip import get_ip #import get_ip
@@ -18,6 +19,8 @@ def main(stdscr):
     try:
         welcome_message(stdscr, "Archive . org Dwonloader") #display the welcome message
         stdscr.refresh()
+        time.sleep(0.3) #delay for 0.3 seconds
+        stdscr.clear()
     except Exception as e:
         height, width = stdscr.getmaxyx()
         stdscr.clear() 
