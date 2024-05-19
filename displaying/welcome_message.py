@@ -14,7 +14,7 @@ def welcome_message(stdscr,welcome_message=""):
 
          # Display the ASCII art
         for i, line in enumerate(ascii_art.splitlines()):
-            stdscr.addstr(start_y + i, start_x, line, curses.color_pair(4)| curses.A_BOLD)
+            stdscr.addstr(start_y + i, start_x, line, curses.color_pair(6)| curses.A_BOLD)
         
         stdscr.refresh()
         time.sleep(0.3) #delay for 0.3 seconds

@@ -3,7 +3,7 @@ import curses
 # Prompts the user for input with the specified message and returns the stripped input.
 def get_link(stdscr):
     
-    stdscr.addstr(1,0,"Paste the link here: ", curses.color_pair(3)) # Prompt the user to enter a link
+    stdscr.addstr(1,0,"Paste the link here: ", curses.color_pair(4)) # Prompt the user to enter a link
     stdscr.refresh()
 
     curses.echo() # Enable echoing of characters for the user to see the input

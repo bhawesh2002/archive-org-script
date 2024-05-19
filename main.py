@@ -23,7 +23,7 @@ def main(stdscr):
     #Program logic
     try:
         welcome_message(stdscr, PROGRAM_NAME) #display the welcome message        
-        stdscr.addstr(PROGRAM_NAME, curses.color_pair(4) | curses.A_BOLD) #display the program name
+        stdscr.addstr(PROGRAM_NAME, curses.color_pair(6) | curses.A_BOLD) #display the program name
         link = get_link(stdscr) #get the link from the user
     except Exception as e:
         stdscr.clear() 
