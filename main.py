@@ -14,10 +14,13 @@ from error_messages.error_messages import resize_window_err_msg #import error me
 # from selection_deselection import toggle_item #for creation of TUI
 
 PROGRAM_NAME = "Archive.org Dwonloader" #program name
+
 def main(stdscr):
     curses.curs_set(0) #hide the cursor
     init_colors() 
     height, width = stdscr.getmaxyx() #get the height and width of the terminal
+
+    #Program logic
     try:
         welcome_message(stdscr, PROGRAM_NAME) #display the welcome message        
         stdscr.addstr(PROGRAM_NAME, curses.color_pair(4) | curses.A_BOLD) #display the program name
@@ -28,6 +31,7 @@ def main(stdscr):
         stdscr.addstr(height//2 + 1,(width - len(resize_window_err_msg))//2, f"{resize_window_err_msg}") #display the solution for the error
         stdscr.refresh()
 
+    # Logic for the key press
     while True:
         key = stdscr.getch()
         stdscr.refresh()
