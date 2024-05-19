@@ -1,7 +1,6 @@
 import curses #for creating TUI
 from colors.app_colors import init_colors #import colors
 from displaying.welcome_message import welcome_message #import welcome message
-import time #for creating a delay
 from error_messages.error_messages import resize_window_err_msg #import error message
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_ip import get_ip #import get_ip
@@ -20,10 +19,7 @@ def main(stdscr):
     init_colors() 
     height, width = stdscr.getmaxyx() #get the height and width of the terminal
     try:
-        welcome_message(stdscr, PROGRAM_NAME) #display the welcome message
-        stdscr.refresh()
-        time.sleep(0.3) #delay for 0.3 seconds
-        stdscr.clear()
+        welcome_message(stdscr, PROGRAM_NAME) #display the welcome message        
         stdscr.addstr(PROGRAM_NAME, curses.color_pair(4) | curses.A_BOLD) #display the program name
     except Exception as e:
         stdscr.clear() 

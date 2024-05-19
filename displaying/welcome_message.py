@@ -1,5 +1,6 @@
 import curses
 from colors.app_colors import init_colors
+import time #for creating a delay
 import pyfiglet #for creating ASCII art
 
 def welcome_message(stdscr,welcome_message=""):
@@ -14,5 +15,10 @@ def welcome_message(stdscr,welcome_message=""):
          # Display the ASCII art
         for i, line in enumerate(ascii_art.splitlines()):
             stdscr.addstr(start_y + i, start_x, line, curses.color_pair(4)| curses.A_BOLD)
+        
+        stdscr.refresh()
+        time.sleep(0.3) #delay for 0.3 seconds
+        stdscr.clear()
+        stdscr.refresh()
     except Exception as e:
         raise e #raise the exception to be caught in main.py
