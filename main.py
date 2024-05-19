@@ -2,8 +2,8 @@ import curses #for creating TUI
 from colors.app_colors import init_colors #import colors
 from displaying.welcome_message import welcome_message #import welcome message
 from error_messages.error_messages import resize_window_err_msg #import error message
+from basic_function.get_link import get_link #import get_link
 # import os #for creating directories for dwonaloded files
-# from basic_function.get_ip import get_ip #import get_ip
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
 # from basic_function.validate_link import validate_link #import validate_link
 # from basic_function.load_directory import load_directory #import load_directory
@@ -19,11 +19,12 @@ def main(stdscr):
     curses.curs_set(0) #hide the cursor
     init_colors() 
     height, width = stdscr.getmaxyx() #get the height and width of the terminal
-
+    
     #Program logic
     try:
         welcome_message(stdscr, PROGRAM_NAME) #display the welcome message        
         stdscr.addstr(PROGRAM_NAME, curses.color_pair(4) | curses.A_BOLD) #display the program name
+        link = get_link(stdscr) #get the link from the user
     except Exception as e:
         stdscr.clear() 
         x = (width -len(str(e)))//2 #center the error message
