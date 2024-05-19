@@ -13,12 +13,14 @@ from error_messages.error_messages import resize_window_err_msg #import error me
 # from download_metadata.download_metadata import download_metadata_files #import download metadata
 # from parsing.parse_xml import parse_xml #import parse xml
 # from selection_deselection import toggle_item #for creation of TUI
+
+PROGRAM_NAME = "Archive.org Dwonloader" #program name
 def main(stdscr):
     curses.curs_set(0) #hide the cursor
     init_colors() 
     height, width = stdscr.getmaxyx() #get the height and width of the terminal
     try:
-        welcome_message(stdscr, "Archive . org Dwonloader") #display the welcome message
+        welcome_message(stdscr, PROGRAM_NAME) #display the welcome message
         stdscr.refresh()
         time.sleep(0.3) #delay for 0.3 seconds
         stdscr.clear()
