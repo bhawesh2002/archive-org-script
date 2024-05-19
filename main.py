@@ -13,17 +13,17 @@ from error_messages.error_messages import resize_window_err_msg #import error me
 # from parsing.parse_xml import parse_xml #import parse xml
 # from selection_deselection import toggle_item #for creation of TUI
 def main(stdscr):
-    curses.curs_set(0)
+    curses.curs_set(0) #hide the cursor
     init_colors() 
     try:
-        welcome_message(stdscr, "Archive . org Dwonloader")
+        welcome_message(stdscr, "Archive . org Dwonloader") #display the welcome message
         stdscr.refresh()
     except Exception as e:
         height, width = stdscr.getmaxyx()
-        stdscr.clear()
-        x = (width -(len(str(e)) + len(resize_window_err_msg)))//2
-        stdscr.addstr(height//2,x, f"{e}", curses.color_pair(2) | curses.A_BOLD)
-        stdscr.addstr(height//2,x+len(str(e)), f": {resize_window_err_msg}")
+        stdscr.clear() 
+        x = (width -(len(str(e)) + len(resize_window_err_msg)))//2 #center the error message
+        stdscr.addstr(height//2,x, f"{e}", curses.color_pair(2) | curses.A_BOLD) #display the error message
+        stdscr.addstr(height//2,x+len(str(e)), f": {resize_window_err_msg}") #display the solution for the error
         stdscr.refresh()
 
     while True:
