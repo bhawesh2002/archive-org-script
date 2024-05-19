@@ -1,5 +1,5 @@
 import curses #for creating TUI
-from colors.app_colors import init_colors #import colors
+from colors.app_colors import init_colors #import color pairs
 from displaying.welcome_message import welcome_message #import welcome message
 from error_messages.error_messages import resize_window_err_msg #import error message
 from basic_function.get_link import get_link #import get_link
