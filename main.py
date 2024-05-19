@@ -3,9 +3,10 @@ from colors.app_colors import init_colors #import color pairs
 from displaying.welcome_message import welcome_message #import welcome message
 from error_messages.error_messages import resize_window_err_msg #import error message
 from basic_function.get_link import get_link #import get_link
+from basic_function.validate_link import construct_download_link #import validate_link
+
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
-# from basic_function.validate_link import validate_link #import validate_link
 # from basic_function.load_directory import load_directory #import load_directory
  
 # from displaying.display_ui import display_directory_struct #import display ui
@@ -25,6 +26,7 @@ def main(stdscr):
         welcome_message(stdscr, PROGRAM_NAME) #display the welcome message        
         stdscr.addstr(PROGRAM_NAME, curses.color_pair(6) | curses.A_BOLD) #display the program name
         link = get_link(stdscr) #get the link from the user
+        download_link = construct_download_link(link) #construct the link
     except Exception as e:
         stdscr.clear() 
         x = (width -len(str(e)))//2 #center the error message
