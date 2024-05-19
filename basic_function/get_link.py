@@ -1,7 +1,7 @@
 import curses
 
 # Prompts the user for input with the specified message and returns the stripped input.
-def get_ip(stdscr):
+def get_link(stdscr):
     
     stdscr.addstr(1,0,"Paste the link here: ", curses.color_pair(3)) # Prompt the user to enter a link
     stdscr.refresh()
