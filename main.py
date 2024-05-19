@@ -2,7 +2,7 @@ import curses #for creating TUI
 from colors.app_colors import init_colors #import color pairs
 from displaying.welcome_message import welcome_message #import welcome message
 from error_messages.error_messages import resize_window_err_msg #import error message
-from basic_function.get_identifier import get_identifier #import get_link
+from basic_function.get_identifier import get_identifier #import get_identifier
 
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
@@ -24,7 +24,7 @@ def main(stdscr):
     try:
         welcome_message(stdscr, PROGRAM_NAME) #display the welcome message        
         stdscr.addstr(PROGRAM_NAME, curses.color_pair(6) | curses.A_BOLD) #display the program name
-        identifier = get_identifier(stdscr) #get the download link
+        identifier = get_identifier(stdscr) #get the archive.org identifier
     except Exception as e:
         stdscr.clear() 
         x = (width -len(str(e)))//2 #center the error message
