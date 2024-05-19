@@ -1,7 +1,13 @@
 import curses
 import requests #for making HTTP requests
 
-# return a valid link
+# Get the identifier from the download link
+def get_identifier(stdscr):
+    download_link = get_link(stdscr)
+    identifier = download_link.split("/")[-1] #extract the identifier from the link
+    return identifier
+
+# return a valid dwonload link
 def get_link(stdscr):
     while True:
         link = user_input(stdscr) #get the link from the user
