@@ -16,13 +16,13 @@ from error_messages.error_messages import resize_window_err_msg #import error me
 def main(stdscr):
     curses.curs_set(0) #hide the cursor
     init_colors() 
+    height, width = stdscr.getmaxyx() #get the height and width of the terminal
     try:
         welcome_message(stdscr, "Archive . org Dwonloader") #display the welcome message
         stdscr.refresh()
         time.sleep(0.3) #delay for 0.3 seconds
         stdscr.clear()
     except Exception as e:
-        height, width = stdscr.getmaxyx()
         stdscr.clear() 
         x = (width -len(str(e)))//2 #center the error message
         stdscr.addstr(height//2,x, f"{e}", curses.color_pair(2) | curses.A_BOLD) #display the error message
