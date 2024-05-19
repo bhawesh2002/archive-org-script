@@ -12,12 +12,12 @@ from error_messages.error_messages import resize_window_err_msg #import error me
 # from download_metadata.download_metadata import download_metadata_files #import download metadata
 # from parsing.parse_xml import parse_xml #import parse xml
 # from selection_deselection import toggle_item #for creation of TUI
-
 def main(stdscr):
-    curses.echo()
+    curses.curs_set(0)
     init_colors() 
     try:
         welcome_message(stdscr, "Archive . org Dwonloader")
+        stdscr.refresh()
     except Exception as e:
         height, width = stdscr.getmaxyx()
         stdscr.clear()
@@ -25,8 +25,12 @@ def main(stdscr):
         stdscr.addstr(height//2,x, f"{e}", curses.color_pair(2) | curses.A_BOLD)
         stdscr.addstr(height//2,x+len(str(e)), f": {resize_window_err_msg}")
         stdscr.refresh()
-        stdscr.getch()
-    
+
+    while True:
+        key = stdscr.getch()
+        stdscr.refresh()
+        if key == ord('\033'):  # '\033' for 'Esc' key in ASCII
+            break
     # Ensure the script_downloads folder exists
     # script_downloads_path = "script_downloads"
     # os.makedirs(script_downloads_path, exist_ok=True)
