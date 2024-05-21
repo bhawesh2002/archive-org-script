@@ -22,7 +22,7 @@ def get_metadata_size(identifier):
         raise e
 
 def create_download_folder(identifier):
-    # Create a folder named after the identifier inside script_downloads
+     # Create a folder named after the identifier inside script_downloads in the current working directory
     download_folder_path = os.path.join(os.getcwd(), "Script Downloads", identifier)
     os.makedirs(download_folder_path, exist_ok=True)
     return download_folder_path
