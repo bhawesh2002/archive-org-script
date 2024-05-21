@@ -18,6 +18,12 @@ def get_metadata_size(identifier):
     except requests.RequestException as e:
         raise e
 
+def create_download_folder(identifier):
+    # Create a folder named after the identifier inside script_downloads
+    download_folder_path = os.path.join(os.getcwd(), "Script Downloads", identifier)
+    os.makedirs(download_folder_path, exist_ok=True)
+    return download_folder_path
+
 # def download_metadata_files(identifier):
     # download_folder_path = create_download_folder()
     # identifier_folder = os.path.join(download_folder_path, identifier)
@@ -36,12 +42,4 @@ def get_metadata_size(identifier):
                 # f.write(response.content)
                 # 
     # except requests.RequestException as e:
-        # raise e
-# 
-# def create_download_folder():
-    # script_path = os.path.abspath(__file__)
-    # grandparent_dir = os.path.dirname(os.path.dirname(script_path))
-    # downloads_folder_path = os.path.join(grandparent_dir, 'Downloads')
-    # Create the Downloads folder if it doesn't exist
-    # os.makedirs(downloads_folder_path, exist_ok=True)
-    # return downloads_folder_path
+        # # raise e
