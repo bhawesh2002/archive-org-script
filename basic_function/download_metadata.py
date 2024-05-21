@@ -68,7 +68,7 @@ def download_metadata_files(stdscr,identifier,queue,):
 def download_metadata(stdscr,identifier, queue):
     try:
         bg_download = threading.Thread(target=download_metadata_files, args=(stdscr,identifier,queue,)) # Run the download in a separate thread
-        bg_download.setDaemon(True) # Set the thread as a daemon thread to close it when the main thread exits
+        bg_download.setDaemon(True) # Set the thread as a daemon thread to shut down thread it when the main thread exits
         bg_download.start() # Start the download
         status_msg = "Downloading metadata files"
         y = stdscr.getyx()[0]
