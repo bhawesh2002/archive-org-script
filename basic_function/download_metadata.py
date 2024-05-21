@@ -3,6 +3,7 @@ import os
 import time # for creating directories for downloaded files
 import requests # for downloading the file
 import threading # for running the download in a separate thread
+from constants import DOWNLOAD_FOLDER_PATH # Import the download folder path
 
 # Get the size of the metadata files
 def get_metadata_size(identifier):
@@ -23,15 +24,15 @@ def get_metadata_size(identifier):
         raise e
 
 # Create a folder to store the downloaded files
-def create_download_folder(identifier):
+def create_metadata_folder(identifier):
      # Create a folder named after the identifier inside script_downloads in the current working directory
-    download_folder_path = os.path.join(os.getcwd(), "Archives", identifier)
-    os.makedirs(download_folder_path, exist_ok=True)
-    return download_folder_path
+    metadata_folder_path = os.path.join(DOWNLOAD_FOLDER_PATH, identifier, "metadata")
+    os.makedirs(metadata_folder_path, exist_ok=True)
+    return metadata_folder_path
 
 # Function to download the metadata files(will run in background)
 def download_metadata_files(stdscr,identifier,queue,):
-    download_folder_path = create_download_folder(identifier) #create the download folder
+    metadata_folder_path = create_metadata_folder(identifier) #create the download folder
     attempts = 0 # Number of attempts to download the files
     status = False # Status of the download
     try: 
@@ -44,7 +45,7 @@ def download_metadata_files(stdscr,identifier,queue,):
             # Download the *_meta.xml file
             meta_response = requests.get(f"https://archive.org/download/{identifier}/{identifier}_meta.xml", stream=True)
             if meta_response.status_code == 200:
-                with open(f"{download_folder_path}/{identifier}_meta.xml", 'wb') as f:
+                with open(f"{metadata_folder_path}/{identifier}_meta.xml", 'wb') as f:
                     f.write(meta_response.content)
                     f.close()
             else:
@@ -52,7 +53,7 @@ def download_metadata_files(stdscr,identifier,queue,):
             # Download the *_files.xml file
             files_response = requests.get(f"https://archive.org/download/{identifier}/{identifier}_files.xml", stream=True)
             if files_response.status_code == 200:
-                with open(f"{download_folder_path}/{identifier}_files.xml", 'wb') as f:
+                with open(f"{metadata_folder_path}/{identifier}_files.xml", 'wb') as f:
                     f.write(files_response.content)
                     f.close()
             else:
