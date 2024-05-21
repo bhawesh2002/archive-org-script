@@ -6,8 +6,8 @@ from basic_function.get_identifier import get_identifier #import get_identifier
 
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
-from basic_function.load_directory import get_metadata_size #import load_directory
- 
+from basic_function.load_directory import download_metadata #import load_directory
+import queue # for passing messages between threads
 # from displaying.display_ui import display_directory_struct #import display ui
 # from download_metadata.download_metadata import download_metadata_files #import download metadata
 # from parsing.parse_xml import parse_xml #import parse xml
@@ -25,9 +25,7 @@ def main(stdscr):
         welcome_message(stdscr, PROGRAM_NAME) #display the welcome message        
         stdscr.addstr(PROGRAM_NAME, curses.color_pair(6) | curses.A_BOLD) #display the program name
         identifier = get_identifier(stdscr) #get the archive.org identifier
-        files_size = get_metadata_size(identifier)
-        stdscr.addstr(3, 0, f"Files.xml Size: {files_size} bytes", curses.color_pair(5) | curses.A_BOLD) #display the size of files.xml
-        # stdscr.addstr(4, 0, f"Meta.xml Size: {meta_size} bytes", curses.color_pair(5) | curses.A_BOLD) #display the size of meta.xml
+        download_metadata(stdscr, identifier,queue= queue.Queue()) #load the directory structure
     except Exception as e:
         stdscr.clear() 
         x = (width -len(str(e)))//2 #center the error message
