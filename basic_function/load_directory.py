@@ -2,11 +2,17 @@ import os # for creating directories for downloaded files
 import requests # for downloading the file
 
 def get_metadata_size(identifier):
+    # Headers to avoid content encoding
+    headers = {
+        'Accept-Encoding': 'identity'
+    }
     try:
-        files_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_files.xml")
-        meta_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_meta.xml")
+        files_response = requests.head(f"https://archive.org/download/012665756885/012665756885_files.xml", headers=headers, allow_redirects=True)
+        meta_response = requests.head(f"https://archive.org/download/012665756885/012665756885_meta.xml", headers=headers, allow_redirects=True)
         if files_response.status_code == 200 and meta_response.status_code == 200:
-            return int(files_response.headers['Content-Length']),int(meta_response.headers['Content-Length'])
+            files_xml_size = files_response.headers.get('Content-Length', None) # Get the size of the files.xml file
+            meta_xml_size = meta_response.headers.get('Content-Length', None) # Get the size of the meta.xml file
+            return files_xml_size, meta_xml_size
         else:
             return False
     except requests.RequestException as e:
