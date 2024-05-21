@@ -1,4 +1,5 @@
 import curses #for creating TUI
+from constants import PROGRAM_NAME
 from colors.app_colors import init_colors #import color pairs
 from displaying.welcome_message import welcome_message #import welcome message
 from error_messages.error_messages import resize_window_err_msg #import error message
@@ -12,7 +13,6 @@ import queue # for passing messages between threads
 # from parsing.parse_xml import parse_xml #import parse xml
 # from selection_deselection import toggle_item #for creation of TUI
 
-PROGRAM_NAME = "Archive.org Dwonloader" #program name
 
 def main(stdscr):
     curses.curs_set(0) #hide the cursor
