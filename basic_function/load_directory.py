@@ -69,7 +69,7 @@ def download_metadata(stdscr,identifier, queue):
         status_msg = "Downloading metadata files"
         y = stdscr.getyx()[0]
         stdscr.addstr(y,0,status_msg, curses.color_pair(4) | curses.A_BOLD)
-        while bg_download.is_alive(): # While the download is running
+        while bg_download.is_alive(): # While the download is running in background display a status message
             stdscr.addstr(y,len(status_msg),".", curses.color_pair(4) | curses.A_BOLD)
             stdscr.refresh()
             time.sleep(0.2)
@@ -83,12 +83,16 @@ def download_metadata(stdscr,identifier, queue):
             stdscr.refresh()
             time.sleep(0.2)
 
+         
         result = queue.get() # Get the result of the download
-        if result:
+        # If the download is successful, display a success message
+        if result: 
             stdscr.deleteln()
             stdscr.addstr(y,0,"Metadata Downloaded Successfully\n", curses.color_pair(5) | curses.A_BOLD)
             time.sleep(0.5)
             stdscr.refresh()
+
+        # If the download fails, display an error message and exit the program
         else:
             y = stdscr.getyx()[0]
             stdscr.deleteln()
