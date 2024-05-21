@@ -3,7 +3,7 @@ import requests #for making HTTP requests
 
 # Get the identifier from the download link
 def get_identifier(stdscr):
-    download_link = get_link(stdscr)
+    download_link = get_link(stdscr) #get the download link from the user
     identifier = download_link.split("/")[-1] #extract the identifier from the link
     return identifier
 
@@ -22,6 +22,7 @@ def get_link(stdscr):
 
     return download_link
 
+#User input function to get the download link from the user
 def user_input(stdscr):
     stdscr.addstr(1,0,"Paste the link here: ", curses.color_pair(4)) # Prompt the user to enter a link
     stdscr.refresh()
