@@ -26,12 +26,15 @@ def main(stdscr):
         stdscr.addstr(PROGRAM_NAME, curses.color_pair(6) | curses.A_BOLD) #display the program name
         identifier = get_identifier(stdscr) #get the archive.org identifier
         download_metadata(stdscr, identifier,queue= queue.Queue()) #load the directory structure
+    
+    #handle keyboard interrupt
     except KeyboardInterrupt as e:
         stdscr.clear() #clear the screen
         stdscr.addstr(height//2, (width - len("Keyboad Interrupt: Exiting"))//2, "Keyboad Interrupt: Exiting", curses.color_pair(4) | curses.A_BOLD) #display the exit message
         stdscr.refresh()
         time.sleep(0.5)
         exit(0)
+    #handle other errors
     except Exception as e:
         stdscr.clear() 
         x = (width -len(str(e)))//2 #center the error message
