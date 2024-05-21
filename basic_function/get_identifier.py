@@ -14,7 +14,6 @@ def get_link(stdscr):
         download_link = construct_download_link(link) #construct the link
         
         if validate_link(download_link):
-            stdscr.addstr(2, 0, "Success: Fetching Metadata", curses.color_pair(5) | curses.A_BOLD) #display success message
             stdscr.refresh()
             break
         else:
