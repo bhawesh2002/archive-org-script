@@ -1,6 +1,7 @@
 import curses
 import os
 import requests # for downloading the file
+import queue # for passing messages between threads
 
 def get_metadata_size(identifier):
     # Headers to avoid content encoding
@@ -26,14 +27,15 @@ def create_download_folder(identifier):
     return download_folder_path
 
 # Download the metadata files
-def download_metadata_files(stdscr,identifier):
+def download_metadata_files(stdscr,identifier,queue,):
     download_folder_path = create_download_folder(identifier) #create the download folder
     attempts = 0 # Number of attempts to download the files
     status = False # Status of the download
     try: 
         while not status:
             if attempts >= 3:
-                stdscr.addstr(f"Error: Unable to download {identifier}_meta.xml and {identifier}_files.xml\n", curses.color_pair(2))
+                y = stdscr.getyx()[0]
+                stdscr.addstr(y,0,f"Error: Maximum Attempts Reached\n", curses.color_pair(4))
                 break
             attempts += 1
             # Download the *_meta.xml file
@@ -43,7 +45,7 @@ def download_metadata_files(stdscr,identifier):
                     f.write(meta_response.content)
                     f.close()
             else:
-                stdscr.addstr(f"Error: Unable to download {identifier}_meta.xml\n", curses.color_pair(2))
+                continue # If the download fails, try again
             # Download the *_files.xml file
             files_response = requests.get(f"https://archive.org/download/{identifier}/{identifier}_files.xml", stream=True)
             if files_response.status_code == 200:
@@ -51,8 +53,10 @@ def download_metadata_files(stdscr,identifier):
                     f.write(files_response.content)
                     f.close()
             else:
-                stdscr.addstr(f"Error: Unable to download {identifier}_files.xml\n", curses.color_pair(2))
+                continue # If the download fails, try again
+
+            status = True # If the download is successful, set status to True
     except requests.RequestException as e:
-        raise (f"download_metadata_files:{e}")
+        raise e
     
-    return status # Return the status of the download
+    queue.put(status) # Send a message to the main thread that the download is done
