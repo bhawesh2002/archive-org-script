@@ -30,7 +30,7 @@ def main(stdscr):
     #handle keyboard interrupt
     except KeyboardInterrupt as e:
         stdscr.clear() #clear the screen
-        stdscr.addstr(height//2, (width - len("Keyboad Interrupt: Exiting"))//2, "Keyboad Interrupt: Exiting", curses.color_pair(4) | curses.A_BOLD) #display the exit message
+        stdscr.addstr(height//2, (width - len("Keyboad Interrupt: Exiting"))//2, "Keyboad Interrupt: Exiting", curses.color_pair(3) | curses.A_BOLD) #display the exit message
         stdscr.refresh()
         time.sleep(0.5)
         exit(0)
