@@ -1,10 +1,11 @@
 import curses
 import os
+import time # for creating directories for downloaded files
 import requests # for downloading the file
-import queue # for passing messages between threads
+import threading # for running the download in a separate thread
 
 def get_metadata_size(identifier):
-    # Headers to avoid content encoding
+    # Headers to avoid content encoding2
     headers = {
         'Accept-Encoding': 'identity'
     }
@@ -60,3 +61,42 @@ def download_metadata_files(stdscr,identifier,queue,):
         raise e
     
     queue.put(status) # Send a message to the main thread that the download is done
+
+def download_metadata(stdscr,identifier, queue):
+    try:
+        bg_download = threading.Thread(target=download_metadata_files, args=(stdscr,identifier,queue,)) # Run the download in a separate thread
+        bg_download.start() # Start the download
+        status_msg = "Downloading metadata files"
+        y = stdscr.getyx()[0]
+        stdscr.addstr(y,0,status_msg, curses.color_pair(4) | curses.A_BOLD)
+        while bg_download.is_alive(): # While the download is running
+            stdscr.addstr(y,len(status_msg),".", curses.color_pair(4) | curses.A_BOLD)
+            stdscr.refresh()
+            time.sleep(0.2)
+            stdscr.addstr(y,len(status_msg),"..", curses.color_pair(4) | curses.A_BOLD)
+            stdscr.refresh()
+            time.sleep(0.2)
+            stdscr.addstr(y,len(status_msg),"...", curses.color_pair(4) | curses.A_BOLD)
+            stdscr.refresh()
+            time.sleep(0.2)
+            stdscr.addstr(y,len(status_msg),"   ", curses.color_pair(4) | curses.A_BOLD)
+            stdscr.refresh()
+            time.sleep(0.2)
+
+        result = queue.get() # Get the result of the download
+        if result:
+            stdscr.deleteln()
+            stdscr.addstr(y,0,"Metadata Downloaded Successfully\n", curses.color_pair(5) | curses.A_BOLD)
+            time.sleep(0.5)
+            stdscr.refresh()
+        else:
+            y = stdscr.getyx()[0]
+            stdscr.deleteln()
+            stdscr.addstr(y,0,f"Metadata Download Failed\n", curses.color_pair(3) | curses.A_BOLD)
+            stdscr.addstr(y,0,"Exiting...\n", curses.color_pair(3) | curses.A_BOLD)
+            stdscr.refresh()
+            time.sleep(1)
+            exit(0)
+
+    except Exception as e:
+        raise e
