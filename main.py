@@ -3,11 +3,10 @@ from colors.app_colors import init_colors #import color pairs
 from displaying.welcome_message import welcome_message #import welcome message
 from error_messages.error_messages import resize_window_err_msg #import error message
 from basic_function.get_identifier import get_identifier #import get_identifier
-
+from Script.basic_function.download_metadata import download_metadata #import load_directory
+import queue # for passing messages between threads
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
-from basic_function.load_directory import download_metadata #import load_directory
-import queue # for passing messages between threads
 # from displaying.display_ui import display_directory_struct #import display ui
 # from download_metadata.download_metadata import download_metadata_files #import download metadata
 # from parsing.parse_xml import parse_xml #import parse xml
