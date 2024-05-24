@@ -10,16 +10,16 @@ def parse_xml(identifier):
     root = tree.getroot()
     file_tree = {}
 
-    for file in root.findall('.//file'):
-        name = file.get('name')
-        size_element = file.find('size') # Find the size element
-        size = size_element.text if size_element is not None else 'Unknown' # Check if size element is found
-        folders = name.split('/')
-        current_level = file_tree
-        for folder in folders[:-1]: # Iterate through all folders except the last one
-            if folder not in current_level:
-                current_level[folder] = {}
-            current_level = current_level[folder]
+    for file in root.findall('.//file'): # Find all 'file' elements in the XML file
+        name = file.get('name') # Get the 'name' attribute of the file element
+        size = file.find('size') # Find the 'size' element
+        size = size.text if size is not None else 'Unknown' # Check if size is found
+        folders = name.split('/') # Split the file path into folders
+        current_level = file_tree # Start at the root level of the dictionary
+        for folder in folders[:-1]: # Iterate through all folders except the last one as it is the file name
+            if folder not in current_level: # Check if the folder is already in the dictionary
+                current_level[folder] = {} # Create an empty dictionary for the folder
+            current_level = current_level[folder] # Move to the next level of the dictionary
         # Include the file name and its size in the dictionary
         current_level[folders[-1]] = size
     
