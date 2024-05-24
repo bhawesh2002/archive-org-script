@@ -7,11 +7,11 @@ from error_messages.error_messages import resize_window_err_msg, keyboard_interr
 from basic_function.get_identifier import get_identifier #import get_identifier
 from basic_function.download_metadata import download_metadata #import load_directory
 import queue # for passing messages between threads
+from parsing.parse_xml import parse_xml #import parse xml
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
 # from displaying.display_ui import display_directory_struct #import display ui
 # from download_metadata.download_metadata import download_metadata_files #import download metadata
-# from parsing.parse_xml import parse_xml #import parse xml
 # from selection_deselection import toggle_item #for creation of TUI
 
 
@@ -26,7 +26,9 @@ def main(stdscr):
         stdscr.addstr(PROGRAM_NAME, curses.color_pair(6) | curses.A_BOLD) #display the program name
         identifier = get_identifier(stdscr) #get the archive.org identifier
         download_metadata(stdscr, identifier,queue= queue.Queue()) #load the directory structure
-    
+        parse_xml(identifier) #parse the xml file
+        stdscr.addstr(2, 0, "Successfully parsed xml file.", curses.color_pair(5)) #display success message
+        stdscr.refresh()
     #handle keyboard interrupt
     except KeyboardInterrupt as e:
         stdscr.clear() #clear the screen
