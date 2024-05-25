@@ -2,7 +2,7 @@ import os
 
 PROGRAM_NAME = "Archive.org Dwonloader" #program name
 DOWNLOAD_FOLDER_PATH = os.path.join(os.getcwd(), "Archives") #download folder path
-CONTROLS = "Controls: [Arrow Keys] to navigate, [Enter] to select, [Esc] to exit, 'h' to toggle help" #controls message
+CONTROLS = "Controls: [Arrow Keys] to navigate, [Space] to select, [Esc] to exit, 'h' to toggle help" #controls message
 #help message
 HELP_TEXT = [
         "Help",
