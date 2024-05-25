@@ -8,9 +8,9 @@ from basic_function.get_identifier import get_identifier #import get_identifier
 from basic_function.download_metadata import download_metadata #import load_directory
 import queue # for passing messages between threads
 from parsing.parse_xml import parse_xml #import parse xml
+from displaying.build_display_env import build_display_env #import build_display_env to build the display environment
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
-# from displaying.display_ui import display_directory_struct #import display ui
 # from download_metadata.download_metadata import download_metadata_files #import download metadata
 # from selection_deselection import toggle_item #for creation of TUI
 
@@ -28,6 +28,9 @@ def main(stdscr):
         download_metadata(stdscr, identifier,queue= queue.Queue()) #load the directory structure
         parse_xml(identifier) #parse the xml file
         stdscr.addstr(2, 0, "Successfully parsed xml file.", curses.color_pair(5)) #display success message
+        time.sleep(1) #wait for 1 second
+        stdscr.clear() #clear the screen
+        build_display_env(stdscr, PROGRAM_NAME) #build the display environment
         stdscr.refresh()
     #handle keyboard interrupt
     except KeyboardInterrupt as e:
@@ -49,7 +52,7 @@ def main(stdscr):
         key = stdscr.getch()
         stdscr.refresh()
         if key == ord('\033'):  # '\033' for 'Esc' key in ASCII
-            break
+            exit(0)
     # Ensure the script_downloads folder exists
     # script_downloads_path = "script_downloads"
     # os.makedirs(script_downloads_path, exist_ok=True)
