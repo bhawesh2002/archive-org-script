@@ -9,6 +9,7 @@ from basic_function.download_metadata import download_metadata #import load_dire
 import queue # for passing messages between threads
 from parsing.parse_xml import parse_xml #import parse xml
 from displaying.build_display_env import build_display_env #import build_display_env to build the display environment
+from displaying.display_help import display_help #import display_directory_struct to display the directory structure
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
 # from download_metadata.download_metadata import download_metadata_files #import download metadata
@@ -53,6 +54,19 @@ def main(stdscr):
         stdscr.refresh()
         if key == ord('\033'):  # '\033' for 'Esc' key in ASCII
             exit(0)
+        if key == ord('h'): # 'h' for help
+            stdscr.clear()
+            display_help(stdscr)
+            stdscr.refresh()
+            while True:
+                key = stdscr.getch()
+                if key == ord('h'):# 'h' to toggle help
+                    stdscr.clear()
+                    build_display_env(stdscr, PROGRAM_NAME)
+                    stdscr.refresh()
+                    break
+                if key == ord('\033'):  # '\033' for 'Esc' key in ASCII
+                    exit(0)
     # Ensure the script_downloads folder exists
     # script_downloads_path = "script_downloads"
     # os.makedirs(script_downloads_path, exist_ok=True)
