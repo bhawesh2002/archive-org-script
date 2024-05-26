@@ -4,6 +4,7 @@ from constants import HELP_TEXT
 
 def display_help(stdscr):
     try: 
+        init_colors()
         stdscr.addstr(0,0,"Help\n", curses.color_pair(5) | curses.A_BOLD)
         stdscr.addstr(1,0,"----------------------\n", curses.color_pair(5) | curses.A_BOLD)
         y = stdscr.getyx()[0] #get the position of cursor
