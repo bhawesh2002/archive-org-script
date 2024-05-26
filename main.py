@@ -56,8 +56,15 @@ def main(stdscr):
             exit(0)
         if key == ord('h'): # 'h' for help
             stdscr.clear()
-            display_help(stdscr)
-            stdscr.refresh()
+            try:
+                display_help(stdscr)
+                stdscr.refresh()
+            except Exception as e:
+                stdscr.clear() 
+                x = (width -len(str(e)))//2 #center the error message
+                stdscr.addstr(height//2,x, f"{e}", curses.color_pair(2) | curses.A_BOLD) #display the error message
+                stdscr.addstr(height//2 + 1,(width - len(resize_window_err_msg))//2, f"{resize_window_err_msg}") #display the solution for the error
+                stdscr.refresh()
             while True:
                 key = stdscr.getch()
                 if key == ord('h'):# 'h' to toggle help
