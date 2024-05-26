@@ -5,8 +5,6 @@ DOWNLOAD_FOLDER_PATH = os.path.join(os.getcwd(), "Archives") #download folder pa
 CONTROLS = "Controls: [Arrow Keys] to navigate, [Space] to select, [Esc] to exit, 'h' to toggle help" #controls message
 #help message
 HELP_TEXT = [
-        "Help",
-        "----",
         "NAVIGATION",
         "Arrow keys: Navigate the file browser",
         "Enter: Open the selected item",
