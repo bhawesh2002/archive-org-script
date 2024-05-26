@@ -12,8 +12,8 @@ def get_metadata_size(identifier):
         'Accept-Encoding': 'identity'
     }
     try:
-        files_response = requests.head(f"https://archive.org/download/012665756885/012665756885_files.xml", headers=headers, allow_redirects=True)
-        meta_response = requests.head(f"https://archive.org/download/012665756885/012665756885_meta.xml", headers=headers, allow_redirects=True)
+        files_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_files.xml", headers=headers, allow_redirects=True)
+        meta_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_meta.xml", headers=headers, allow_redirects=True)
         if files_response.status_code == 200 and meta_response.status_code == 200:
             files_xml_size = files_response.headers.get('Content-Length', None) # Get the size of the files.xml file
             meta_xml_size = meta_response.headers.get('Content-Length', None) # Get the size of the meta.xml file
