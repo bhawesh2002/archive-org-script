@@ -62,5 +62,5 @@ def validate_link(download_link):
             return True
         else:
             return False
-    except requests.ConnectionError as e:
-        raise e
+    except requests.ConnectionError as e: #catch connection error
+        raise e #raise the exception
