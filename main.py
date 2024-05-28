@@ -45,7 +45,7 @@ def main(stdscr):
         stdscr.clear() 
         x = (width -len(str(e)))//2 #center the error message
         stdscr.addstr(height//2,x, f"{e}", curses.color_pair(2) | curses.A_BOLD) #display the error message
-        stdscr.addstr(height//2 + 1,(width - len(resize_window_err_msg))//2, f"{resize_window_err_msg}") #display the solution for the error
+        # stdscr.addstr(height//2 + 1,(width - len(resize_window_err_msg))//2, f"{resize_window_err_msg}") #display the solution for the error
         stdscr.refresh()
 
     # Logic for the key press
