@@ -77,7 +77,6 @@ def download_metadata_files(stdscr,identifier,queue,):
                 continue # If the download fails, try again
 
             status = True # If the download is successful, set status to True
-        stdscr.deleteln()
     except requests.HTTPError as http_err: # Handle HTTP errors
         print(f'HTTP error occurred: {http_err}')
         raise http_err
