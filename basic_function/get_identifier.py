@@ -3,24 +3,9 @@ import requests #for making HTTP requests
 
 # Get the identifier from the download link
 def get_identifier(stdscr):
-    download_link = get_link(stdscr) #get the download link from the user
+    download_link = user_input(stdscr) #get the download link from the user
     identifier = download_link.split("/")[-1] #extract the identifier from the link
     return identifier
-
-# return a valid dwonload link
-def get_link(stdscr):
-    while True:
-        link = user_input(stdscr) #get the link from the user
-        download_link = construct_download_link(link) #construct the link
-        
-        if validate_link(download_link):
-            stdscr.refresh()
-            break
-        else:
-            stdscr.addstr(2, 0, "Error: Input not valid", curses.color_pair(3) | curses.A_BOLD) #display error message
-            stdscr.refresh()
-
-    return download_link
 
 #User input function to get the download link from the user
 def user_input(stdscr):
@@ -38,7 +23,10 @@ def user_input(stdscr):
     curses.curs_set(0) # Hide the cursor
     stdscr.keypad(False) # Disable keypad mode
     stdscr.refresh()
-    return link
+
+    download_link = construct_download_link(link) # Construct the download link
+
+    return download_link
 
 # Checks if the link follows the format of an archive.org download directory link.
 def construct_download_link(link):
@@ -53,14 +41,3 @@ def construct_download_link(link):
     # If the link is a download link, return the link
     elif "https://archive.org/download/" in link:
         return link
-
-# Checks if the link exists or not
-def validate_link(download_link):
-    try:
-        response = requests.head(download_link) #send a HEAD request to the link for validating link
-        if response.status_code == 200:
-            return True
-        else:
-            return False
-    except requests.ConnectionError as e: #catch connection error
-        raise e #raise the exception
