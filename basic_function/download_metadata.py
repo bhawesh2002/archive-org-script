@@ -60,8 +60,22 @@ def download_metadata_files(stdscr,identifier,queue,):
                 continue # If the download fails, try again
 
             status = True # If the download is successful, set status to True
-    except requests.RequestException as e:
-        raise e
+    except requests.HTTPError as http_err: # Handle HTTP errors
+        print(f'HTTP error occurred: {http_err}')
+        raise http_err
+    except ConnectionError as conn_err: # Handle connection errors
+        print(f'Connection error occurred: {conn_err}')
+        raise conn_err
+    except requests.Timeout as timeout_err: # Handle timeout errors
+        print(f'Timeout error occurred: {timeout_err}')
+        raise timeout_err
+    except requests.RequestException as req_err: # Handle request errors
+        print(f'Request error occurred: {req_err}')
+        raise req_err
+    except Exception as err: # Handle other errors
+        print(f'An error occurred: {err}')
+        raise err
+
     
     queue.put(status) # Send a message to the main thread that the download is done
 
