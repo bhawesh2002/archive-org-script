@@ -68,6 +68,9 @@ def download_metadata_files(stdscr,identifier,queue,):
 #Use multithreading to download the metadata files in the background
 def download_metadata(stdscr,identifier, queue):
     try:
+        # Get the size of the metadata files
+        files_xml_size, meta_xml_size = get_metadata_size(identifier) # Get the size of the metadata files
+        
         bg_download = threading.Thread(target=download_metadata_files, args=(stdscr,identifier,queue,)) # Run the download in a separate thread
         bg_download.setDaemon(True) # Set the thread as a daemon thread to shut down thread it when the main thread exits
         bg_download.start() # Start the download
