@@ -1,5 +1,5 @@
-import curses
-import time #for creating TUI
+import curses #for creating TUI
+import time #for utilizing delays
 from constants import PROGRAM_NAME
 from colors.app_colors import init_colors #import color pairs
 from displaying.welcome_message import welcome_message #import welcome message
