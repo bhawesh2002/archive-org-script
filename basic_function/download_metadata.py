@@ -5,6 +5,7 @@ import requests # for downloading the file
 import threading # for running the download in a separate thread
 from constants import DOWNLOAD_FOLDER_PATH # Import the download folder path
 
+# Headers to avoid content encoding
 HEADERS = {
         'Accept-Encoding': 'identity'
 }
