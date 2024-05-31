@@ -34,51 +34,46 @@ def get_metadata_size(identifier):
 
 # Function to download the metadata files(will run in background)
 def download_metadata_files(stdscr,identifier,queue,):
-    metadata_folder_path = create_metadata_folder(identifier) #create the download folder
-    attempts = 0 # Number of attempts to download the files
-    status = False # Status of the download
+    status = False # Set the status to False by default
     try: 
-        files_xml_size, meta_xml_size = get_metadata_size(identifier) # Get the size of the metadata files
-        y = stdscr.getyx()[0] # Get the current y position of the cursor
-        while not status:
-            if attempts >= 3:
-                status = False # If the download fails after 3 attempts, set status to False and break
-                break
-            
-            # Increment the number of attempts
-            attempts += 1
+        y = stdscr.getyx()[0]
+        # Download *_meta.xml
+        meta_xml_request = requests.get(f"https://archive.org/download/{identifier}/{identifier}_meta.xml", headers=HEADERS, allow_redirects=True)
+        # If the download is successful, save the files to the metadata folder
+        if meta_xml_request.status_code == 200:
+            metadata_folder_path = create_metadata_folder(identifier) #create the download folder
+            meta_xml_size = meta_xml_request.headers.get('Content-Length', None) # Get the size of the meta.xml file
+            meta_downloaded_size = 0
+            with open(f"{metadata_folder_path}/{identifier}_meta.xml", 'wb') as meta_xml:
+                for chunk in meta_xml_request.iter_content(chunk_size=10): # Write the file in 10 byte chunks
+                    if chunk:
+                        meta_xml.write(chunk)
+                        meta_downloaded_size += len(chunk)
+                        stdscr.addstr(y+1,0,f"{identifier}_meta.xml: {meta_downloaded_size}/{meta_xml_size} bytes", curses.color_pair(4) | curses.A_BOLD)
+                        stdscr.refresh()
+                meta_xml.close() # Close the file after writing
+        else:
+            status = False # Set the status to False if the download fails
+        
+        # Download *_files.xml
+        files_xml_request = requests.get(f"https://archive.org/download/{identifier}/{identifier}_files.xml", headers=HEADERS, allow_redirects=True)
+        # If the download is successful, save the files to the metadata folder
+        if files_xml_request.status_code == 200:
+            files_xml_size = files_xml_request.headers.get('Content-Length', None) # Get the size of the files.xml file
+            files_downloaded_size = 0
+            with open(f"{metadata_folder_path}/{identifier}_files.xml", 'wb') as files_xml:
+                for chunk in files_xml_request.iter_content(chunk_size=10): # Write the file in 10 byte chunks
+                    if chunk:
+                        files_xml.write(chunk)
+                        files_downloaded_size += len(chunk)
+                        stdscr.addstr(y+2,0,f"{identifier}_files.xml: {files_downloaded_size}/{files_xml_size} bytes", curses.color_pair(4) | curses.A_BOLD)
+                        stdscr.refresh()
+                files_xml.close() # Close the file after writing
+        else:
+            status = False
 
-            # Download the *_meta.xml file
-            meta_response = requests.get(f"https://archive.org/download/{identifier}/{identifier}_meta.xml", stream=True)
-            if meta_response.status_code == 200:
-                meta_downloaded_size = 0
-                with open(f"{metadata_folder_path}/{identifier}_meta.xml", 'wb') as meta_xml:
-                    for chunk in meta_response.iter_content(chunk_size=10): # Write the file in 10 byte chunks
-                        if chunk:
-                            meta_xml.write(chunk)
-                            meta_downloaded_size += len(chunk)
-                            stdscr.addstr(y+1,0,f"{identifier}_meta.xml: {meta_downloaded_size}/{meta_xml_size} bytes", curses.color_pair(4) | curses.A_BOLD)
-                            stdscr.refresh()
-                    meta_xml.close() # Close the file
-            else:
-                continue # If the download fails, try again
+        status = True # Set the status to True if the download is successful
 
-            # Download the *_files.xml file
-            files_response = requests.get(f"https://archive.org/download/{identifier}/{identifier}_files.xml", stream=True)
-            if files_response.status_code == 200:
-                files_downloaded_size = 0
-                with open(f"{metadata_folder_path}/{identifier}_files.xml", 'wb') as files_xml:
-                    for chunk in files_response.iter_content(chunk_size=10): # Write the file in 10 byte chunks
-                        if chunk:
-                            files_xml.write(chunk)
-                            files_downloaded_size += len(chunk)
-                            stdscr.addstr(y+2,0,f"{identifier}_files.xml: {files_downloaded_size}/{files_xml_size} bytes", curses.color_pair(4) | curses.A_BOLD)
-                            stdscr.refresh()
-                    files_xml.close() # Close the file
-            else:
-                continue # If the download fails, try again
-
-            status = True # If the download is successful, set status to True
     except requests.HTTPError as http_err: # Handle HTTP errors
         print(f'HTTP error occurred: {http_err}')
         raise http_err
