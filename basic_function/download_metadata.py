@@ -37,6 +37,7 @@ def download_metadata_files(stdscr,identifier,queue,):
                         stdscr.addstr(y+1,0,f"{identifier}_meta.xml: {meta_downloaded_size}/{meta_xml_size} bytes", curses.color_pair(4) | curses.A_BOLD)
                         stdscr.refresh()
                 meta_xml.close() # Close the file after writing
+            status = True # Set the status to True if the download is successful
         else:
             status = False # Set the status to False if the download fails
         
@@ -54,10 +55,9 @@ def download_metadata_files(stdscr,identifier,queue,):
                         stdscr.addstr(y+2,0,f"{identifier}_files.xml: {files_downloaded_size}/{files_xml_size} bytes", curses.color_pair(4) | curses.A_BOLD)
                         stdscr.refresh()
                 files_xml.close() # Close the file after writing
+            status = True # Set the status to True if the download is successful
         else:
             status = False
-
-        status = True # Set the status to True if the download is successful
 
     except requests.HTTPError as http_err: # Handle HTTP errors
         print(f'HTTP error occurred: {http_err}')
@@ -117,7 +117,7 @@ def download_metadata(stdscr,identifier, queue):
             stdscr.deleteln()
             stdscr.deleteln()
             stdscr.addstr(y,0,f"Metadata Download Failed\n", curses.color_pair(3) | curses.A_BOLD)
-            stdscr.addstr(y,0,"Exiting...\n", curses.color_pair(3) | curses.A_BOLD)
+            stdscr.addstr(y+1,0,"Exiting...\n", curses.color_pair(3) | curses.A_BOLD)
             stdscr.refresh()
             time.sleep(1)
             exit(0)
