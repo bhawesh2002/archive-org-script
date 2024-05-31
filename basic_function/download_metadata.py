@@ -37,7 +37,7 @@ def download_metadata_files(stdscr,identifier,queue,):
     status = False # Status of the download
     try: 
         files_xml_size, meta_xml_size = get_metadata_size(identifier) # Get the size of the metadata files
-        y = stdscr.getyx()[0]
+        y = stdscr.getyx()[0] # Get the current y position of the cursor
         while not status:
             if attempts >= 3:
                 status = False # If the download fails after 3 attempts, set status to False and break
