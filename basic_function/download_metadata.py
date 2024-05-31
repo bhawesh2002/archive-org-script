@@ -17,21 +17,6 @@ def create_metadata_folder(identifier):
     os.makedirs(metadata_folder_path, exist_ok=True)
     return metadata_folder_path
 
-# Get the size of the metadata files
-def get_metadata_size(identifier):
-    # Headers to avoid content encoding
-    try:
-        files_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_files.xml", headers=HEADERS, allow_redirects=True)
-        meta_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_meta.xml", headers=HEADERS, allow_redirects=True)
-        if files_response.status_code == 200 and meta_response.status_code == 200:
-            files_xml_size = files_response.headers.get('Content-Length', None) # Get the size of the files.xml file
-            meta_xml_size = meta_response.headers.get('Content-Length', None) # Get the size of the meta.xml file
-            return files_xml_size, meta_xml_size
-        else:
-            return False
-    except requests.RequestException as e:
-        raise e
-
 # Function to download the metadata files(will run in background)
 def download_metadata_files(stdscr,identifier,queue,):
     status = False # Set the status to False by default
@@ -96,9 +81,6 @@ def download_metadata_files(stdscr,identifier,queue,):
 #Use multithreading to download the metadata files in the background
 def download_metadata(stdscr,identifier, queue):
     try:
-        # Get the size of the metadata files
-        files_xml_size, meta_xml_size = get_metadata_size(identifier) # Get the size of the metadata files
-        
         bg_download = threading.Thread(target=download_metadata_files, args=(stdscr,identifier,queue,)) # Run the download in a separate thread
         bg_download.setDaemon(True) # Set the thread as a daemon thread to shut down thread it when the main thread exits
         bg_download.start() # Start the download
