@@ -40,7 +40,6 @@ def download_metadata_files(stdscr,identifier,queue,):
         y = stdscr.getyx()[0]
         while not status:
             if attempts >= 3:
-                stdscr.addstr(y,0,f"Error: Maximum Attempts Reached\n", curses.color_pair(4))
                 break
             
             # Increment the number of attempts
