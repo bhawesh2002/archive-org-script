@@ -5,6 +5,10 @@ import requests # for downloading the file
 import threading # for running the download in a separate thread
 from constants import DOWNLOAD_FOLDER_PATH # Import the download folder path
 
+HEADERS = {
+        'Accept-Encoding': 'identity'
+}
+
 # Create a folder to store the downloaded files
 def create_metadata_folder(identifier):
      # Create a folder named after the identifier inside script_downloads in the current working directory
@@ -15,12 +19,9 @@ def create_metadata_folder(identifier):
 # Get the size of the metadata files
 def get_metadata_size(identifier):
     # Headers to avoid content encoding
-    headers = {
-        'Accept-Encoding': 'identity'
-    }
     try:
-        files_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_files.xml", headers=headers, allow_redirects=True)
-        meta_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_meta.xml", headers=headers, allow_redirects=True)
+        files_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_files.xml", headers=HEADERS, allow_redirects=True)
+        meta_response = requests.head(f"https://archive.org/download/{identifier}/{identifier}_meta.xml", headers=HEADERS, allow_redirects=True)
         if files_response.status_code == 200 and meta_response.status_code == 200:
             files_xml_size = files_response.headers.get('Content-Length', None) # Get the size of the files.xml file
             meta_xml_size = meta_response.headers.get('Content-Length', None) # Get the size of the meta.xml file
