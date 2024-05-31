@@ -40,6 +40,7 @@ def download_metadata_files(stdscr,identifier,queue,):
         y = stdscr.getyx()[0]
         while not status:
             if attempts >= 3:
+                status = False # If the download fails after 3 attempts, set status to False and break
                 break
             
             # Increment the number of attempts
