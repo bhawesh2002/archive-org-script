@@ -5,6 +5,13 @@ import requests # for downloading the file
 import threading # for running the download in a separate thread
 from constants import DOWNLOAD_FOLDER_PATH # Import the download folder path
 
+# Create a folder to store the downloaded files
+def create_metadata_folder(identifier):
+     # Create a folder named after the identifier inside script_downloads in the current working directory
+    metadata_folder_path = os.path.join(DOWNLOAD_FOLDER_PATH, identifier, "metadata")
+    os.makedirs(metadata_folder_path, exist_ok=True)
+    return metadata_folder_path
+
 # Get the size of the metadata files
 def get_metadata_size(identifier):
     # Headers to avoid content encoding
@@ -22,13 +29,6 @@ def get_metadata_size(identifier):
             return False
     except requests.RequestException as e:
         raise e
-
-# Create a folder to store the downloaded files
-def create_metadata_folder(identifier):
-     # Create a folder named after the identifier inside script_downloads in the current working directory
-    metadata_folder_path = os.path.join(DOWNLOAD_FOLDER_PATH, identifier, "metadata")
-    os.makedirs(metadata_folder_path, exist_ok=True)
-    return metadata_folder_path
 
 # Function to download the metadata files(will run in background)
 def download_metadata_files(stdscr,identifier,queue,):
