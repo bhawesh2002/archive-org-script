@@ -21,7 +21,7 @@ def create_metadata_folder(identifier):
 def download_metadata_files(stdscr,identifier,queue,):
     status = False # Set the status to False by default
     try: 
-        y = stdscr.getyx()[0]
+        y = stdscr.getyx()[0] # Get the current y position of the cursor
         # Download *_meta.xml
         meta_xml_request = requests.get(f"https://archive.org/download/{identifier}/{identifier}_meta.xml", headers=HEADERS, allow_redirects=True)
         # If the download is successful, save the files to the metadata folder
@@ -57,7 +57,7 @@ def download_metadata_files(stdscr,identifier,queue,):
                 files_xml.close() # Close the file after writing
             status = True # Set the status to True if the download is successful
         else:
-            status = False
+            status = False # Set the status to False if the download fails
 
     except requests.HTTPError as http_err: # Handle HTTP errors
         print(f'HTTP error occurred: {http_err}')
