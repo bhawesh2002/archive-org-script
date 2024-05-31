@@ -110,6 +110,7 @@ def download_metadata(stdscr,identifier, queue):
             stdscr.addstr(y,0,"Metadata Downloaded Successfully\n", curses.color_pair(5) | curses.A_BOLD)
             time.sleep(0.5)
             stdscr.refresh()
+            return True # Return True if the download is successful
 
         # If the download fails, display an error message and exit the program
         else:
@@ -120,7 +121,7 @@ def download_metadata(stdscr,identifier, queue):
             stdscr.addstr(y+1,0,"Exiting...\n", curses.color_pair(3) | curses.A_BOLD)
             stdscr.refresh()
             time.sleep(1)
-            exit(0)
+            return False # Return False if the download fails
 
     except Exception as e:
         raise e
