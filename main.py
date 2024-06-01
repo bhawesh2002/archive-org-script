@@ -25,8 +25,10 @@ def main(stdscr):
     try:
         welcome_message(stdscr, PROGRAM_NAME) #display the welcome message        
         stdscr.addstr(PROGRAM_NAME, curses.color_pair(6) | curses.A_BOLD) #display the program name
-        identifier = get_identifier(stdscr) #get the archive.org identifier
-        download_status = download_metadata(stdscr, identifier,queue= queue.Queue()) #download the metadata files
+        download_status = False #initialize the download status
+        while not download_status:
+            identifier = get_identifier(stdscr) #get the identifier
+            download_status = download_metadata(stdscr, identifier, queue.Queue()) #download the metadata files
         parse_xml(identifier) #parse the xml file
         stdscr.addstr(2, 0, "Successfully parsed xml file.", curses.color_pair(5)) #display success message
         time.sleep(1) #wait for 1 second
