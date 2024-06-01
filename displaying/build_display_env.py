@@ -2,7 +2,7 @@ import curses
 from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS
 
-def build_display_env(stdscr, identifier):
+def file_browser(stdscr, identifier):
     curses.curs_set(0) #hide the cursor
     init_colors() 
     stdscr.clear()
