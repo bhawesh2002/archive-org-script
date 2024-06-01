@@ -12,6 +12,8 @@ def user_input(stdscr):
     stdscr.addstr(1,0,"Paste the link here: ", curses.color_pair(4)) # Prompt the user to enter a link
     stdscr.refresh()
 
+    stdscr.clrtoeol()# Clear the input area of any previous input
+    
     curses.echo() # Enable echoing of characters for the user to see the input
     curses.curs_set(1) # Show the cursor
     stdscr.keypad(True) # Enable keypad mode to recognize arrow keys
