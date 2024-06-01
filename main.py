@@ -8,7 +8,7 @@ from basic_function.get_identifier import get_identifier #import get_identifier
 from basic_function.download_metadata import download_metadata #import load_directory
 import queue # for passing messages between threads
 from parsing.parse_xml import parse_xml #import parse xml
-from displaying.build_display_env import build_display_env #import build_display_env to build the display environment
+from displaying.build_display_env import file_browser #import build_display_env to build the display environment
 from displaying.display_help import display_help #import display_directory_struct to display the directory structure
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
@@ -32,7 +32,7 @@ def main(stdscr):
         parse_xml(identifier) #parse the xml file
         time.sleep(1) #wait for 1 second
         stdscr.clear() #clear the screen
-        build_display_env(stdscr, PROGRAM_NAME) #build the display environment
+        file_browser(stdscr, PROGRAM_NAME) #build the display environment
         stdscr.refresh()
     #handle keyboard interrupt
     except KeyboardInterrupt as e:
@@ -70,7 +70,7 @@ def main(stdscr):
                 key = stdscr.getch()
                 if key == ord('h'):# 'h' to toggle help
                     stdscr.clear()
-                    build_display_env(stdscr, PROGRAM_NAME)
+                    file_browser(stdscr, PROGRAM_NAME)
                     stdscr.refresh()
                     break
                 if key == ord('\033'):  # '\033' for 'Esc' key in ASCII
