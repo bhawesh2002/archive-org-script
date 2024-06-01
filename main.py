@@ -30,7 +30,6 @@ def main(stdscr):
             identifier = get_identifier(stdscr) #get the identifier
             download_status = download_metadata(stdscr, identifier, queue.Queue()) #download the metadata files
         parse_xml(identifier) #parse the xml file
-        stdscr.addstr(2, 0, "Successfully parsed xml file.", curses.color_pair(5)) #display success message
         time.sleep(1) #wait for 1 second
         stdscr.clear() #clear the screen
         build_display_env(stdscr, PROGRAM_NAME) #build the display environment
