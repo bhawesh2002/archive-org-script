@@ -106,8 +106,8 @@ def download_metadata(stdscr,identifier, queue):
         # If the download is successful, display a success message
         if result: 
             stdscr.deleteln()
-            stdscr.deleteln()
             stdscr.addstr(y,0,"Metadata Downloaded Successfully\n", curses.color_pair(5) | curses.A_BOLD)
+            stdscr.deleteln()
             time.sleep(0.5)
             stdscr.refresh()
             return True # Return True if the download is successful
