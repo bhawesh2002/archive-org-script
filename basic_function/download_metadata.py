@@ -117,10 +117,11 @@ def download_metadata(stdscr,identifier, queue):
             y = stdscr.getyx()[0]
             stdscr.deleteln()
             stdscr.deleteln()
-            stdscr.addstr(y,0,f"Metadata Download Failed\n", curses.color_pair(3) | curses.A_BOLD)
-            stdscr.addstr(y+1,0,"Exiting...\n", curses.color_pair(3) | curses.A_BOLD)
+            stdscr.addstr(y,0,f"Metadata Download Failed", curses.color_pair(3) | curses.A_BOLD)
             stdscr.refresh()
             time.sleep(1)
+            stdscr.deleteln()
+            stdscr.addstr(y,0,"Re-enter Download Link", curses.color_pair(4) | curses.A_BOLD)
             return False # Return False if the download fails
 
     except Exception as e:
