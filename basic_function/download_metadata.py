@@ -5,11 +5,6 @@ import requests # for downloading the file
 import threading # for running the download in a separate thread
 from constants import DOWNLOAD_FOLDER_PATH # Import the download folder path
 
-# Headers to avoid content encoding
-HEADERS = {
-        'Accept-Encoding': 'identity'
-}
-
 # Create a folder to store the downloaded files
 def create_metadata_folder(identifier):
      # Create a folder named after the identifier inside script_downloads in the current working directory
@@ -19,6 +14,11 @@ def create_metadata_folder(identifier):
 
 # Function to download the metadata files(will run in background)
 def download_metadata_files(stdscr,identifier,queue,):
+    # Headers to avoid content encoding
+    HEADERS = {
+            'Accept-Encoding': 'identity'
+    }
+    
     status = False # Set the status to False by default
     try: 
         y = stdscr.getyx()[0] # Get the current y position of the cursor
