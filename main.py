@@ -32,7 +32,7 @@ def main(stdscr):
         parse_xml(identifier) #parse the xml file
         time.sleep(1) #wait for 1 second
         stdscr.clear() #clear the screen
-        file_browser(stdscr, PROGRAM_NAME) #open the file browser
+        file_browser(stdscr) #open the file browser
         stdscr.refresh()
     #handle keyboard interrupt
     except KeyboardInterrupt as e:
