@@ -56,27 +56,6 @@ def main(stdscr):
         stdscr.refresh()
         if key == ord('\033'):  # '\033' for 'Esc' key in ASCII
             exit(0)
-        if key == ord('h'): # 'h' for help
-            stdscr.clear()
-            try:
-                display_help(stdscr)
-                stdscr.refresh()
-            except Exception as e:
-                stdscr.clear() 
-                x = (width -len(str(e)))//2 #center the error message
-                stdscr.addstr(height//2,x, f"{e}", curses.color_pair(2) | curses.A_BOLD) #display the error message
-                stdscr.addstr(height//2 + 1,(width - len(resize_window_err_msg))//2, f"{resize_window_err_msg}") #display the solution for the error
-                stdscr.refresh()
-            while True:
-                key = stdscr.getch()
-                if key == ord('h'):# 'h' to toggle help
-                    stdscr.clear()
-                    stdscr.refresh()
-                    file_browser(stdscr)
-                    stdscr.refresh()
-                    break
-                if key == ord('\033'):  # '\033' for 'Esc' key in ASCII
-                    exit(0)
     # Ensure the script_downloads folder exists
     # script_downloads_path = "script_downloads"
     # os.makedirs(script_downloads_path, exist_ok=True)
