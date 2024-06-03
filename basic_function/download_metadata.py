@@ -16,7 +16,7 @@ def create_metadata_folder(identifier):
 def download_metadata_files(stdscr,identifier,queue,):
     # Headers to avoid content encoding
     HEADERS = {
-            'Accept-Encoding': 'identity'
+            'Accept-Encoding': 'identity' # Avoid content encoding when fetching the headers
     }
     
     status = False # Set the status to False by default
