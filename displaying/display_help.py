@@ -14,7 +14,7 @@ def display_help(help_win_ht, help_win_wt, y,x, help_required):
             #draw the border
             help_win.border()
             #display the help message
-            help_win.addstr(0, (help_win_wt - len("  Help  "))//2, f"  Help  {help_required}", curses.color_pair(5) | curses.A_BOLD)
+            help_win.addstr(0, (help_win_wt - len("  Help  "))//2, f"  Help  ", curses.color_pair(5) | curses.A_BOLD)
             help_win.refresh()
         else :
             help_win.clear() #clear the help window
