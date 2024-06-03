@@ -8,7 +8,7 @@ from basic_function.get_identifier import get_identifier #import get_identifier
 from basic_function.download_metadata import download_metadata #import load_directory
 import queue # for passing messages between threads
 from parsing.parse_xml import parse_xml #import parse xml
-from displaying.build_display_env import file_browser #import build_display_env to build the display environment
+from displaying.file_browser import file_browser #import build_display_env to build the display environment
 from displaying.display_help import display_help #import display_directory_struct to display the directory structure
 # import os #for creating directories for dwonaloded files
 # from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
