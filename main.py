@@ -33,7 +33,7 @@ def main(stdscr):
         time.sleep(1) #wait for 1 second
         stdscr.clear() #clear the screen
         file_browser(stdscr) #open the file browser
-        stdscr.refresh()
+        stdscr.refresh() #refresh the screen
     #handle keyboard interrupt
     except KeyboardInterrupt as e:
         stdscr.clear() #clear the screen
