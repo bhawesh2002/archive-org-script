@@ -31,7 +31,8 @@ def main(stdscr):
             download_status = download_metadata(stdscr, identifier, queue.Queue()) #download the metadata files
         parse_xml(identifier) #parse the xml file
         time.sleep(1) #wait for 1 second
-        stdscr.clear() #clear the screen
+        stdscr.clear()
+        stdscr.refresh()
         file_browser(stdscr) #open the file browser
         stdscr.refresh() #refresh the screen
     #handle keyboard interrupt
@@ -70,7 +71,8 @@ def main(stdscr):
                 key = stdscr.getch()
                 if key == ord('h'):# 'h' to toggle help
                     stdscr.clear()
-                    file_browser(stdscr, PROGRAM_NAME)
+                    stdscr.refresh()
+                    file_browser(stdscr)
                     stdscr.refresh()
                     break
                 if key == ord('\033'):  # '\033' for 'Esc' key in ASCII
