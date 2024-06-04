@@ -23,7 +23,7 @@ def file_browser(stdscr):
                 help_required = not help_required #toggle the help message
                 display_help(main_ht - 2, (main_wt)//3, 1, main_wt - ((main_wt//3) + 2),help_required) #display the help message
             if b_key == ord('\033'):
-                break #exit the file browser
+                exit(0) #exit the file browser and the program
     except Exception as e:
         raise e
 
