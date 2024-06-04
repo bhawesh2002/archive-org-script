@@ -14,6 +14,7 @@ def file_browser(stdscr):
         main_win.addstr(0,(width - len("  File Browser  ")) // 2,"  File Browser  ", curses.color_pair(4) | curses.A_BOLD) #display the title of the window
         main_win.addstr(main_ht-1, 1 , f" {CONTROLS} ", curses.color_pair(5) | curses.A_BOLD) #display the controls
         main_win.refresh() #refresh the window
+        browser_window(main_ht - 2, main_wt-5, 1, 2) #create the browser window
         help_required = False #initialize the help status
         while True:
             b_key = main_win.getch() #get the key pressed
@@ -26,3 +27,10 @@ def file_browser(stdscr):
     except Exception as e:
         raise e
 
+def browser_window(height,width,y,x):
+    try:
+        browser_win = curses.newwin(height,width,y,x) #create a new window for displaying help
+        browser_win.border()
+        browser_win.refresh()
+    except Exception as e:
+        raise e
