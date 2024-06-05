@@ -27,7 +27,7 @@ def file_browser(stdscr):
     except Exception as e:
         raise e
 
-def browser_window(main_win):
+def browser_window(main_win,filetree,current_opt,selected_files,):
     try:
         main_ht, main_wt = main_win.getmaxyx() #get the height and width of the window
         browser_win = curses.newwin(main_ht - 2, main_wt-4, 1, 2) #create a new window for displaying help
