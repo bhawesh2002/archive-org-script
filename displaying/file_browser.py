@@ -15,13 +15,17 @@ def file_browser(stdscr, identifier_name,filetree, selected_files, current_opt=0
         main_win.addstr(main_ht-1, 1 , f" {CONTROLS} ", curses.color_pair(5) | curses.A_BOLD) #display the controls
         main_win.refresh() #refresh the window
         help_required = False #initialize the help status
-        browser_window(main_win,filetree,current_opt,selected_files) #create the browser window
         while True:
+            browser_window(main_win,filetree,current_opt,selected_files) #create the browser window
             b_key = main_win.getch() #get the key pressed
             main_win.refresh()
             if b_key == ord('h'):
                 help_required = not help_required #toggle the help message
                 display_help(main_ht - 2, (main_wt)//3, 1, main_wt - ((main_wt//3) + 2),help_required) #display the help message
+            if b_key == ord('s'): #if 's' is pressed, move to the next option
+                current_opt += 1
+            if b_key == ord('w') and current_opt > 0: #if 'w' is pressed, move to the previous option
+                current_opt -= 1
             if b_key == ord('\033'):
                 exit(0) #exit the file browser and the program
     except Exception as e:
