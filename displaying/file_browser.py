@@ -3,7 +3,7 @@ from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS
 from displaying.display_help import display_help
 
-def file_browser(stdscr, identifier_name,filetree, selected_files, current_opt=0,):
+def file_browser(stdscr, identifier_name,filetree, selected_files):
     try: 
         curses.curs_set(0) #hide the cursor
         init_colors() 
@@ -15,6 +15,7 @@ def file_browser(stdscr, identifier_name,filetree, selected_files, current_opt=0
         main_win.addstr(main_ht-1, 1 , f" {CONTROLS} ", curses.color_pair(5) | curses.A_BOLD) #display the controls
         main_win.refresh() #refresh the window
         help_required = False #initialize the help status
+        current_opt=0 #initialize current option to 0
         while True:
             browser_window(main_win,filetree,current_opt,selected_files) #create the browser window
             b_key = main_win.getch() #get the key pressed
