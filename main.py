@@ -10,11 +10,6 @@ import queue # for passing messages between threads
 from parsing.parse_xml import parse_xml #import parse xml
 from basic_function.load_filetree import load_filetree
 from displaying.file_browser import file_browser #import build_display_env to build the display environment
-# import os #for creating directories for dwonaloded files
-# from basic_function.get_directory_identifier import get_directory_identifier #import get_directory_identifier
-# from download_metadata.download_metadata import download_metadata_files #import download metadata
-# from selection_deselection import toggle_item #for creation of TUI
-
 
 def main(stdscr):
     curses.curs_set(0) #hide the cursor
