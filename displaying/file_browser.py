@@ -38,19 +38,21 @@ def browser_window(main_win,filetree,current_opt,selected_files):
         browser_win = curses.newwin(main_ht - 2, main_wt-5, 1, 2) #create a new window for displaying help
         height, width = browser_win.getmaxyx()
         max_visible_lines = height-1 #max number of items that can be displayed on the screen
+        scroll_offset = 0 #initialize the scroll offset
         for idx,(key,value) in enumerate(filetree.items()):
-            if idx > max_visible_lines:
+            y = idx - scroll_offset + 1#set the cursor position
+            if y < 0 or y >= height:
                 continue
             if idx == current_opt:
                 browser_win.attron(curses.A_REVERSE)
-                browser_win.addstr(idx,0,key)
+                browser_win.addstr(y,0,key)
                 browser_win.attroff(curses.A_REVERSE)
             else:
-                browser_win.addstr(idx,0,key)
+                browser_win.addstr(y,0,key)
             if isinstance(value,dict): #if value is a dictionary object i.e a folder with nested folder/files
-                browser_win.addstr(idx,len(key)+1,"-->")
+                browser_win.addstr(y,len(key)+1,"-->")
             elif isinstance(value,str): #else if child_folder is a string(i.e, size of file) which is associated with key which is name of file
-                browser_win.addstr(idx,len(key)+1,f"({value})")
+                browser_win.addstr(y,len(key)+1,f"({value})")
         browser_win.refresh()
     except Exception as e:
         raise e
