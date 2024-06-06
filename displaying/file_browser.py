@@ -7,7 +7,7 @@ def file_browser(stdscr, identifier_name,filetree, selected_files):
     try: 
         curses.curs_set(0) #hide the cursor
         init_colors() 
-        height,width = stdscr.getmaxyx()
+        height,width = stdscr.getmaxyx() #get the height and width of the terminal
         main_win = curses.newwin(height,width , 0, 0) #create a new window relative to the stdandard screen(stdscr)
         main_win.border() #draw a border around the window
         main_ht, main_wt = main_win.getmaxyx() #get the height and width of the window
@@ -41,13 +41,13 @@ def browser_window(main_win,filetree,current_opt,selected_files):
         scroll_offset = 0 #initialize the scroll offset
         for idx,(key,value) in enumerate(filetree.items()):
             y = idx - scroll_offset + 1#set the cursor position
-            if y < 0 or y >= height:
+            if y < 0 or y >= height: #if the cursor position is out of bounds,
                 continue
-            if idx == current_opt:
+            if idx == current_opt: #if the current option is selected then highlight it
                 browser_win.attron(curses.A_REVERSE)
                 browser_win.addstr(y,0,key)
                 browser_win.attroff(curses.A_REVERSE)
-            else:
+            else: #else display the option without highlighting
                 browser_win.addstr(y,0,key)
             if isinstance(value,dict): #if value is a dictionary object i.e a folder with nested folder/files
                 browser_win.addstr(y,len(key)+1,"-->")
