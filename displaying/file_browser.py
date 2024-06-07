@@ -20,7 +20,7 @@ def file_browser(stdscr, identifier_name,filetree, selected_files):
         visible_lines = (main_ht - 4) #number of lines that can be displayed on the screen
         #note: main_ht - 4 is a constant value that is used to calculate the number of lines that can be displayed on the screen
         #      it is calculated by subtracting the height of the title, border and controls from the height of the main window
-        #      Do Not Change this value
+        #      Do Not Change this value as it is calculated and changing might cause display isssues
         while True:
             browser(main_win,filetree=filetree,current_opt=current_opt, scroll_offset= scroll_offset) #create the browser window
             b_key = main_win.getch() #get the key pressed
