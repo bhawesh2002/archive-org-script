@@ -42,6 +42,17 @@ def file_browser(stdscr, identifier_name,filetree, selected_files):
         raise e
 #fundtion that creates a browser which allows user to browse the files and folders
 def browser(main_win,directory,current_opt, scroll_offset):
+    """Function to create a browser window that allows the user to browse the files and folders
+    Args:
+        main_win : curses window object
+            The main window object inside which the browser window will be displayed
+        directory : dict
+            A dictionary object containing the folder structure and files
+        current_opt : int
+            The index of the currently selected item in the browser window
+        scroll_offset : int
+            The scroll offset of the browser window      
+    """
     try:
         main_ht, main_wt = main_win.getmaxyx() #get the height and width of the main window
         browser_win = curses.newwin(main_ht - 2, main_wt-5, 1, 2) #create a new window for displaying help
