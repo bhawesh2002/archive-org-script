@@ -29,7 +29,7 @@ def main(stdscr):
         time.sleep(1) #wait for 1 second
         stdscr.clear() #clear the screen
         stdscr.refresh() #refresh the screen
-        file_browser(stdscr,identifier_name=identifier,filetree=filetree,selected_files="") #open the file browser
+        file_browser(stdscr,identifier=identifier,filetree=filetree,selected_files="") #open the file browser
         stdscr.refresh() #refresh the screen
     #handle keyboard interrupt
     except KeyboardInterrupt as e:

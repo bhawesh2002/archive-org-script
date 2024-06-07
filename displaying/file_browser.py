@@ -3,7 +3,7 @@ from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS
 from displaying.display_help import display_help
 
-def file_browser(stdscr, identifier_name,filetree, selected_files):
+def file_browser(stdscr, identifier,filetree, selected_files):
     try: 
         curses.curs_set(0) #hide the cursor
         init_colors() 
