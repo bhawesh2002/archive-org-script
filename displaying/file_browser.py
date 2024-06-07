@@ -22,7 +22,7 @@ def file_browser(stdscr, identifier_name,filetree, selected_files):
         #      it is calculated by subtracting the height of the title, border and controls from the height of the main window
         #      Do Not Change this value as it is calculated and changing might cause display isssues
         while True:
-            browser(main_win,filetree=filetree,current_opt=current_opt, scroll_offset= scroll_offset) #create the browser window
+            browser(main_win,directory=filetree,current_opt=current_opt, scroll_offset= scroll_offset) #create the browser window
             b_key = main_win.getch() #get the key pressed
             main_win.refresh()
             if b_key == ord('h'):
@@ -41,13 +41,13 @@ def file_browser(stdscr, identifier_name,filetree, selected_files):
     except Exception as e:
         raise e
 #fundtion that creates a browser which allows user to browse the files and folders
-def browser(main_win,filetree,current_opt, scroll_offset):
+def browser(main_win,directory,current_opt, scroll_offset):
     try:
         main_ht, main_wt = main_win.getmaxyx() #get the height and width of the main window
         browser_win = curses.newwin(main_ht - 2, main_wt-5, 1, 2) #create a new window for displaying help
         height, width = browser_win.getmaxyx()
         max_visible_lines = height - 1 #max number of items that can be displayed on the screen at a time
-        for idx,(key,value) in enumerate(filetree.items()):
+        for idx,(key,value) in enumerate(directory.items()):
             y = (idx - scroll_offset) + 1
             if y < 1 or y > max_visible_lines - 1:
                 continue
