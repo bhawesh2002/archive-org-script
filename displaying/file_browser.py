@@ -11,7 +11,8 @@ def file_browser(stdscr, identifier,filetree, selected_files):
         main_win = curses.newwin(height,width , 0, 0) #create a new window relative to the stdandard screen(stdscr)
         main_win.border() #draw a border around the window
         main_ht, main_wt = main_win.getmaxyx() #get the height and width of the window
-        main_win.addstr(0,(width - len("  File Browser  ")) // 2,"  File Browser  ", curses.color_pair(4) | curses.A_BOLD) #display the title of the window
+        title = f"  File Browser  ({identifier})  "
+        main_win.addstr(0,(width - len(title)) // 2,title, curses.color_pair(4) | curses.A_BOLD) #display the title of the window
         main_win.addstr(main_ht-1, 1 , f" {CONTROLS} ", curses.color_pair(5) | curses.A_BOLD) #display the controls
         main_win.refresh() #refresh the window
         help_required = False #initialize the help status
