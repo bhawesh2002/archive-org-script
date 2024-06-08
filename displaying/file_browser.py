@@ -60,6 +60,8 @@ def browser(main_win,directory,current_opt, scroll_offset):
         height, width = browser_win.getmaxyx()
         max_visible_lines = height - 1 #max number of items that can be displayed on the screen at a time
         for idx,(key,value) in enumerate(directory.items()):
+            if idx < scroll_offset or idx >= scroll_offset + max_visible_lines:
+                continue
             y = (idx - scroll_offset) + 1
             if y < 1 or y > max_visible_lines - 1:
                 continue
