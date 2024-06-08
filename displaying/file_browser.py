@@ -18,7 +18,7 @@ def file_browser(stdscr, identifier,filetree, selected_files):
         help_required = False #initialize the help status
         current_opt = 0
         scroll_offset = 0
-        visible_lines = (main_ht - 4) #number of lines that can be displayed on the screen
+        visible_lines = (main_ht - 5) #number of lines that can be displayed on the screen
         #note: main_ht - 4 is a constant value that is used to calculate the number of lines that can be displayed on the screen
         #      it is calculated by subtracting the height of the title, border and controls from the height of the main window
         #      Do Not Change this value as it is calculated and changing might cause display isssues
@@ -56,14 +56,14 @@ def browser(main_win,directory,current_opt, scroll_offset):
     """
     try:
         main_ht, main_wt = main_win.getmaxyx() #get the height and width of the main window
-        browser_win = curses.newwin(main_ht - 2, main_wt-5, 1, 2) #create a new window for displaying help
+        browser_win = curses.newwin(main_ht - 3, main_wt-5, 2, 2) #create a new window for displaying help
         height, width = browser_win.getmaxyx()
-        max_visible_lines = height - 1 #max number of items that can be displayed on the screen at a time
+        # max_visible_lines = height - 1 #max number of items that can be displayed on the screen at a time
         for idx,(key,value) in enumerate(directory.items()):
-            if idx < scroll_offset or idx >= scroll_offset + max_visible_lines:
-                continue
+            # if idx < scroll_offset or idx >= scroll_offset + max_visible_lines:
+                # continue
             y = (idx - scroll_offset) + 1
-            if y < 1 or y > max_visible_lines - 1:
+            if y <= 0 or y > (height - 2):
                 continue
             if idx == current_opt:
                 browser_win.attron(curses.A_REVERSE)
