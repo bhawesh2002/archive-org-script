@@ -17,20 +17,27 @@ def file_browser(stdscr, identifier,filetree, selected_files):
         main_win.addstr(main_ht-1, 1 , f" {CONTROLS} ", curses.color_pair(5) | curses.A_BOLD) #display the controls
         main_win.refresh() #refresh the window
         help_required = False #initialize the help status
+
+        directory = filetree
+        current_folder = ""
         current_opt = 0
         scroll_offset = 0
         visible_lines = (main_ht - 5) #number of lines that can be displayed on the screen
-        #note: main_ht - 4 is a constant value that is used to calculate the number of lines that can be displayed on the screen
+        #note: main_ht - 5 is a constant value that is used to calculate the number of lines that can be displayed on the screen
         #      it is calculated by subtracting the height of the title, border and controls from the height of the main window
         #      Do Not Change this value as it is calculated and changing might cause display isssues
         while True:
-            browser(main_win,directory=filetree,current_opt=current_opt, scroll_offset= scroll_offset) #create the browser window
+            main_win.addstr(1,2,(main_wt - 5) * " ",curses.color_pair(5) | curses.A_BOLD)
+            if directory == filetree:
+                current_folder = "Root(/)"
+            main_win.addstr(1,2,current_folder, curses.color_pair(5) | curses.A_BOLD)
+            browser(main_win,directory=directory,current_opt=current_opt, scroll_offset= scroll_offset) #create the browser window
             b_key = main_win.getch() #get the key pressed
             main_win.refresh()
             if b_key == ord('h'):
                 help_required = not help_required #toggle the help message
                 display_help(main_ht - 2, (main_wt)//3, 1, main_wt - ((main_wt//3) + 2),help_required) #display the help message
-            if b_key == ord('s') and current_opt < len(filetree) -1:
+            if b_key == ord('s') and current_opt < len(directory) -1:
                 current_opt += 1
                 if current_opt >= scroll_offset + visible_lines:
                     scroll_offset = current_opt - visible_lines + 1
@@ -38,6 +45,17 @@ def file_browser(stdscr, identifier,filetree, selected_files):
                 current_opt -= 1
                 if current_opt < scroll_offset:
                     scroll_offset = current_opt
+            if b_key == ord('d'):
+                if isinstance(directory[list(directory.keys())[current_opt]],dict):
+                    current_folder = list(directory.keys())[current_opt] #get the name of the folder before changing the directory
+                    directory = directory[list(directory.keys())[current_opt]] #change the directory to the selected folder
+                    current_opt = 0
+                    scroll_offset = 0
+            if b_key == ord('a'):
+                if directory != filetree:
+                    directory = filetree
+                    current_opt = 0
+                    scroll_offset = 0
             if b_key == ord('\033'):
                 exit(0) #exit the file browser and the program
     except Exception as e:
