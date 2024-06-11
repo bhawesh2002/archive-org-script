@@ -21,7 +21,7 @@ def file_browser(stdscr, identifier,filetree):
         directory = filetree
         current_folder = ""
         current_path = [] #track the current path
-        selected_files = {}
+        selected_files = {} #track the selected files
         current_opt = 0
         scroll_offset = 0
         visible_lines = (main_ht - 5) #number of lines that can be displayed on the screen
