@@ -15,7 +15,7 @@ def browser(main_win,directory,current_opt, scroll_offset):
     """
     try:
         main_ht, main_wt = main_win.getmaxyx() #get the height and width of the main window
-        browser_win = curses.newwin(main_ht - 3, main_wt-2, 2, 2) #create a new window for displaying help
+        browser_win = curses.newwin(main_ht - 3, main_wt-5, 2, 2) #create a new window for displaying help
         height, width = browser_win.getmaxyx()
         # max_visible_lines = height - 1 #max number of items that can be displayed on the screen at a time
         for idx,(key,value) in enumerate(directory.items()):
