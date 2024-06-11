@@ -1,7 +1,7 @@
 import curses
 
 #fundtion that creates a browser which allows user to browse the files and folders
-def browser(main_win,directory,current_opt, scroll_offset):
+def browser(main_win,directory,current_opt,selected_files ,scroll_offset):
     """Function to create a browser window that allows the user to browse the files and folders
     Args:
         main_win : curses window object
@@ -28,6 +28,11 @@ def browser(main_win,directory,current_opt, scroll_offset):
                 browser_win.attron(curses.A_REVERSE)
                 browser_win.addstr(y,2,key)
                 browser_win.attroff(curses.A_REVERSE)
+                if key in selected_files:
+                    browser_win.addstr(y,1,"*",curses.color_pair(6) | curses.A_BOLD)
+            elif key in selected_files:
+                browser_win.addstr(y,1,"*",curses.color_pair(6) | curses.A_BOLD)
+                browser_win.addstr(y,2,key)
             else:
                 browser_win.addstr(y,2,key)
             if isinstance(value,dict): #if value is a dictionary object i.e a folder with nested folder/files
