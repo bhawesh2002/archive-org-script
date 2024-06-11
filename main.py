@@ -9,7 +9,7 @@ from basic_function.download_metadata import download_metadata #import load_dire
 import queue # for passing messages between threads
 from parsing.parse_xml import parse_xml #import parse xml
 from basic_function.load_filetree import load_filetree
-from displaying.file_browser import file_browser #import build_display_env to build the display environment
+from browsing.file_browser import file_browser #import build_display_env to build the display environment
 
 def main(stdscr):
     curses.curs_set(0) #hide the cursor

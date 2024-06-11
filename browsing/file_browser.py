@@ -2,7 +2,7 @@ import curses
 from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS
 from displaying.display_help import display_help
-from displaying.browser import browser
+from browsing.browser import browser
 
 def file_browser(stdscr, identifier,filetree):
     try: 
