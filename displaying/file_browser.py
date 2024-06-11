@@ -27,10 +27,10 @@ def file_browser(stdscr, identifier,filetree, selected_files):
         #      it is calculated by subtracting the height of the title, border and controls from the height of the main window
         #      Do Not Change this value as it is calculated and changing might cause display isssues
         while True:
-            main_win.addstr(1,2,(main_wt - 5) * " ",curses.color_pair(5) | curses.A_BOLD)
+            main_win.addstr(1,2,(main_wt - 5) * " ",curses.color_pair(5) | curses.A_BOLD) #clear the previous folder name
             if directory == filetree:
                 current_folder = "Root(/)"
-            main_win.addstr(1,2,current_folder, curses.color_pair(5) | curses.A_BOLD)
+            main_win.addstr(1,2,current_folder, curses.color_pair(5) | curses.A_BOLD) #display the current folder name
             browser(main_win,directory=directory,current_opt=current_opt, scroll_offset= scroll_offset) #create the browser window
             b_key = main_win.getch() #get the key pressed
             main_win.refresh()
