@@ -21,6 +21,7 @@ def file_browser(stdscr, identifier,filetree):
         directory = filetree
         current_folder = ""
         current_path = [] #track the current path
+        selected_files = {}
         current_opt = 0
         scroll_offset = 0
         visible_lines = (main_ht - 5) #number of lines that can be displayed on the screen
@@ -33,7 +34,7 @@ def file_browser(stdscr, identifier,filetree):
                 main_win.addstr(1,2,"Root(/)", curses.color_pair(5) | curses.A_BOLD) #display the current folder name
             else:
                 main_win.addstr(1,2,current_folder, curses.color_pair(5) | curses.A_BOLD) #display the current folder name
-            browser(main_win,directory=directory,current_opt=current_opt, scroll_offset= scroll_offset) #create the browser window
+            browser(main_win,directory=directory,current_opt=current_opt, selected_files=selected_files,scroll_offset= scroll_offset) #create the browser window
             b_key = main_win.getch() #get the key pressed
             main_win.refresh()
             if b_key == ord('h'): #check if the key pressed is 'h' and toggle the help message
