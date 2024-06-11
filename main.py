@@ -3,7 +3,7 @@ import time #for utilizing delays
 from constants import PROGRAM_NAME
 from colors.app_colors import init_colors #import color pairs
 from displaying.welcome_message import welcome_message #import welcome message
-from error_messages.error_messages import resize_window_err_msg, keyboard_interrupt_msg #import error message
+from error_messages.error_messages import keyboard_interrupt_msg #import error message
 from basic_function.get_identifier import get_identifier #import get_identifier
 from basic_function.download_metadata import download_metadata #import load_directory
 import queue # for passing messages between threads
