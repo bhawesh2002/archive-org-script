@@ -26,10 +26,10 @@ def browser(main_win,directory,current_opt, scroll_offset):
                 continue
             if idx == current_opt:
                 browser_win.attron(curses.A_REVERSE)
-                browser_win.addstr(y,0,key)
+                browser_win.addstr(y,2,key)
                 browser_win.attroff(curses.A_REVERSE)
             else:
-                browser_win.addstr(y,0,key)
+                browser_win.addstr(y,2,key)
             if isinstance(value,dict): #if value is a dictionary object i.e a folder with nested folder/files
                 browser_win.addstr(y,len(key)+1,"-->")
             elif isinstance(value,str): #else if child_folder is a string(i.e, size of file) which is associated with key which is name of file
