@@ -20,6 +20,7 @@ def file_browser(stdscr, identifier,filetree, selected_files):
 
         directory = filetree
         current_folder = ""
+        current_path = [] #track the current path
         current_opt = 0
         scroll_offset = 0
         visible_lines = (main_ht - 5) #number of lines that can be displayed on the screen
@@ -29,8 +30,9 @@ def file_browser(stdscr, identifier,filetree, selected_files):
         while True:
             main_win.addstr(1,2,(main_wt - 5) * " ",curses.color_pair(5) | curses.A_BOLD) #clear the previous folder name
             if directory == filetree:
-                current_folder = "Root(/)"
-            main_win.addstr(1,2,current_folder, curses.color_pair(5) | curses.A_BOLD) #display the current folder name
+                main_win.addstr(1,2,"Root(/)", curses.color_pair(5) | curses.A_BOLD) #display the current folder name
+            else:
+                main_win.addstr(1,2,current_folder, curses.color_pair(5) | curses.A_BOLD) #display the current folder name
             browser(main_win,directory=directory,current_opt=current_opt, scroll_offset= scroll_offset) #create the browser window
             b_key = main_win.getch() #get the key pressed
             main_win.refresh()
@@ -48,7 +50,8 @@ def file_browser(stdscr, identifier,filetree, selected_files):
             if b_key == ord('d'): #check if the key pressed is 'd' and open the selected folder
                 if isinstance(directory[list(directory.keys())[current_opt]],dict):
                     current_folder = list(directory.keys())[current_opt] #get the name of the folder before changing the directory
-                    directory = directory[list(directory.keys())[current_opt]] #change the directory to the selected folder
+                    current_path.append(current_folder) #add the folder to the current path
+                    directory = directory[current_folder] #change the directory to the selected folder
                     current_opt = 0
                     scroll_offset = 0
             if b_key == ord('a'): #check if the key pressed is 'a' and go back to the previous folder
