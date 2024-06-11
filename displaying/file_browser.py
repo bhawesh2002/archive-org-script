@@ -56,7 +56,14 @@ def file_browser(stdscr, identifier,filetree, selected_files):
                     scroll_offset = 0
             if b_key == ord('a'): #check if the key pressed is 'a' and go back to the previous folder
                 if directory != filetree:
-                    directory = filetree
+                    indent_level = len(current_path) #get the current indent level
+                    if indent_level >= 1:
+                        current_path.pop() #remove the last folder from the current path
+                        directory = filetree #reset the directory to the filetree
+                        if len(current_path) > 0: #check if the current path is not empty
+                            current_folder = current_path[-1] #get the name of the folder before changing the directory
+                        for folder in current_path: #traverse the current path to get the current directory
+                            directory = directory[folder] #change the directory to the selected folder
                     current_opt = 0
                     scroll_offset = 0
             if b_key == ord('\033'): #check if the key pressed is 'Esc' and exit the file browser
