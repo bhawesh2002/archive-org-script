@@ -4,7 +4,7 @@ from constants import CONTROLS
 from displaying.display_help import display_help
 from displaying.browser import browser
 
-def file_browser(stdscr, identifier,filetree, selected_files):
+def file_browser(stdscr, identifier,filetree):
     try: 
         curses.curs_set(0) #hide the cursor
         init_colors() 
