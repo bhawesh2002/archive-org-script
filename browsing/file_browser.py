@@ -18,7 +18,7 @@ def file_browser(stdscr, identifier,filetree):
         main_win.refresh() #refresh the window
         help_required = False #initialize the help status
 
-        directory = filetree
+        directory = filetree #set directory equal to the filetree
         current_folder = ""
         current_path = [] #track the current path
         selected_files = {} #track the selected files
@@ -53,18 +53,20 @@ def file_browser(stdscr, identifier,filetree):
                     current_folder = list(directory.keys())[current_opt] #get the name of the folder before changing the directory
                     current_path.append(current_folder) #add the folder to the current path
                     directory = directory[current_folder] #change the directory to the selected folder
+                    #reset the values
                     current_opt = 0
                     scroll_offset = 0
             if b_key == ord('a'): #check if the key pressed is 'a' and go back to the previous folder
-                if directory != filetree:
+                if directory != filetree: #if the directory is not the filetree or the roo
                     indent_level = len(current_path) #get the current indent level
-                    if indent_level >= 1:
+                    if indent_level >= 1: 
                         current_path.pop() #remove the last folder from the current path
                         directory = filetree #reset the directory to the filetree
                         if len(current_path) > 0: #check if the current path is not empty
                             current_folder = current_path[-1] #get the name of the folder before changing the directory
                         for folder in current_path: #traverse the current path to get the current directory
                             directory = directory[folder] #change the directory to the selected folder
+                    #reset the values
                     current_opt = 0
                     scroll_offset = 0
             if b_key == ord('\033'): #check if the key pressed is 'Esc' and exit the file browser
