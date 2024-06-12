@@ -32,9 +32,15 @@ def file_browser(stdscr, identifier,filetree):
             main_win.addstr(1,2,(main_wt - 5) * " ",curses.color_pair(5) | curses.A_BOLD) #clear the previous folder name
             if directory == filetree:
                 main_win.addstr(1,2,"Root(/)", curses.color_pair(5) | curses.A_BOLD) #display the current folder name
+                selected_files_copy = selected_files #create a copy of the selected files
             else:
                 main_win.addstr(1,2,current_folder, curses.color_pair(5) | curses.A_BOLD) #display the current folder name
-            browser(main_win,directory=directory,current_opt=current_opt, selected_files=selected_files,scroll_offset= scroll_offset) #create the browser window
+                selected_files_copy = selected_files #reset the selected files
+                for folder in current_path: #traverse the current path to go inside folders
+                    for key in selected_files_copy: #traverse the files inside the selecte_files_copy
+                        if key == folder: #check if the key in selelcted_files_copy is a folder in the current path
+                            selected_files_copy = selected_files_copy[folder] #set the selected_files_copy to the files in the folder in the current path
+            browser(main_win,directory=directory,current_opt=current_opt, selected_files=selected_files_copy,scroll_offset= scroll_offset) #create the browser window
             b_key = main_win.getch() #get the key pressed
             main_win.refresh()
             if b_key == ord('h'): #check if the key pressed is 'h' and toggle the help message
