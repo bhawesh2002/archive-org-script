@@ -43,7 +43,16 @@ def file_browser(stdscr, identifier,filetree):
             browser(main_win,directory=directory,current_opt=current_opt, selected_files=selected_files_copy,scroll_offset= scroll_offset) #create the browser window
             b_key = main_win.getch() #get the key pressed
             main_win.refresh()
-            
+
+            #Navigation controls
+            """
+            Navigation controls:
+            The following controls are used to navigate the file browser
+               's' - move the cursor down
+               'w' - move the cursor up
+               'd' - open the selected folder
+               'a' - go back to the previous folder
+            """
             if b_key == ord('s') and current_opt < len(directory) -1: #check if the key pressed is 's' and move the cursor down
                 current_opt += 1
                 if current_opt >= scroll_offset + visible_lines:
@@ -74,10 +83,22 @@ def file_browser(stdscr, identifier,filetree):
                     current_opt = 0
                     scroll_offset = 0
 
+            #Help controls
+            """
+            Help controls:
+            The following controls are used to display the help message
+               'h' - toggle the help message
+            """
             if b_key == ord('h'): #check if the key pressed is 'h' and toggle the help message
                 help_required = not help_required #toggle the help message
                 display_help(main_ht - 2, (main_wt)//3, 1, main_wt - ((main_wt//3) + 2),help_required) #display the help message
 
+            #Exit controls
+            """
+            Exit controls:
+            The following controls are used to exit the file browser
+               'Esc' - exit the file browser
+            """
             if b_key == ord('\033'): #check if the key pressed is 'Esc' and exit the file browser
                 exit(0) #exit the file browser and the program
     except Exception as e:
