@@ -1,6 +1,8 @@
 import curses
+import json
+import os
 from colors.app_colors import init_colors #import color pairs
-from constants import CONTROLS
+from constants import CONTROLS, DOWNLOAD_FOLDER_PATH
 from displaying.display_help import display_help
 from browsing.browser import browser
 from selection_deselection.select_item import add_to_selected_files
@@ -92,7 +94,16 @@ def file_browser(stdscr, identifier,filetree):
                 highlighted_entity = list(directory.keys())[current_opt] #get the name of the highlighted entity
                 #add the highlighted entity to the selected files
                 selected_files = add_to_selected_files(selected_files,selection=highlighted_entity,current_path=current_path,directory=directory)
-            
+            #Confirmation controls
+            """
+            Confirmation controls:
+            The following controls are used to confirm the selection
+               'Enter' - confirm the selection
+            """
+            if b_key == 10: #check if the key pressed is 'Enter' and confirm the selection
+                metadata_folder_path = os.path.join(DOWNLOAD_FOLDER_PATH, identifier, "metadata") #create the metadata folder path
+                with open(f"{metadata_folder_path}/selected.json","w") as f: #open the selected.json file
+                    json.dump(selected_files,f,indent=4) #write the selected files to the selected.json file
             #Help controls
             """
             Help controls:
