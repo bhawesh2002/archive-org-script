@@ -3,7 +3,7 @@ from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS
 from displaying.display_help import display_help
 from browsing.browser import browser
-
+from selection_deselection.select_item import add_to_selected_files
 def file_browser(stdscr, identifier,filetree):
     try: 
         curses.curs_set(0) #hide the cursor
@@ -89,7 +89,10 @@ def file_browser(stdscr, identifier,filetree):
                'Space' - toggle the selection of the file/folder
             """
             if b_key == ord(' '):
-                highlighted_entity = list(directory.keys())[current_opt]
+                highlighted_entity = list(directory.keys())[current_opt] #get the name of the highlighted entity
+                #add the highlighted entity to the selected files
+                selected_files = add_to_selected_files(selected_files,selection=highlighted_entity,current_path=current_path,directory=directory)
+            
             #Help controls
             """
             Help controls:
