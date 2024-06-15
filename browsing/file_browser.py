@@ -82,7 +82,14 @@ def file_browser(stdscr, identifier,filetree):
                     #reset the values
                     current_opt = 0
                     scroll_offset = 0
-
+            #Selection controls
+            """ 
+            Selection controls:
+            The following controls are used to select files/folders
+               'Space' - toggle the selection of the file/folder
+            """
+            if b_key == ord(' '):
+                highlighted_entity = list(directory.keys())[current_opt]
             #Help controls
             """
             Help controls:
