@@ -100,6 +100,7 @@ def file_browser(stdscr, identifier,filetree):
                'Esc' - exit the file browser
             """
             if b_key == ord('\033'): #check if the key pressed is 'Esc' and exit the file browser
+                print("Exiting File Browser")
                 exit(0) #exit the file browser and the program
     except Exception as e:
         raise e
