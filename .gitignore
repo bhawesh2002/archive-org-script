@@ -2,7 +2,8 @@
 *_files.xml
 *_testscript.py
 *.json
-*.txt
+todo.txt
+*_links.txt
 # Ignore Python bytecode files
 __pycache__/
 *.pyc
