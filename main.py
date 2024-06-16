@@ -7,7 +7,7 @@ from displaying.welcome_message import welcome_message #import welcome message
 from downloading.downloader import downloader
 from error_messages.error_messages import keyboard_interrupt_msg #import error message
 from basic_function.get_identifier import get_identifier #import get_identifier
-from basic_function.download_metadata import download_metadata #import load_directory
+from downloading.download_metadata import download_metadata #import load_directory
 import queue # for passing messages between threads
 from parsing.parse_xml import parse_xml #import parse xml
 from basic_function.load_filetree import load_filetree
