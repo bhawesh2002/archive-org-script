@@ -1,8 +1,10 @@
 import curses #for creating TUI
 import time #for utilizing delays
+from basic_function.load_download_links import load_download_links
 from constants import PROGRAM_NAME
 from colors.app_colors import init_colors #import color pairs
 from displaying.welcome_message import welcome_message #import welcome message
+from downloading.downloader import downloader
 from error_messages.error_messages import keyboard_interrupt_msg #import error message
 from basic_function.get_identifier import get_identifier #import get_identifier
 from basic_function.download_metadata import download_metadata #import load_directory
@@ -30,6 +32,9 @@ def main(stdscr):
         stdscr.clear() #clear the screen
         stdscr.refresh() #refresh the screen
         file_browser(stdscr,identifier=identifier,filetree=filetree) #open the file browser
+        stdscr.clear() #clear the screen
+        stdscr.refresh() #refresh the screen
+        downloader(stdscr,identifier=identifier) #download the content
         stdscr.refresh() #refresh the screen
     #handle keyboard interrupt
     except KeyboardInterrupt as e:
