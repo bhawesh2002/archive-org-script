@@ -35,7 +35,9 @@ def main(stdscr):
         stdscr.clear() #clear the screen
         stdscr.refresh() #refresh the screen
         downloader(stdscr,identifier=identifier) #download the content
+        stdscr.clear() #clear the screen
         stdscr.refresh() #refresh the screen
+        exit(0) #exit the program
     #handle keyboard interrupt
     except KeyboardInterrupt as e:
         stdscr.clear() #clear the screen
