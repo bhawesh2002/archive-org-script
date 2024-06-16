@@ -1,6 +1,7 @@
 import curses
 import json
 import os
+from basic_function.construct_download_links import construct_download_links
 from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS, DOWNLOAD_FOLDER_PATH
 from displaying.display_help import display_help
@@ -111,11 +112,7 @@ def file_browser(stdscr, identifier,filetree):
                'Enter' - confirm the selection
             """
             if b_key == 10: #check if the key pressed is 'Enter' and confirm the selection
-                metadata_folder_path = os.path.join(DOWNLOAD_FOLDER_PATH, identifier, "metadata") #create the metadata folder path
-                file_list = parse_selected(selected_files=selected_files)
-                with open(f'{metadata_folder_path}/selected_files.txt', 'w') as f:
-                    for file in file_list:
-                        f.write(file + '\n')
+                construct_download_links(identifier,selected_files=selected_files)
             #Help controls
             """
             Help controls:
