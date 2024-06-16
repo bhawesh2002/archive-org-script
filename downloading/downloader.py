@@ -9,7 +9,7 @@ def downloader(stdscr,identifier):
         height,width = stdscr.getmaxyx() #get the height and width of the terminal
         downloader_win = curses.newwin(height,width,0,0) #create a new window
         downloader_win.border() #draw a border around the window
-        downloader_win.addstr(0,width//2 - len("Downloader"),"Downloader",curses.color_pair(7) | curses.A_BOLD) #display the title of the window
+        downloader_win.addstr(0,width//2 - len(" Downloader ")," Downloader ",curses.color_pair(4) | curses.A_BOLD) #display the title of the window
         downloader_win.refresh() #refresh the window
         links = load_download_links(identifier) #load the download links
     except Exception as e:
