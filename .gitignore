@@ -6,3 +6,5 @@
 # Ignore Python bytecode files
 __pycache__/
 *.pyc
+#ignore Archives folder
+Archives/
