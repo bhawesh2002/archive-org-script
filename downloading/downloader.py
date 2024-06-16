@@ -1,7 +1,8 @@
 import curses
+from basic_function.load_download_links import load_download_links
 from colors.app_colors import init_colors
 
-def downloader(stdscr,identifier,links):
+def downloader(stdscr,identifier):
     try:
         curses.curs_set(0) #hide the cursor
         init_colors() #initialize the colors
@@ -10,5 +11,6 @@ def downloader(stdscr,identifier,links):
         downloader_win.border() #draw a border around the window
         downloader_win.addstr(0,width//2 - len("Downloader"),"Downloader",curses.color_pair(7) | curses.A_BOLD) #display the title of the window
         downloader_win.refresh() #refresh the window
+        links = load_download_links(identifier) #load the download links
     except Exception as e:
         raise e
