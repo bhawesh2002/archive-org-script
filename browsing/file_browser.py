@@ -110,7 +110,7 @@ def file_browser(stdscr, identifier,filetree):
             if b_key == 10: #check if the key pressed is 'Enter' and confirm the selection
                 construct_download_links(identifier,selected_files=selected_files)
                 main_win.clear() #clear the window
-                main_win.refresh() #refresh the window
+                main_win.refresh()
                 return #return to the main program
             #Help controls
             """
