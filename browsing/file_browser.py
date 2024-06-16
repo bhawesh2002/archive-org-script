@@ -6,6 +6,8 @@ from constants import CONTROLS, DOWNLOAD_FOLDER_PATH
 from displaying.display_help import display_help
 from browsing.browser import browser
 from selection_deselection.select_item import add_to_selected_files
+from parsing.parse_selected import parse_selected
+
 def file_browser(stdscr, identifier,filetree):
     try: 
         curses.curs_set(0) #hide the cursor
@@ -110,8 +112,10 @@ def file_browser(stdscr, identifier,filetree):
             """
             if b_key == 10: #check if the key pressed is 'Enter' and confirm the selection
                 metadata_folder_path = os.path.join(DOWNLOAD_FOLDER_PATH, identifier, "metadata") #create the metadata folder path
-                with open(f"{metadata_folder_path}/selected.json","w") as f: #open the selected.json file
-                    json.dump(selected_files,f,indent=4) #write the selected files to the selected.json file
+                file_list = parse_selected(selected_files=selected_files)
+                with open(f'{metadata_folder_path}/selected_files.txt', 'w') as f:
+                    for file in file_list:
+                        f.write(file + '\n')
             #Help controls
             """
             Help controls:
