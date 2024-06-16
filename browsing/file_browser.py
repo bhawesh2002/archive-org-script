@@ -1,14 +1,10 @@
 import curses
-import json
-import os
 from basic_function.construct_download_links import construct_download_links
 from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS, DOWNLOAD_FOLDER_PATH
 from displaying.display_help import display_help
 from browsing.browser import browser
 from selection_deselection.select_item import add_to_selected_files
-from parsing.parse_selected import parse_selected
-
 def file_browser(stdscr, identifier,filetree):
     try: 
         curses.curs_set(0) #hide the cursor
