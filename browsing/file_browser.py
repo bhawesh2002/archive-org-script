@@ -21,7 +21,7 @@ def file_browser(stdscr, identifier,filetree):
         help_required = False #initialize the help status
 
         directory = filetree #set directory equal to the filetree
-        current_folder = ""
+        current_folder = "" #for tracking the current folder
         current_path = [] #track the current path
         selected_files = {} #track the selected files
         current_opt = 0
@@ -45,7 +45,15 @@ def file_browser(stdscr, identifier,filetree):
             browser(main_win,directory=directory,current_opt=current_opt, selected_files=selected_files_copy,scroll_offset= scroll_offset) #create the browser window
             b_key = main_win.getch() #get the key pressed
             main_win.refresh()
-
+            #Control handling
+            """
+            Control handling:
+            The following controls are used to navigate, select, confirm and exit the file browser
+            Navigation controls: 's', 'w', 'd', 'a'
+            Selection controls: 'Space'
+            Confirmation controls: 'Enter'
+            Help controls: 'h'
+            Exit controls: 'Esc'"""
             #Navigation controls
             """
             Navigation controls:
