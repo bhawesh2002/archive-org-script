@@ -2,6 +2,8 @@
 # Archive Org Downloader
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![GitHub Latest Pre-Release)](https://img.shields.io/github/v/release/bhawesh2002/archive-org-script?include_prereleases&label=pre-release&logo=github)  
+![GitHub Release Date](https://img.shields.io/github/release-date-pre/bhawesh2002/archive-org-script)
 
 The **Archive Org Downloader** script is a command-line tool designed to simplify downloading files from Archive.org using a specified identifier. It uses the curses library aand provides a user-friendly Terminal User Interface (TUI) which eases the browsing and selection process. Users can easily navigate through the available files, choose the ones they want to download, and download to their local system.
 
