@@ -4,7 +4,7 @@ from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS, DOWNLOAD_FOLDER_PATH
 from displaying.display_help import display_help
 from browsing.browser import browser
-from selection_deselection.select_item import add_to_selected_files
+from selection_deselection.toggle_selection import toggle_selection
 def file_browser(stdscr, identifier,filetree):
     try: 
         curses.curs_set(0) #hide the cursor
@@ -100,7 +100,7 @@ def file_browser(stdscr, identifier,filetree):
             if b_key == ord(' '):
                 highlighted_entity = list(directory.keys())[current_opt] #get the name of the highlighted entity
                 #add the highlighted entity to the selected files
-                selected_files = add_to_selected_files(selected_files,selection=highlighted_entity,current_path=current_path,directory=directory)
+                selected_files = toggle_selection(selected_files,selection=highlighted_entity,current_path=current_path,directory=directory)
             #Confirmation controls
             """
             Confirmation controls:

@@ -55,14 +55,14 @@ After downloading the metadata, the script will open a file browser interface. U
 ```
 Arrow Keys: Navigate up and down through files and folders.
 
-Spacebar: Select files/folders.
+Spacebar: Select or Deselect files/folders.
 
 Enter: Confirm your selection and proceed to download.
 ```
 Scroll down to view the complete controls
 
-### 5. Selecting Files/Folders
-When in File Browser navigate to the desired file or folder using the arrow keys. Press the `spacebar` to select it. You can select multiple items if needed. Selected items will be appended with a cyan asterisk (*)
+### 5. Selecting or Deselecting Files/Folders
+When in File Browser navigate to the desired file or folder using the arrow keys. Press the `spacebar` to select it. You can select multiple items if needed. Selected items will be appended with a cyan asterisk (*). To deselect an item, press the `spacebar` again.
 
 ### 6. Initiating Downloads
 Once you have selected the files and folders you want to download, press `Enter` to start the download process. The script will begin downloading the selected items.
@@ -83,7 +83,7 @@ Press any key to exit the program and return to the command prompt.
 - `a`: Go back to the previous folder
 - `d`: Open the highlighted folder
 ### Selection controls: The following controls are used to select files/folders
-- `Space`: Select highlighted file/folder 
+- `Space`: Select or Deselect highlighted file/folder 
 ### Confirmation controls: The following controls are used to confirm the selection
 - `Enter` - Confirm the selection and start downloading
 
@@ -114,4 +114,11 @@ We gratefully acknowledge Archive.org for providing extensive archival resources
 ## Changelog
 See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/main/CHANGELOG.md) file for details on changes and updates.
 
-### Latest Release : [0.1.0] - 2024-06-17
+### Latest Release : [0.1.1] - 2024-06-20
+1. Added support to toggle selection/deselection of files using the spacebar(toggle_selection.py).
+    - Rename the file `select_item.py` to `toggle_selection.py`.
+    - Rename the function `add_to_selected_files` to `toggle_selection`.
+    - Use Deep Copy instead of Shallow Copy to avoid modifying the original list.
+2. Modify import statements and call modified function name(file_browser.py).
+
+### Previous Release : [0.1.0] - 2024-06-17

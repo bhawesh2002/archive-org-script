@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2024-06-20
+
+### Added
+1. Support to toggle selection/deselection of files using the spacebar(toggle_selection.py).
+    - Rename the file `select_item.py` to `toggle_selection.py`.
+    - Rename the function `addadd_to_selected_files` to `toggle_selection`.
+    - Use Deep Copy instead of Shallow Copy to avoid modifying the original list.
+2. Modify import statements and call modified function name(file_browser.py).
+### Changes from Previous Release
+1. __Bug Fix__: Fixed the issue where the user could not <u>_deselect_</u> a file/folder once it was selected.
+
 ## [0.1.0] - 2024-06-17
 
 ### Added
