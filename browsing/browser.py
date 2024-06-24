@@ -38,7 +38,19 @@ def browser(main_win,directory,current_opt,selected_files ,scroll_offset):
             if isinstance(value,dict): #if value is a dictionary object i.e a folder with nested folder/files
                 browser_win.addstr(y,len(key)+2,"-->")
             elif isinstance(value,str): #else if child_folder is a string(i.e, size of file) which is associated with key which is name of file
-                browser_win.addstr(y,len(key)+2,f"({value})")
+                #0.1.1:
+                #Info: Only displays the size of the file
+                #Old Code: 
+                #   browser_win.addstr(y,len(key)+2,f'({value})')
+                
+                #0.2.0:
+                #Minor Feature: If the file is private then display a lock icon including the size
+                size,private = value.split("|") #split the value into size and private
+                browser_win.addstr(y,len(key)+2,f'({size})') #display the size of the file
+                if private == 'true': 
+                    #display LOCK in if the file is private
+                    LOCK = '\U0001F512' #unicode character for lock
+                    browser_win.addstr(y,len(key)+2+len(size)+2,LOCK)
         browser_win.refresh()
     except Exception as e:
         raise e
