@@ -51,7 +51,7 @@ Upon running the script, you will be prompted to enter the Archive.org link asso
 The script will validate the provided link and proceed to download the necessary metadata for the specified identifier. If the link is invalid the script will ask you to re-enter the download link.
 
 ### 4. File Browser Interface
-After downloading the metadata, the script will open a file browser interface. Use the following controls to navigate:
+Following the successful validation of the link and metadata download, the script will open a file browser interface. This interface will allow you to navigate through the files and folders available under the specified identifier. Private files will be marked with a lock symbol (🔒) next to their size.
 ```
 Arrow Keys: Navigate up and down through files and folders.
 
@@ -114,11 +114,9 @@ We gratefully acknowledge Archive.org for providing extensive archival resources
 ## Changelog
 See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/main/CHANGELOG.md) file for details on changes and updates.
 
-### Latest Release : [0.1.1] - 2024-06-20
-1. Added support to toggle selection/deselection of files using the spacebar(toggle_selection.py).
-    - Rename the file `select_item.py` to `toggle_selection.py`.
-    - Rename the function `add_to_selected_files` to `toggle_selection`.
-    - Use Deep Copy instead of Shallow Copy to avoid modifying the original list.
-2. Modify import statements and call modified function name(file_browser.py).
-
-### Previous Release : [0.1.0] - 2024-06-17
+### Latest Release : [0.2.0] - 2024-06-24
+### Added
+1. Updated logic to include more detailed status information based on access permissions.(`parse_xml.py`)
+2. Enhanced file information display with a visual indicator for private files.(`browser.py`)
+    - Files marked as private now display a lock symbol (🔒) next to their size.
+### Previous Release : [0.1.1] - 2024-06-20
