@@ -63,6 +63,7 @@ Scroll down to view the complete controls
 
 ### 5. Selecting or Deselecting Files/Folders
 When in File Browser navigate to the desired file or folder using the arrow keys. Press the `spacebar` to select it. You can select multiple items if needed. Selected items will be appended with a cyan asterisk (*). To deselect an item, press the `spacebar` again.
+- Note: Private files marked with a lock symbol (🔒) __cannot__ be selected for download.
 
 ### 6. Initiating Downloads
 Once you have selected the files and folders you want to download, press `Enter` to start the download process. The script will begin downloading the selected items.
@@ -114,9 +115,9 @@ We gratefully acknowledge Archive.org for providing extensive archival resources
 ## Changelog
 See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/main/CHANGELOG.md) file for details on changes and updates.
 
-### Latest Release : [0.2.0] - 2024-06-24
+### Latest Release : [0.2.1] - 2024-07-01
 ### Added
-1. Updated logic to include more detailed status information based on access permissions.(`parse_xml.py`)
-2. Enhanced file information display with a visual indicator for private files.(`browser.py`)
-    - Files marked as private now display a lock symbol (🔒) next to their size.
-### Previous Release : [0.1.1] - 2024-06-20
+1. Implemented `filter_priv_files` function to remove private files from selected files.(`filter_priv_files.py`)
+2. Call `filter_priv_files` function in `toggle_selection` function to remove private files from selected files.(`toggle_selection.py`)
+
+### Previous Release : [0.2.0] - 2024-06-24

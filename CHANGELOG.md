@@ -4,14 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2024-07-01
+
+### Added
+1. Implemented `filter_priv_files` function to remove private files from selected files.(`filter_priv_files.py`)
+2. Call `filter_priv_files` function in `toggle_selection` function to remove private files from selected files.(`toggle_selection.py`)
+### Changes from Previous Release
+1. __Bug Fix__: Fixed the issue where private files were being included in the list of selected files.
+
+
 ## [0.2.0] - 2024-06-24
+
 ### Added
 1. Updated logic to include more detailed status information based on access permissions.(`parse_xml.py`)
 2. Enhanced file information display with a visual indicator for private files.(`browser.py`)
     - Files marked as private now display a lock symbol (🔒) next to their size.
 ### Changes from Previous Release
 1. __Minor Feature__: Improved user experience by visually distinguishing private files.
-
 
 
 ## [0.1.1] - 2024-06-20
@@ -24,6 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 2. Modify import statements and call modified function name(file_browser.py).
 ### Changes from Previous Release
 1. __Bug Fix__: Fixed the issue where the user could not <u>_deselect_</u> a file/folder once it was selected.
+
 
 ## [0.1.0] - 2024-06-17
 
