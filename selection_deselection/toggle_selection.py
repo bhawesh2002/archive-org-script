@@ -1,4 +1,5 @@
 import copy
+from selection_deselection.filter_priv_files import filter_priv_files
 
 
 def toggle_selection(selected_files, selection, current_path, directory):
@@ -18,4 +19,11 @@ def toggle_selection(selected_files, selection, current_path, directory):
         current_level[selection] = copy.deepcopy(directory[selection]) #copy the selected file to the current level
     else:
         current_level.pop(selection) #remove the selected file from the current level
+    #v0.2.0 and before:
+    #Old Code: returns selected_files without filtering out private files
+    
+    #v0.2.1:
+    #Bug Fix: call filter_priv_files to filter out private files from the selected files dictionary before returning selected_files
+    filter_priv_files(selected_files=selected_files)
+    
     return selected_files
