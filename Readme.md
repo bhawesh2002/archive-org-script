@@ -53,7 +53,7 @@ The script will validate the provided link and proceed to download the necessary
 ### 4. File Browser Interface
 Following the successful validation of the link and metadata download, the script will open a file browser interface. This interface will allow you to navigate through the files and folders available under the specified identifier. Private files will be marked with a lock symbol (🔒) next to their size.
 ```
-Arrow Keys: Navigate up and down through files and folders.
+WSAD Keys: Navigate up and down through files and folders.
 
 Spacebar: Select or Deselect files/folders.
 
@@ -62,7 +62,7 @@ Enter: Confirm your selection and proceed to download.
 Scroll down to view the complete controls
 
 ### 5. Selecting or Deselecting Files/Folders
-When in File Browser navigate to the desired file or folder using the arrow keys. Press the `spacebar` to select it. You can select multiple items if needed. Selected items will be appended with a cyan asterisk (*). To deselect an item, press the `spacebar` again.
+When in File Browser navigate to the desired file or folder using the WSAD keys. Press the `spacebar` to select it. You can select multiple items if needed. Selected items will be appended with a cyan asterisk (*). To deselect an item, press the `spacebar` again.
 - Note: Private files marked with a lock symbol (🔒) __cannot__ be selected for download.
 
 ### 6. Initiating Downloads
