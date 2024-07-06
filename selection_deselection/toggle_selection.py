@@ -1,4 +1,5 @@
 import copy
+from selection_deselection.filter_empty_dirs import filter_empty_dirs
 from selection_deselection.filter_priv_files import filter_priv_files
 
 
@@ -25,5 +26,12 @@ def toggle_selection(selected_files, selection, current_path, directory):
     #v0.2.1:
     #Bug Fix: call filter_priv_files to filter out private files from the selected files dictionary before returning selected_files
     filter_priv_files(selected_files=selected_files)
+
+    #v0.2.1 and before:
+    #Old Code: filters private files then returns selected_files without filtering out empty directories
+
+    #v0.2.2:
+    #Bug Fix: call filter_empty_dirs to filter out empty directories from the selected files dictionary before returning selected_files
+    filter_empty_dirs(selected_files=selected_files)
     
     return selected_files
