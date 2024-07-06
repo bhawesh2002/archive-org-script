@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2024-07-06
+
+### Added
+1. Implemented `filter_empty_dirs` function to remove empty directories from selected files.(`filter_empty_dirs.py`)
+2. Call `filter_empty_dirs` function in `toggle_selection` function to remove empty dirs from selected files.(`toggle_selection.py`)
+### Changes from Previous Release
+1. __Bug Fix__: Fixed the issue where empty directories appeared **selected** (appended by cyan color asterisk) when browsing files.
+
+
 ## [0.2.1] - 2024-07-01
 
 ### Added

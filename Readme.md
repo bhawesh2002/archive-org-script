@@ -115,9 +115,11 @@ We gratefully acknowledge Archive.org for providing extensive archival resources
 ## Changelog
 See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/main/CHANGELOG.md) file for details on changes and updates.
 
-### Latest Release : [0.2.1] - 2024-07-01
+### Latest Release : [0.2.2](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.2) - 2024-07-06
 ### Added
-1. Implemented `filter_priv_files` function to remove private files from selected files.(`filter_priv_files.py`)
-2. Call `filter_priv_files` function in `toggle_selection` function to remove private files from selected files.(`toggle_selection.py`)
+1. Implemented `filter_empty_dirs` function to remove empty directories from selected files.(`filter_empty_dirs.py`)
+2. Call `filter_empty_dirs` function in `toggle_selection` function to remove empty dirs from selected files.(`toggle_selection.py`)
+### Changes from Previous Release
+1. __Bug Fix__: Fixed the issue where empty directories appeared selected (appended by cyan color asterisk) when browsing files.
 
-### Previous Release : [0.2.0] - 2024-06-24
+### Previous Release : [0.2.1](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.1) - 2024-07-01
