@@ -84,7 +84,9 @@ Press any key to exit the program and return to the command prompt.
 - `a`: Go back to the previous folder
 - `d`: Open the highlighted folder
 ### Selection controls: The following controls are used to select files/folders
-- `Space`: Select or Deselect highlighted file/folder 
+- `Spacebar`: Select or Deselect highlighted file/folder 
+- `1`: Select all files and folders
+- `0`: Deselect all files and folders
 ### Confirmation controls: The following controls are used to confirm the selection
 - `Enter` - Confirm the selection and start downloading
 
@@ -115,11 +117,12 @@ We gratefully acknowledge Archive.org for providing extensive archival resources
 ## Changelog
 See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/main/CHANGELOG.md) file for details on changes and updates.
 
-### Latest Release : [0.2.2](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.2) - 2024-07-06
+### Latest Release : [0.2.3](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.3) - 2024-07-08
 ### Added
-1. Implemented `filter_empty_dirs` function to remove empty directories from selected files.(`filter_empty_dirs.py`)
-2. Call `filter_empty_dirs` function in `toggle_selection` function to remove empty dirs from selected files.(`toggle_selection.py`)
+1. Implement `select_all` and `deselect_all` functions to select/deselect all files and folders in the filetree(`select_or_deselect_all.py`).
+2. Use `1` and `0` keys to select and deselect all files and folders(`file_browser.py`).
+3. Call `select_all` and `deselect_all` functions in `file_browser` when '1' and '0' keys are pressed(`file_browser.py`).
 ### Changes from Previous Release
-1. __Bug Fix__: Fixed the issue where empty directories appeared selected (appended by cyan color asterisk) when browsing files.
+1. __Patch__: Added the ability to select/deselect all files and folders in the filetree using the '1' and '0' keys, respectively.
 
-### Previous Release : [0.2.1](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.1) - 2024-07-01
+### Previous Release : [0.2.2](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.2) - 2024-07-06

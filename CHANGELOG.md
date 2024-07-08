@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3] - 2024-07-08
+
+### Added
+1. Implement `select_all` and `deselect_all` functions to select/deselect all files and folders in the filetree(`select_or_deselect_all.py`).
+2. Use `1` and `0` keys to select and deselect all files and folders(`file_browser.py`).
+3. Call `select_all` and `deselect_all` functions in `file_browser` when '1' and '0' keys are pressed(`file_browser.py`).
+### Changes from Previous Release
+1. __Patch__: Added the ability to select/deselect all files and folders in the filetree using the '1' and '0' keys, respectively.
+
 ## [0.2.2] - 2024-07-06
 
 ### Added
