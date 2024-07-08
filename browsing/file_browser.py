@@ -1,9 +1,11 @@
+import copy
 import curses
 from basic_function.construct_download_links import construct_download_links
 from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS, DOWNLOAD_FOLDER_PATH
 from displaying.display_help import display_help
 from browsing.browser import browser
+from selection_deselection.select_or_deselect_all import deselect_all, select_all
 from selection_deselection.toggle_selection import toggle_selection
 def file_browser(stdscr, identifier,filetree):
     try: 
@@ -96,11 +98,26 @@ def file_browser(stdscr, identifier,filetree):
             Selection controls:
             The following controls are used to select files/folders
                'Space' - toggle the selection of the file/folder
+               '0' - deselect all files
+               '1' - select all files
             """
             if b_key == ord(' '):
                 highlighted_entity = list(directory.keys())[current_opt] #get the name of the highlighted entity
                 #add the highlighted entity to the selected files
                 selected_files = toggle_selection(selected_files,selection=highlighted_entity,current_path=current_path,directory=directory)
+            
+            #v0.2.3:
+            #Patch: Implement select_all and deselect_all functions to select/deselect all files and folders in the filetree
+            #Changes:
+            #    - Call select_all function to select all files and folders when '1' is pressed
+            #    - Call deselect_all function to deselect all files and folders when '0' is pressed
+            
+            if b_key == ord('0'): #check if the key pressed is '0' and deselect all files
+                selected_files = deselect_all(selected_files) #deselect all files
+            
+            if b_key == ord('1'): #check if the key pressed is '1' and select all files
+                selected_files = select_all(filetree) #select all files
+
             #Confirmation controls
             """
             Confirmation controls:
