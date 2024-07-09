@@ -58,6 +58,8 @@ WSAD Keys: Navigate up and down through files and folders.
 Spacebar: Select or Deselect files/folders.
 
 Enter: Confirm your selection and proceed to download.
+
+Num 2: Open extension selection window.
 ```
 Scroll down to view the complete controls
 
@@ -87,6 +89,7 @@ Press any key to exit the program and return to the command prompt.
 - `Spacebar`: Select or Deselect highlighted file/folder 
 - `1`: Select all files and folders
 - `0`: Deselect all files and folders
+- `2`: Open extension selection window
 ### Confirmation controls: The following controls are used to confirm the selection
 - `Enter` - Confirm the selection and start downloading
 
@@ -117,12 +120,15 @@ We gratefully acknowledge Archive.org for providing extensive archival resources
 ## Changelog
 See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/main/CHANGELOG.md) file for details on changes and updates.
 
-### Latest Release : [0.2.3](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.3) - 2024-07-08
+### Latest Release : [0.3.0](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.0) - 2024-07-09
 ### Added
-1. Implement `select_all` and `deselect_all` functions to select/deselect all files and folders in the filetree(`select_or_deselect_all.py`).
-2. Use `1` and `0` keys to select and deselect all files and folders(`file_browser.py`).
-3. Call `select_all` and `deselect_all` functions in `file_browser` when '1' and '0' keys are pressed(`file_browser.py`).
+1. Implement `extract_extension` function to extract the extension of the selected files.(`extract_extension.py`)
+2. Implement `select_extensions` function to select files based on their extension.(`select_extensions.py`)
+3. Implement `extension_selection_window` function to display the extension selection window.(`extension_selection_window.py`)
+4. Call `extension_selection_window` function in `file_browser` when '2' key is pressed.(`file_browser.py`)
+5. Call `select_extensions` function in `file_browser` to select files based on their extension.(`file_browser.py`)
 ### Changes from Previous Release
-1. __Patch__: Added the ability to select/deselect all files and folders in the filetree using the '1' and '0' keys, respectively.
+1. __Minor Feature__: Added the ability to select files based on their extension using the '2' key.
+2. __Minor Feature__: Improved user experience by providing an extension selection window to filter files based on their extension.
 
-### Previous Release : [0.2.2](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.2) - 2024-07-06
+### Previous Release : [0.2.3](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.3) - 2024-07-08

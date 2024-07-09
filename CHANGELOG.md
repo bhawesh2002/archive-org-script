@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2024-07-09
+
+### Added
+1. Implement `extract_extension` function to extract the extension of the selected files.(`extract_extension.py`)
+2. Implement `select_extensions` function to select files based on their extension.(`select_extensions.py`)
+3. Implement `extension_selection_window` function to display the extension selection window.(`extension_selection_window.py`)
+4. Call `extension_selection_window` function in `file_browser` when '2' key is pressed.(`file_browser.py`)
+5. Call `select_extensions` function in `file_browser` to select files based on their extension.(`file_browser.py`)
+### Changes from Previous Release
+1. __Minor Feature__: Added the ability to select files based on their extension using the '2' key.
+2. __Minor Feature__: Improved user experience by providing an extension selection window to filter files based on their extension.
+
 ## [0.2.3] - 2024-07-08
 
 ### Added
