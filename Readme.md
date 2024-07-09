@@ -120,17 +120,15 @@ We gratefully acknowledge Archive.org for providing extensive archival resources
 ## Changelog
 See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/main/CHANGELOG.md) file for details on changes and updates.
 
-### Latest Release : [0.3.1](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.3.1) - 2024-07-15
+### Latest Release : [0.3.0](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.0) - 2024-07-09
 ### Added
-1. Fix NoneType error when passing empty extensions list.(`select_extensions.py`)
-2. Allow the user to navigate the extension selection window using the 'w', 's', 'a', 'd' keys. (`extension_selection_win.py`)
-3. Fix the issue with the extension selection window not displaying the extensions correctly. (`extension_selection_win.py`)
-4. Center the extension selection window on the screen using stdscr as additional parameter. (`extension_selection_win.py`)
-5. Call the `extension_selection_window` function with the correct parameters. (`file_browser.py`)
+1. Implement `extract_extension` function to extract the extension of the selected files.(`extract_extension.py`)
+2. Implement `select_extensions` function to select files based on their extension.(`select_extensions.py`)
+3. Implement `extension_selection_window` function to display the extension selection window.(`extension_selection_window.py`)
+4. Call `extension_selection_window` function in `file_browser` when '2' key is pressed.(`file_browser.py`)
+5. Call `select_extensions` function in `file_browser` to select files based on their extension.(`file_browser.py`)
 ### Changes from Previous Release
-__Bug Fix__: Fix the NoneType error when passing an empty extensions list.
-__Bug Fix__: Fix calculations responsible for centering the extension selection window
-__Patch__: Allow the user to navigate the extension selection window using the 'w', 's', 'a', 'd' keys
-__Patch__: Improved the visual indication of selected extensions and the current extension.
+1. __Minor Feature__: Added the ability to select files based on their extension using the '2' key.
+2. __Minor Feature__: Improved user experience by providing an extension selection window to filter files based on their extension.
 
-### Previous Release : [0.3.0](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.3.0) - 2024-07-09
+### Previous Release : [0.2.3](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.3) - 2024-07-08
