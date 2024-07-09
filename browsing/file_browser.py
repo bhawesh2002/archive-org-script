@@ -126,7 +126,7 @@ def file_browser(stdscr, identifier,filetree):
             #    - Call extension_selection_win function to open the extension selection window when '2' is pressed
             #    - Call select_extensions function to select files with the selected extensions
             if b_key == ord('2'): #check if the key pressed is '2' and open the advance selection window
-                selected_extensions= extension_selection_win(parent_win=main_win,filetree=filetree,stdscr=stdscr)
+                selected_extensions= extension_selection_win(parent_win=main_win,filetree=filetree)
                 select_extensions(selected_files=selected_files,filetree=filetree,extensions=selected_extensions) #select the files with the selected extensions
             #Confirmation controls
             """
