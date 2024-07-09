@@ -1,10 +1,11 @@
-import copy
 import curses
 from basic_function.construct_download_links import construct_download_links
 from colors.app_colors import init_colors #import color pairs
-from constants import CONTROLS, DOWNLOAD_FOLDER_PATH
+from constants import CONTROLS
+from displaying.extension_selection_win import extension_selection_win
 from displaying.display_help import display_help
 from browsing.browser import browser
+from selection_deselection.select_extensions import select_extensions
 from selection_deselection.select_or_deselect_all import deselect_all, select_all
 from selection_deselection.toggle_selection import toggle_selection
 def file_browser(stdscr, identifier,filetree):
@@ -100,6 +101,7 @@ def file_browser(stdscr, identifier,filetree):
                'Space' - toggle the selection of the file/folder
                '0' - deselect all files
                '1' - select all files
+               '2' - display the extension selection window
             """
             if b_key == ord(' '):
                 highlighted_entity = list(directory.keys())[current_opt] #get the name of the highlighted entity
@@ -118,6 +120,14 @@ def file_browser(stdscr, identifier,filetree):
             if b_key == ord('1'): #check if the key pressed is '1' and select all files
                 selected_files = select_all(filetree) #select all files
 
+            #v0.3.0:
+            #Minor Feature: Call extension selection window to select files with specific extensions
+            #Changes:
+            #    - Call extension_selection_win function to open the extension selection window when '2' is pressed
+            #    - Call select_extensions function to select files with the selected extensions
+            if b_key == ord('2'): #check if the key pressed is '2' and open the advance selection window
+                selected_extensions= extension_selection_win(parent_win=main_win,filetree=filetree)
+                select_extensions(selected_files=selected_files,filetree=filetree,extensions=selected_extensions) #select the files with the selected extensions
             #Confirmation controls
             """
             Confirmation controls:
@@ -146,7 +156,6 @@ def file_browser(stdscr, identifier,filetree):
                'Esc' - exit the file browser
             """
             if b_key == ord('\033'): #check if the key pressed is 'Esc' and exit the file browser
-                print("Exiting File Browser")
                 exit(0) #exit the file browser and the program
     except Exception as e:
         raise e
