@@ -14,18 +14,25 @@ def select_extensions(selected_files, filetree, extensions):
         extensions (list): The list of extensions.
     Returns:
         None"""
-    for key, value in filetree.items():
-        if isinstance(value, dict):
-            #if the folder is not in the selected_files dictionary, create it
-            if key not in selected_files:
-                selected_files[key] = {}
-            #recursively select extensions within the folder
-            select_extensions(selected_files[key], value, extensions)
-        else:
-            # add files ending with the specified extensions to the selected_files dictionary
-            if any(key.endswith(ext) for ext in extensions):
-                selected_files[key] = copy.deepcopy(value)
-                
+    #v0.3.1:
+    #Bux Fix: Fixed the error when passing empty extensions list throws NoneType error 
+    #         by adding a check for extensions list before iterating over it.
+
+    #v0.3.0:
+    #Bug: NoneType error when passing empty extensions list
+    if extensions is not None:
+        for key, value in filetree.items():
+            if isinstance(value, dict):
+                #if the folder is not in the selected_files dictionary, create it
+                if key not in selected_files:
+                    selected_files[key] = {}
+                #recursively select extensions within the folder
+                select_extensions(selected_files[key], value, extensions)
+            else:
+                # add files ending with the specified extensions to the selected_files dictionary
+                if any(key.endswith(ext) for ext in extensions):
+                    selected_files[key] = copy.deepcopy(value)
+
     #filter private files then filter empty folders from selected_files
     filter_priv_files(selected_files=selected_files)
     filter_empty_dirs(selected_files=selected_files)
