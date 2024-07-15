@@ -120,7 +120,7 @@ We gratefully acknowledge Archive.org for providing extensive archival resources
 ## Changelog
 See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/main/CHANGELOG.md) file for details on changes and updates.
 
-### Latest Release : [0.3.0](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.0) - 2024-07-09
+### Latest Release : [0.3.0](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.2.0) - 2024-07-15
 ### Added
 1. Implement `extract_extension` function to extract the extension of the selected files.(`extract_extension.py`)
 2. Implement `select_extensions` function to select files based on their extension.(`select_extensions.py`)
