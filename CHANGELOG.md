@@ -5,20 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.3.1] - 2024-07-15
-
 ### Added
-1. Fix NoneType error when passing empty extensions list.(`select_extensions.py`)
-2. Allow the user to navigate the extension selection window using the 'w', 's', 'a', 'd' keys. (`extension_selection_win.py`)
-3. Fix the issue with the extension selection window not displaying the extensions correctly. (`extension_selection_win.py`)
-4. Center the extension selection window on the screen using stdscr as additional parameter. (`extension_selection_win.py`)
-5. Call the `extension_selection_window` function with the correct parameters. (`file_browser.py`)
+1. Fix NoneType error when passing empty extensions list by adding None check.(`select_extensions.py`)
 ### Changes from Previous Release
-__Bug Fix__: Fix the NoneType error when passing an empty extensions list.
-__Bug Fix__: Fix calculations responsible for centering the extension selection window
-__Patch__: Allow the user to navigate the extension selection window using the 'w', 's', 'a', 'd' keys
-__Patch__: Improved the visual indication of selected extensions and the current extension.
+1. __Bug Fix__: Fixed the NoneType error when passing an empty extensions list.
 
-## [0.3.0] - 2024-07-09
+## [0.3.0] - 2024-07-15
 
 ### Added
 1. Implement `extract_extension` function to extract the extension of the selected files.(`extract_extension.py`)
