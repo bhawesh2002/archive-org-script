@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## Added
+1. Create `supported_extensions.txt` containing the list of supported file formats as specified in https://help.archive.org/help/files-formats-and-derivatives-file-definitions-2/.(`supported_extensions.txt`)
+2. Use the `supported_extensions.txt` file to extract extensions from filetree.(`extract_extension.py`)
+### Changes from Previous Release
+1. __Patch__: Added the list of supported file formats to the `supported_extensions.txt` as specified in the Archive.org documentation.
+
 ## [0.3.2] - 2024-07-17
 
 ### Added
