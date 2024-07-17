@@ -1,31 +1,36 @@
 #v0.3.0:
 #Minor Feature: Implement extract_extensions function to extract all the extensions in the filetree
 
+#v0.3.3:
+#Patch: Use supported_extensions file to extract only the supported extensions from the filetree
 def extract_extensions(filetree,extensions):
     """
-    Extracts all the extensions in the filetree and appends them to the extensions list.
+    Extracts all the supported extensions from the filetree and returns them.
     Args:
         filetree (dict): The filetree dictionary.
         extensions (list): The list of extensions.
     Returns:
-        None
+        list: The list of extensions.
     """
     
+    supported_extensions = [] #list of supported extensions
+    with open('supported_extensions','r') as f:
+        for line in f:
+            if line.startswith(';'): #skip comments
+                continue
+            else:
+                supported_extensions.append(line.strip())
+            
     exts = extensions
-
     for key, value in filetree.items():
         if isinstance(value, dict):
-            extract_extensions(value,extensions=exts)
+            extract_extensions(value,extensions=exts) #recursively extract extensions
         else:
-            # Check for compound extensions
-            if key.endswith('.tar.gz') or key.endswith('.html.gz') or key.endswith('.json.gz') or key.endswith('.txt.gz') or key.endswith('.tar.bz2') or key.endswith('.tar.xz'):
-                ext = '.'.join(key.split('.')[-2:])
-            # Check for abbyy extensions
-            elif key.endswith('_abbyy.gz'):
-                ext = '.'.join(key.split('_')[-1:])
-            # Check for normal extensions  
-            else:
-                ext = key.split('.')[-1]
-            #add the ext to the list of extensions if it is does not exist in the list
-            if ext not in exts:
-                exts.append(ext)
+            for ext in supported_extensions:
+                if key.endswith(ext):# if the file ends with the extension
+                    exts.append(ext.removeprefix('.') if ext.startswith('.') else ext) #append the extension to the list removing the '.' if it exists
+    
+    extensions = list(set(exts)) #remove duplicates
+    extensions.sort() #sort the extensions
+    
+    return extensions #return the extensions

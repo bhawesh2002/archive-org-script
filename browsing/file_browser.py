@@ -1,5 +1,6 @@
 import curses
 from basic_function.construct_download_links import construct_download_links
+from basic_function.extract_extensions import extract_extensions
 from colors.app_colors import init_colors #import color pairs
 from constants import CONTROLS
 from displaying.extension_selection_win import extension_selection_win
@@ -21,6 +22,10 @@ def file_browser(stdscr, identifier,filetree):
         main_win.addstr(main_ht-1, 1 , f" {CONTROLS} ", curses.color_pair(5) | curses.A_BOLD) #display the controls
         main_win.refresh() #refresh the window
         help_required = False #initialize the help status
+        #v0.3.3:
+        #BugFix: Extract the extensions from the filetree in the file_browser
+        extensions = []
+        extensions = extract_extensions(filetree=filetree,extensions=extensions) #extract the extensions from the filetree
 
         directory = filetree #set directory equal to the filetree
         current_folder = "" #for tracking the current folder
@@ -126,7 +131,9 @@ def file_browser(stdscr, identifier,filetree):
             #    - Call extension_selection_win function to open the extension selection window when '2' is pressed
             #    - Call select_extensions function to select files with the selected extensions
             if b_key == ord('2'): #check if the key pressed is '2' and open the advance selection window
-                selected_extensions= extension_selection_win(parent_win=main_win,filetree=filetree,stdscr=stdscr)
+                #v0.3.3:
+                #BugFix: Correct the call to extension_selection_win function
+                selected_extensions= extension_selection_win(parent_win=main_win,extensions=extensions,stdscr=stdscr)
                 select_extensions(selected_files=selected_files,filetree=filetree,extensions=selected_extensions) #select the files with the selected extensions
             #Confirmation controls
             """

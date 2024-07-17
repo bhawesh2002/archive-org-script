@@ -4,15 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## v0.3.3 - 2024-07-17
 
 ## Added
-1. Create `supported_extensions.txt` containing the list of supported file formats as specified in https://help.archive.org/help/files-formats-and-derivatives-file-definitions-2/.(`supported_extensions.txt`)
-2. Use the `supported_extensions.txt` file to extract extensions from filetree.(`extract_extension.py`)
+1. Create `supported_extensions` file containing the list of supported file formats as specified in https://help.archive.org/help/files-formats-and-derivatives-file-definitions-2/.(`supported_extensions`)
+2. Use the `supported_extensions` file to extract extensions from filetree.(`extract_extension.py`)
+3. Pass 'extensions' list as a parameter in `extension_selection_window` function.(`extension_selection_win.py`)
+4. Call `extract_extensions` function with in `file_browser`.(`file_browser.py`)
+5. Correctly call `extension_selection_window` function with the `extensions` list as a parameter in `file_browser`.(`file_browser.py`)
 ### Changes from Previous Release
-1. __Patch__: Added the list of supported file formats to the `supported_extensions.txt` as specified in the Archive.org documentation.
+1. __Patch__: Added the list of supported file formats to the `supported_extensions` file as specified in the Archive.org documentation.
+2. __Patch__: Used the `supported_extensions` file to extract extensions from the filetree.
+3. __Bug_Fix__: Passed the `extensions` list as a parameter in the `extension_selection_window` function to improve performance
+4. __Bug_Fix__: Call the `extract_extensions` function in the `file_browser`.
+5. __Bug_Fix__: Correctly called the `extension_selection_window` function with the `extensions` list as a parameter in the `file_browser`.
 
-## [0.3.2] - 2024-07-17
+## [0.3.2] - 2024-07-15
 
 ### Added
 1. Allow the user to navigate the extension selection window using the 'w', 's', 'a', 'd' keys. (`extension_selection_win.py`)
@@ -31,7 +38,7 @@ __Patch__: Improved the visual indication of selected extensions and the current
 ### Changes from Previous Release
 1. __Bug Fix__: Fixed the NoneType error when passing an empty extensions list.
 
-## [0.3.0] - 2024-07-09
+## [0.3.0] - 2024-07-15
 
 ### Added
 1. Implement `extract_extension` function to extract the extension of the selected files.(`extract_extension.py`)

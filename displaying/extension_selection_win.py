@@ -9,11 +9,12 @@
 
 import copy
 import curses
-from basic_function.extract_extensions import extract_extensions
 from colors.app_colors import init_colors
 from constants import EXTENSION_CONFIRMATION_MESSAGE, EXTENSION_SEL_CONTROLS
 
-def extension_selection_win(parent_win,filetree,stdscr):
+#v0.3.3:
+#BugFix: Pass extensions to the extension_selection_win as parameter to improve performance.
+def extension_selection_win(parent_win,extensions,stdscr):
     """
     Displays the extension selection window.
     Is responsible for interacting with the user to select the extensions.
@@ -25,9 +26,6 @@ def extension_selection_win(parent_win,filetree,stdscr):
         list: The list of selected extensions."""
     try:
         init_colors()
-        #extract the extensions from the filetree
-        extensions = []
-        extract_extensions(filetree=filetree, extensions = extensions) #extract the extensions from the filetree
         exts_per_row = 7 #no of columns/extensions per row
         no_of_rows= 0
         #calculate the number of rows
