@@ -4,7 +4,6 @@
 *.json
 todo.txt
 *_links.txt
-supported_extensions.txt
 # Ignore Python bytecode files
 __pycache__/
 *.pyc
