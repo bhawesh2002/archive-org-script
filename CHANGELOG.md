@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v0.3.3 - 2024-07-17
+## Unreleased
+
+## Added
+1. Calculate the no of extensions per row and width of extension_selection_win relative to parent window based on the length of longest extension(`extension_selection_win.py`)
+## Changes from previous release
+1. __Bug Fix__: Modify `extension_selection_win` to resize itself if default value of 7 results in error by calculating the appropriate value of no of extensions per row.
+
+## [0.3.3] - 2024-07-17
 
 ## Added
 1. Create `supported_extensions` file containing the list of supported file formats as specified in https://help.archive.org/help/files-formats-and-derivatives-file-definitions-2/.(`supported_extensions`)
