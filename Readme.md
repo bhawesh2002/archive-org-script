@@ -120,18 +120,15 @@ We gratefully acknowledge Archive.org for providing extensive archival resources
 ## Changelog
 See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/main/CHANGELOG.md) file for details on changes and updates.
 
-### Latest Release : [0.3.3](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.3.3) - 2024-07-17
+### Latest Release : [0.3.4](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.3.4) - 2024-07-22
 ## Added
-1. Create `supported_extensions` file containing the list of supported file formats as specified in https://help.archive.org/help/files-formats-and-derivatives-file-definitions-2/.(`supported_extensions`)
-2. Use the `supported_extensions` file to extract extensions from filetree.(`extract_extension.py`)
-3. Pass 'extensions' list as a parameter in `extension_selection_window` function.(`extension_selection_win.py`)
-4. Call `extract_extensions` function with in `file_browser`.(`file_browser.py`)
-5. Correctly call `extension_selection_window` function with the `extensions` list as a parameter in `file_browser`.(`file_browser.py`)
-### Changes from Previous Release
-1. __Patch__: Added the list of supported file formats to the `supported_extensions` file as specified in the Archive.org documentation.
-2. __Patch__: Used the `supported_extensions` file to extract extensions from the filetree.
-3. __Bug_Fix__: Passed the `extensions` list as a parameter in the `extension_selection_window` function to improve performance
-4. __Bug_Fix__: Call the `extract_extensions` function in the `file_browser`.
-5. __Bug_Fix__: Correctly called the `extension_selection_window` function with the `extensions` list as a parameter in the `file_browser`.
+1. Calculate the no of extensions per row and width of extension_selection_win relative to parent window based on the length of longest extension(`extension_selection_win.py`)
+2. Modify `display_help` function to take only parent_win as argument(`display_help.py`)
+3. Calculate the dimensions of the help window based on the help text(`display_help.py`)
+4. Quit the help window when any key is pressed(`display_help.py`)
+5. Modify `file_browser` to correctly call `display_help`(`file_browser.py`)
+## Changes from previous release
+1. __Bug Fix__: Modify `extension_selection_win` to resize itself if default value of 7 results in error by calculating the appropriate value of no of extensions per row.
+2. __Bug Fix__: Fix the bug where the help window was not been displayed correctly when `h` was pressed.
 
-### Previous Release : [0.3.2](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.3.2) - 2024-07-15
+### Previous Release : [0.3.3](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.3.3) - 2024-07-17
