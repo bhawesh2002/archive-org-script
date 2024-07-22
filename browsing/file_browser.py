@@ -21,7 +21,6 @@ def file_browser(stdscr, identifier,filetree):
         main_win.addstr(0,(width - len(title)) // 2,title, curses.color_pair(4) | curses.A_BOLD) #display the title of the window
         main_win.addstr(main_ht-1, 1 , f" {CONTROLS} ", curses.color_pair(5) | curses.A_BOLD) #display the controls
         main_win.refresh() #refresh the window
-        help_required = False #initialize the help status
         #v0.3.3:
         #BugFix: Extract the extensions from the filetree in the file_browser
         extensions = []
@@ -153,9 +152,8 @@ def file_browser(stdscr, identifier,filetree):
                'h' - toggle the help message
             """
             if b_key == ord('h'): #check if the key pressed is 'h' and toggle the help message
-                help_required = not help_required #toggle the help message
-                display_help(main_ht - 2, (main_wt)//3, 1, main_wt - ((main_wt//3) + 2),help_required) #display the help message
-
+                display_help(parent_win=main_win) #display the help message
+                main_win.refresh()
             #Exit controls
             """
             Exit controls:

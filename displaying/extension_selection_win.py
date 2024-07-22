@@ -9,6 +9,7 @@
 
 import copy
 import curses
+from basic_function.extract_extensions import extract_extensions
 from colors.app_colors import init_colors
 from constants import EXTENSION_CONFIRMATION_MESSAGE, EXTENSION_SEL_CONTROLS
 
@@ -26,15 +27,20 @@ def extension_selection_win(parent_win,extensions,stdscr):
         list: The list of selected extensions."""
     try:
         init_colors()
-        exts_per_row = 7 #no of columns/extensions per row
-        no_of_rows= 0
+        
+        #calculate the extensions per row/no of columnss
+        longest_ext_len = len(max(extensions,key=len)) #find the length of longest extension
+        value = ((parent_win.getmaxyx()[1]//(longest_ext_len +  4)))if ((parent_win.getmaxyx()[1]//(longest_ext_len +  4))) > 1 else 2 #calculate value based on longest_ext_len, minimum value should be 2
+        exts_per_row = value if ((longest_ext_len + 4) * 7) > parent_win.getmaxyx()[1] else 7  #set the no of columns/extensions per row to value if longest_ext_len exceeds width of parent win else stick to the default value of 7
+
         #calculate the number of rows
+        no_of_rows= 0
         for i in range(len(extensions)):
             if i%exts_per_row == 0:
                 no_of_rows = no_of_rows + 1
         #calculate the height, width of the extension selection window
-        ext_sel_win_wt = (len(max(extensions,key=len)) + 4) * exts_per_row + 1 #length of the longest extension + 4 padding multiplied by the number of extensions per row
-        ext_sel_win_ht = 2 + no_of_rows + 1 if parent_win.getmaxyx()[0] > (no_of_rows + 3) else parent_win.getmaxyx()[0] - 1 #resize the extension selection window if the height of the parent window is less than the number of rows
+        ext_sel_win_wt = (longest_ext_len + 4) * exts_per_row + 2 #length of the longest extension + 4 padding multiplied by the number of extensions per row plus 2 for spacing
+        ext_sel_win_ht = (2 + no_of_rows + 1) if (parent_win.getmaxyx()[0] > (no_of_rows + 3)) else (parent_win.getmaxyx()[0] - 2) #resize the extension selection window if the height of the parent window is less than the number of rows
         #calculate the y,x position of the extension selection window
         ext_sel_win_y = 1 #y position of the extension selection window
         ext_sel_win_x = (parent_win.getmaxyx()[1] - ext_sel_win_wt)//2 #x position of the extension selection window

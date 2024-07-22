@@ -4,7 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v0.3.3 - 2024-07-17
+## [0.3.4] - 2024-07-22
+
+## Added
+1. Calculate the no of extensions per row and width of extension_selection_win relative to parent window based on the length of longest extension(`extension_selection_win.py`)
+2. Modify `display_help` function to take only parent_win as argument(`display_help.py`)
+3. Calculate the dimensions of the help window based on the help text(`display_help.py`)
+4. Quit the help window when any key is pressed(`display_help.py`)
+5. Modify `file_browser` to correctly call `display_help`(`file_browser.py`)
+## Changes from previous release
+1. __Bug Fix__: Modify `extension_selection_win` to resize itself if default value of 7 results in error by calculating the appropriate value of no of extensions per row.
+2. __Bug Fix__: Fix the bug where the help window was not been displayed correctly when `h` was pressed.
+
+## [0.3.3] - 2024-07-17
 
 ## Added
 1. Create `supported_extensions` file containing the list of supported file formats as specified in https://help.archive.org/help/files-formats-and-derivatives-file-definitions-2/.(`supported_extensions`)
