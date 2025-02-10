@@ -133,4 +133,6 @@ See the [CHANGELOG.md](https://github.com/bhawesh2002/archive-org-script/blob/ma
 1. __Bug Fix__: Modify `extension_selection_win` to resize itself if default value of 7 results in error by calculating the appropriate value of no of extensions per row.
 2. __Bug Fix__: Fix the bug where the help window was not been displayed correctly when `h` was pressed.
 
+
+
 ### Previous Release : [0.3.3](https://github.com/bhawesh2002/archive-org-script/releases/tag/v0.3.3) - 2024-07-17
